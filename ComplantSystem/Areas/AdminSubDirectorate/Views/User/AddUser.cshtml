@@ -1,0 +1,173 @@
+﻿<!-- Content -->
+@model ComplantSystem.Areas.UsersService.ViewModel.AdminUserViewModel
+
+@{
+    ViewData["Title"] = "Regster";
+    Layout = "~/Areas/Beneficiarie/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="breadcrumb-wrapper py-3 mb-4">
+        <span class="text-muted fw-light">الحسابات   /</span> إضافة حساب موظف
+    </h4>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+            </ul>
+            <div class="card mb-4">
+                <h5 class="card-header">إضافة حساب موظف </h5>
+                <!-- Account -->
+                <div class="card-body">
+                    <div class="gap-4 d-flex align-items-start align-items-sm-center">
+                        <img src="../../assets/img/avatars/1.png"
+                             alt="user-avatar"
+                             class="d-block rounded"
+                             height="100"
+                             width="100"
+                             id="uploadedAvatar" />
+                        <div class="button-wrapper">
+                            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                <span class="d-none d-sm-block">إدراج صورة</span>
+                                <i class="bx bx-upload d-sm-none d-block"></i>
+                                <input type="file"
+                                       id="upload"
+                                       class="account-file-input"
+                                       hidden
+                                       accept="image/png, image/jpeg" />
+                            </label>
+                            <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
+                                <i class="bx bx-reset d-sm-none d-block"></i>
+                                <span class="d-none d-sm-block">حذف</span>
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0" />
+                <div class="card-body">
+                    <form id="primaryWerehous" method="POST" onsubmit="return false">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">الاسم</label>
+                                <input class="form-control"
+                                       type="text"
+                                       id="firstName"
+                                       name="firstName" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">رقم الموظف</label>
+                                <input class="form-control" type="text" name="EmpNum" id="EmpNum" />
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">الرقم الوطني</label>
+                                <input class="form-control"
+                                       type="text"
+                                       id="IdNum"
+                                       name="IdNum" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="organization" class="form-label">الصلاحيات</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="powers"
+                                       name="powers" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="phoneNumber">رقم التلفون</label>
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text">YE (+967)</span>
+                                    <input type="text"
+                                           id="basicPhone"
+                                           name="basicPhone"
+                                           class="form-control"
+                                           placeholder="202 555 0111" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="address" class="form-label">الفعالية</label>
+                                <input type="text" class="form-control" id="Effectiveness" name="Effectiveness" placeholder="نشط" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="state" class="form-label">تاريخ الانشاء</label>
+                                <input class="form-control" type="text" id="basicDate" name="basicDate" placeholder="19/05/2022" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="zipCode" class="form-label">اسم منشئ الحساب</label>
+                                <input type="text"
+                                       class="form-control"
+                                       id="firstName"
+                                       name="firstName"
+                                       placeholder="الاسم" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="country">المحافظة</label>
+                                <select id="Governorate" class="select2 form-select" name="Governorate">
+                                    <option value="">تحديد</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="language" class="form-label">المديرية</label>
+                                <select id="Directorate" class="select2 form-select" name="Directorate">
+                                    <option value="">تحديد</option>
+                                    <option value="en">السبعين</option>
+                                    <option value="fr">الوحدة</option>
+                                    <option value="de">شعوب</option>
+                                    <option value="pt">التحرير</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="timeZones" class="form-label">العزلة</label>
+                                <select id="insulation" class="select2 form-select" name="insulation">
+                                    <option value="">تحديد</option>
+                                    <option value="-12">عزلة 888</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="currency" class="form-label">القرية</label>
+                                <select id="villages" class="select2 form-select" name="villages">
+                                    <option value="">تحديد</option>
+                                    <option value="usd">الهجرة</option>
+                                    <option value="euro">سنحان</option>
+                                    <option value="pound">ضبعات</option>
+                                    <option value="bitcoin">بني حشيش</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">حفظ التغير</button>
+                            <button type="reset" class="btn btn-label-secondary">إلغاء</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /Account -->
+            </div>
+            <div class="card">
+                <h5 class="card-header">حذف الحساب</h5>
+                <div class="card-body">
+                    <div class="col-12 mb-0 mb-3">
+                        <div class="alert alert-warning">
+                            <h6 class="alert-heading mb-1">هل انت تريد بالفعل حذف الحساب؟</h6>
+                            <p class="mb-0">اذا حذف الحساب لن تستطيع إعادته مرة اخرى.</p>
+                        </div>
+                    </div>
+                    <form id="formAccountDeactivation" onsubmit="return false">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="accountActivation"
+                                   id="accountActivation" />
+                            <label class="form-check-label" for="accountActivation">انا متأكد أريد الحذف</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger deactivate-account">حذف الحساب</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / Content -->

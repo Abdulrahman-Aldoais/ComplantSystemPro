@@ -1,0 +1,192 @@
+﻿@model IEnumerable<Compalint>
+
+@{
+    ViewData["Title"] = "UploadsComplainte";
+
+}
+
+<script src="~/assets/jquery/jquery.js"></script>
+<script src="~/assets/jquery/jquery.min.js"></script>
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="breadcrumb-wrapper py-3 mb-4">
+        <span class="text-muted fw-light">الشكاوي    /</span> الشكاوي
+    </h4>
+
+    <div class="card">
+
+        <div class="row mx-2  ">
+            <div class="col-md-6">
+                <div class="t-d">
+                    <h5 class="card-header title-t"> الشكاوي</h5>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="dropdown" style="text-align-last: end;">
+
+                    @{
+                        <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
+                        line-height: 1.99;
+                        width: 152.35px;"> العدد الكلي </span>
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-datatable table-responsive">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                <div class="row mx-2 border-bottom ">
+                    <div class="col-md-3">
+                      
+                        <div class="me-3 table-type">
+                            <span class="table-span"> عرض حسب</span>
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                              <select id="FilterType" asp-items="@ViewBag.status">
+                               
+                                </select>
+
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+
+
+                    <div class="col-md-4">
+
+                        <div class="navbar-search-block">
+
+                            <form class="form-inline my-2 my-lg-0" asp-controller="Complaints" asp-action="FilterCompalintsBySearch" style="padding-right: 25px;">
+                                <input name="searchString" type="text" class="form-control" placeholder="البحث عن شكوى معينة" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="btn-group" style="float: left; margin-left:20px; width: auto;
+                                height: 48px;">
+                            <a asp-action="AddCompalint">
+                                <button type="button" class="btn btn-primary btn-sm accent-blue">
+                                    إضافة شكوى
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class=" text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @*<th>الرقم</th>*@
+                                <th>عنوان الشكاوي </th>
+                                <th>تاريخ التقديم </th>
+                                <th> الحاله </th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0" id="tableComp" style="margin-bottom:60px;">
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="3" style="color:red">
+                                        لا يوجد نتائج
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var compalintsItem in Model)
+                                {
+                                    <tr>
+                                        @*<td>@compalintsItem.Id</td>*@
+                                        <td>@compalintsItem.TitleComplaint</td>
+                                        <td>@compalintsItem.CompDate</td>
+                                        <td>@compalintsItem.StatusCompalint?.Name</td>
+
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" asp-action="ViewCompalintDetails" asp-controller="Complaints" asp-route-id="@compalintsItem.Id">
+                                                        <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                        عرض
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row mx-2" style="margin-top:60px;">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/assets/libs/datatables/jquery.dataTables.js"></script>
+<script src="~/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+<script src="~/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+<script src="~/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+<script src="~/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+<script src="~/assets/vendor/libs/jszip/jszip.js"></script>
+<script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="~/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+
+@*<script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>*@
+
+<script>
+    //فلترة نوع الشاكي
+    $("#FilterType").change(function () {
+        var value = $(this).val().toLowerCase();
+        $(".table tbody tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+    //
+</script>
+
+<script>
+    //فلترة نوع الشاكي
+    $("#FilterTypeComp").change(function () {
+        var value = $(this).val().toLowerCase();
+        $(".table tbody tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+    //
+</script>
+

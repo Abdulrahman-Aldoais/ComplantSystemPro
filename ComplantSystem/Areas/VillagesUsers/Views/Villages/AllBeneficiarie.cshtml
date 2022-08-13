@@ -1,0 +1,781 @@
+﻿
+
+<div class="layout-page">
+    <!-- Navbar -->
+
+    <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="container-fluid">
+            <div class="layout-menu-toggle navbar-nav d-xl-none align-items-xl-center me-3 me-xl-0">
+                <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                    <i class="bx bx-menu bx-sm"></i>
+                </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                <!-- Search -->
+                <div class="navbar-nav align-items-center">
+                    <div class="nav-item navbar-search-wrapper mb-0">
+                        <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
+                            <i class="bx bx-search-alt bx-sm"></i>
+                            <span class="d-none d-md-inline-block text-muted">البحث (Ctrl+/)</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- /Search -->
+
+                <ul class="navbar-nav flex-row align-items-center ms-auto">
+                    <!-- Style Switcher -->
+                    <li class="nav-item me-2 me-xl-0">
+                        <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
+                            <i class="bx bx-sm"></i>
+                        </a>
+                    </li>
+
+                    <!-- Quick links -->
+                    <!-- Notification -->
+                    <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-2">
+                        <a class="nav-link dropdown-toggle hide-arrow"
+                           href="javascript:void(0);"
+                           data-bs-toggle="dropdown"
+                           data-bs-auto-close="outside"
+                           aria-expanded="false">
+                            <i class="bx bx-bell bx-sm"></i>
+                            <span class="badge rounded-pill badge-notifications bg-danger">5</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end py-0">
+                            <li class="dropdown-menu-header border-bottom">
+                                <div class="dropdown-header d-flex align-items-center py-3">
+                                    <h5 class="text-body me-auto mb-0">الاشعارات</h5>
+                                    <a href="javascript:void(0)"
+                                       class="dropdown-notifications-all text-body"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="تحديد الكل كمقروء">
+                                        <i class="bx fs-4 bx-envelope-open"></i>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="dropdown-notifications-list scrollable-container">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">سعيد محمد صالح</h6>
+                                                <p class="mb-0">تقديم شكوى</p>
+                                                <small class="text-muted">منذ 3 ساعات</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <span class="avatar-initial bg-label-danger rounded-circle">CF</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">صالح محمد</h6>
+                                                <p class="mb-0">تقديم بلاغ</p>
+                                                <small class="text-muted">منذ 43 دقيقة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <img src="../../assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">سميحة</h6>
+                                                <p class="mb-0">بلاغ على موظف</p>
+                                                <small class="text-muted">منذ ساعة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">
+                                                        <i class="bx bx-cart"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">مصلح</h6>
+                                                <p class="mb-0">عنوان البلاغ</p>
+                                                <small class="text-muted">منذ ساعتين</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <img src="../../assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">اسم المرسل</h6>
+                                                <p class="mb-0">عنوان الرسالة</p>
+                                                <small class="text-muted">وقت الرسالة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <span class="avatar-initial bg-label-success rounded-circle">
+                                                        <i class="bx bx-pie-chart-alt"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">اسم المرسل</h6>
+                                                <p class="mb-0">عنزان الرسالة</p>
+                                                <small class="text-muted">وقت الرسالة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <img src="../../assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">اسم المرسل</h6>
+                                                <p class="mb-0">محتوى الرسالة</p>
+                                                <small class="text-muted">وقت الرسالة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <img src="../../assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">اسم المرسل</h6>
+                                                <p class="mb-0">محتوى الرسالة</p>
+                                                <small class="text-muted">5 days ago</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar">
+                                                    <span class="avatar-initial bg-label-warning rounded-circle">
+                                                        <i class="bx bx-error"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h6 class="mb-1">اسم المرسل</h6>
+                                                <p class="mb-0">عنزان الرسالة</p>
+                                                <small class="text-muted">وقت الرسالة</small>
+                                            </div>
+                                            <div class="dropdown-notifications-actions flex-shrink-0">
+                                                <a href="javascript:void(0)" class="dropdown-notifications-read">
+                                                    <span class="badge badge-dot"></span>
+                                                </a>
+                                                <a href="javascript:void(0)" class="dropdown-notifications-archive">
+                                                    <span class="bx bx-x"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-menu-footer border-top">
+                                <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center p-3">
+                                    View all notifications
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/ Notification -->
+                    <!-- User -->
+                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <div class="avatar avatar-online">
+                                <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="الملف الشخصي.html">
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0 me-3">
+                                            <div class="avatar avatar-online">
+                                                <img src="../../assets/img/avatars/1.png" alt class="rounded-circle" />
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1">
+                                            <span class="lh-1 d-block fw-semibold">آمنة كمال</span>
+                                            <small>مسوؤل</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="الملف الشخصي.html">
+                                    <i class="bx bx-user me-2"></i>
+                                    <span class="align-middle">الملف الشخصي</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="الاعدادات.html">
+                                    <i class="bx bx-cog me-2"></i>
+                                    <span class="align-middle">الاعدادات</span>
+                                </a>
+                            </li>
+                            <li>
+
+                                <div class="dropdown-divider"></div>
+                            </li>
+                            <li>
+
+                                <a class="dropdown-item" href="تسجيل الدخول.html" target="_blank">
+                                    <i class="bx bx-power-off me-2"></i>
+                                    <span class="align-middle">تسجيل الخروج</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--/ User -->
+                </ul>
+            </div>
+
+            <!-- Search Small Screens -->
+            <div class="navbar-search-wrapper search-input-wrapper d-none">
+                <input type="text"
+                       class="form-control search-input container-fluid border-0"
+                       placeholder="Search..."
+                       aria-label="Search..." />
+                <i class="bx bx-x bx-sm search-toggler cursor-pointer"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- / Navbar -->
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            <!-- Users List Table -->
+
+
+
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <h4 class="breadcrumb-wrapper py-3 mb-4">
+                    <span class="text-muted fw-light">الحسابات    /</span> حساب المستفيدين
+                </h4>
+
+
+
+
+
+                <div class="card">
+
+                    <div class="row mx-2  ">
+                        <div class="col-6">
+                            <div class="t-d">
+                                <h5 class="card-header title-t " style=" margin-left: -17px;"> حساب المستفيدين</h5>
+                            </div>
+
+                        </div>
+                        <div class="col-6" style="text-align-last: end; margin-top: 19px;">
+                            <button class="dt-button buttons-collection btn btn-label-primary  me-2" tabindex="0" aria-controls="
+                                    s_Table_0" type="button" aria-haspopup="true" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
+                                <span>
+                                    522<i class=""></i>
+                                    <span class="d-none d-sm-inline-block">العدد الكلي</span>
+                                </span>
+                            </button>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                    <div class="card-datatable table-responsive">
+                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                            <div class="row mx-2 border-bottom ">
+                                <div class="col-md-4  d-flex justify-content-center justify-content-md-start">
+                                    <div class="me-3 table-type">
+                                        <span class="table-span"> عرض حسب</span>
+                                        <div class="dataTables_length" id="DataTables_Table_0_length">
+                                            <label>
+                                                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="select2 form-select ">
+                                                    <option value="10">مستثمر</option>
+                                                    <option value="25">مزارع</option>
+
+                                                </select>
+                                            </label>
+
+
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="col-12 col-md-8 d-flex justify-content-center justify-content-md-start">
+                                    <div class="me-3 table-type search-paddind">
+                                        <span class="table-span">بحث</span>
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label><input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>الرقم</th>
+                                            <th>المحافظة  </th>
+                                            <th>المديرية  </th>
+                                            <th> العزلة </th>
+                                            <th>القرية</th>
+                                            <th>عدد الشكوى</th>
+                                            <th>عدد البلاغات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض حساب المستفيدين.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض تقييد الحساب.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+
+
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td> خالد صالح  </td>
+                                            <td>صنعاء</td>
+
+                                            <td>السبعين</td>
+                                            <td>العزلة</td>
+                                            <td>القرية</td>
+                                            <td>2</td>
+                                            <td>6</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn dropdown-toggle hide-arrow p-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            عرض
+                                                        </a>
+
+                                                        <a class="dropdown-item" href="عرض البلاغ.html">
+                                                            <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                            تقييد
+                                                        </a>
+
+
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mx-2">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination pagination-sm">
+                                                <li class="page-item prev">
+                                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);">1</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);">2</a>
+                                                </li>
+                                                <li class="page-item active">
+                                                    <a class="page-link" href="javascript:void(0);">3</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);">4</a>
+                                                </li>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="javascript:void(0);">5</a>
+                                                </li>
+                                                <li class="page-item next">
+                                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+                <div class="container-fluid d-flex flex-column flex-md-row flex-wrap justify-content-between py-2">
+                    <div class="mb-2 mb-md-0">
+                        ©
+                        <script>
+                    document.write(new Date().getFullYear());
+                        </script>
+                        , made with ❤️ by
+                        <a href="https://pixinvent.com" target="_blank" class="footer-link fw-semibold">PIXINVENT</a>
+                    </div>
+                    <div>
+                        <a href="https://themeforest.net/licenses/standard" class="footer-link me-4" target="_blank">License</a>
+                        <a href="https://1.envato.market/pixinvent_portfolio" target="_blank" class="footer-link me-4">More Themes</a>
+
+                        <a href="https://pixinvent.com/demo/frest-clean-bootstrap-admin-dashboard-template/documentation-bs5/"
+                           target="_blank"
+                           class="footer-link me-4">Documentation</a>
+
+                        <a href="https://pixinvent.ticksy.com/" target="_blank" class="footer-link d-none d-sm-inline-block">Support</a>
+                    </div>
+                </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+    </div>

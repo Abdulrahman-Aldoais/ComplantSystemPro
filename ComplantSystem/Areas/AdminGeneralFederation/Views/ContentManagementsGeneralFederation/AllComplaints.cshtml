@@ -1,0 +1,287 @@
+﻿
+@model  IEnumerable<UploadsComplainte>
+
+@{ ViewData["Title"] = "إدارة الشكاوى في الاتحاد";
+    ViewData["SubTitle"] = "إدارة النظام ";
+    ViewData["SubTitle2"] = "إدارة الشكاوى  ";
+
+}
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="breadcrumb-wrapper py-3 mb-4">
+        <span class="text-muted fw-light">الشكاوي    /</span> الشكاوي
+    </h4>
+
+    <div class="card">
+
+        <div class="row mx-2  ">
+            <div class="col-md-6">
+                <div class="t-d">
+                    <h5 class="card-header title-t"> الشكاوي</h5>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="dropdown" style="text-align-last: end;">
+
+                    @{
+
+
+                        <div class="btn-group">
+                            <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
+                        line-height: 1.99;
+                        width: 152.35px;">العدد الكلي @ViewBag.totalCompalints</span>
+                    </div>
+
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card-datatable table-responsive">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+
+                <div class="row mx-2 border-bottom ">
+                    <div class="row align-items-start">
+                        <label class="form-label"> عرض حسب</label>
+                        <div class="row align-items-start">
+                            <div class="col">
+                                <select id="FilterType"
+                                        class="select2 form-select select2-hidden-accessible"
+                                        tabindex="-1" aria-hidden="true" data-select2-id="10">
+                                    <option value="0" data-select2-id="12">عرض</option>
+                                    <option value="جديدة">جديدة</option>
+                                    <option value="محلولة">محلولة</option>
+                                    <option value="غير محلولة">غير محلولة</option>
+                                    <option value="مرفوعة">مرفوعة</option>
+                                </select>
+                                @*<span class="select2 select2-container select2-container--default select2-container--focus" dir="rtl" data-select2-id="11" style="width: 117.083px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-DataTables_Table_0_length-np-container"><span class="select2-selection__rendered" id="select2-DataTables_Table_0_length-np-container" role="textbox" aria-readonly="true" title="مرفوضة">مرفوضة</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>*@
+                            </div>
+
+                            <div class="col">
+                                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                        class="select2 form-select select2-hidden-accessible"
+                                        tabindex="-1" aria-hidden="true" data-select2-id="10">
+                                    <option value="10" data-select2-id="12">مرفوضة</option>
+                                    <option value="25">محلولة</option>
+                                    <option value="50">غير محلولة</option>
+                                    <option value="100">مرفوعة</option>
+                                </select>
+                            </div>
+
+
+                            <div class="col">
+                                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                        class="select2 form-select select2-hidden-accessible"
+                                        tabindex="-1" aria-hidden="true" data-select2-id="10">
+                                    <option value="10" data-select2-id="12">مرفوضة</option>
+                                    <option value="25">محلولة</option>
+                                    <option value="50">غير محلولة</option>
+                                    <option value="100">مرفوعة</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+      
+
+
+                @*<div class=" text-nowrap">*@
+                <div class="card-datatable table-responsive">
+
+                    <table id="example" class="datatables-users table border-top">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    العنوان
+                                </th>
+                                <th>
+                                    تاريخ
+                                </th>
+                                <th>
+                                    المحافظة
+                                </th>
+                                <th>
+                                    المرحلة
+                                </th>
+                                <th>
+                                    الحالة
+                                </th>
+                                <th>اجراء</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="3" style="color:red">
+                                        لا يوجد نتائج
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TitleComplaint)
+                                        </td>
+                                        <td> @Html.DisplayFor(modelItem => item.UploadDate)</td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Governorates.Name)
+                                        </td>
+                                        <td> @Html.DisplayFor(modelItem => item.StatusCompalint.Name)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.TypeComplaint.Type)</td>
+                                        <td>
+                                            <a href="@Url.Action("ViewCompalintDetails", "ContentManagementsGeneralFederation", new { id = item.Id })">
+                                                <i> عرض</i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="row mx-2" style="margin-top:60px;">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                        <nav aria-label="Page navigation">
+
+
+
+
+                            @*<li class="page-item prev" style="margin-left:10px">
+                                    <a><i class="tf-icon bx bx-chevrons-left"></i>السابق</a>
+                                </li>
+
+                                <li class="page-item next">
+                                    <a><i class="tf-icon bx bx-chevrons-right" style="margin-right:10px"></i>التالي</a>
+                                </li>*@
+
+                            <div class="col-12 text-center">
+                                <div>
+                                    @if (ViewBag.CurrentPage - 1 > 0)
+                                    {
+                                        <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage - 1  )"
+                                           class="btn btn-outline-primary  align-left">السابق</a>
+                                    }
+                                    @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
+                                    {
+                                        <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage + 1  )" class="btn btn-outline-primary  align-right">التالي</a>
+                                    }
+                                </div>
+                            </div>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@*</div>*@
+
+
+@section Scripts{
+
+    <script>
+        //$(document).ready(
+
+        $(function () {
+
+
+            $('#example').DataTable({
+
+                language: {
+                    "loadingRecords": "جارٍ التحميل...",
+                    "lengthMenu": "أظهر _MENU_ مدخلات",
+                    "zeroRecords": "لم يعثر على أية سجلات",
+                    "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "search": "ابحث:",
+                    "searchPlaceholder": "بحث عن مرفق",
+                    "paginate": {
+                        "first": "الأول",
+                        "previous": "السابق",
+                        "next": "التالي",
+                        "last": "الأخير"
+                    }
+
+                },
+
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+
+            });
+
+        });
+    </script>
+
+
+
+    @*<script>
+            $(document).ready(function () {
+                $('#dataTable').DataTable({
+                    "language": {
+                        "lengthMenu": "عرض _MENU_ سجلات  ",
+
+                        "info": "عرض صفحة _PAGE_ من _PAGES_",
+                        "infoEmpty": "ليس هناك اي بيانات متاحة",
+                        "infoFiltered": "(الصافي من  _MAX_ اجمالي الصفوف)",
+                        "search": "بحث"
+                    }
+
+
+                });
+            });
+        </script>*@
+
+    <script>
+        //فلترة نوع الشاكي
+        $("#FilterType").change(function () {
+            var value = $(this).val().toLowerCase();
+            $(".table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+        //
+    </script>
+    <script>
+
+        $(document).ready(function () {
+            $("#typeComp").change(function () {
+                $('#tableComp').childern("tr").remove();
+                $.get("/UploadsComplainte/ViewCompalintsByStutas", { id: $('#typeComp').val() }, function (data) {
+                    $.each(data, function (Index, row) {
+                        $('#tableComp').oppend("<tr><td>" + row.Id + "</td><td>" + row.TitleComplaint + "</td><td>"
+                            + row.CompDate + "</td><tr>");
+                    });
+                });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,264 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager;
+@inject SignInManager<ApplicationUser> signInManager;
+@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = "كل المستخدمين";
+    ViewData["subTitle"] = "حسابات المدراء";
+}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="breadcrumb-wrapper py-3 mb-4">
+        <span class="text-muted fw-light">@ViewBag.Title</span>
+    </h4>
+    <!--    الجدول -->
+
+    <div class="card">
+
+        <div class="row mx-2  ">
+            <div class="col-6">
+                <div class="t-d">
+                    <h5 class="card-header title-t" style="margin-left: 0rem;">@ViewBag.subTitle</h5>
+                </div>
+
+            </div>
+            <div class="col-6" style="text-align-last: end; margin-top: 19px;">
+                <button class="dt-button buttons-collection btn btn-label-primary  me-2" tabindex="0"
+                        aria-controls="DataTables_Table_0" type="button" aria-haspopup="true">
+                    <span>
+                        522<i class=""></i>
+                        <span class="d-none d-sm-inline-block">العدد الكلي</span>
+                    </span>
+                </button>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <div class="card-datatable table-responsive">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                <div class="row mx-2 border-bottom ">
+                    <div class="col-sm-12 col-md-1 d-flex justify-content-center justify-content-md-start "
+                         style="margin-top:12px ;">
+                        <label class="form-label"> عرض حسب</label>
+                    </div>
+
+                    <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-center  ">
+
+                        <div class="dataTables_length " id="DataTables_Table_0_length">
+                            <label>
+                                <select id="FilterUser"
+                                        class="select2 form-select select2-hidden-accessible"
+                                        tabindex="-1" aria-hidden="true" data-select2-id="10">
+                                    <option value="0" data-select2-id="12">الحالة</option>
+                                    <option value="نشط">نشط</option>
+                                    <option value="مقيد">مقيد</option>
+
+                                </select>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start">
+                        <div class="me-3 table-type search-paddind">
+                            <span class="table-span">بحث</span>
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                <label>
+                                    <input asp-controller="User" asp-action="Search" type="search" class="form-control" placeholder="بحث">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="offcanvas-header border-bottom">
+                        <a class="btn  btn-primary text-white dropdown-toggle hide-arrow " asp-action="AddUser" aria-expanded="false">
+                            <i class="bx bx-plus me-0 me-lg-2"></i>
+                            إضافة مستخدم
+                            <button type="button"
+                                    class="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close">
+                            </button>
+                        </a>
+                    </div>
+
+
+
+                </div>
+                <div class="table-responsive text-nowrap">
+                    <table id="example">
+                        <thead>
+                            <tr>
+
+                                <th> الاسم </th>
+                                <th> المحافظة </th>
+                                <th> الصلاحية </th>
+                                <th>تاريخ الانشاء </th>
+                                <th>الفعالية</th>
+                                <th>تغير الحالة</th>
+                                <th> تفاصيل</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+
+                                    <td>@user.FullName </td>
+                                    <td>
+                                        @*@foreach (Governorate gov  in Model.)
+                                            {*@
+                                        @user.Governorates?.Name
+                                    </td>
+                                    <td>
+                                    <td>
+                                        @if (await UserManager.IsInRoleAsync(user, "AdminGeneralFederation"))
+                                        {
+                                            <span class="badge bg-label-success">مدير اتحاد</span>
+                                        }
+                                        else if (await UserManager.IsInRoleAsync(user, "AdminGovernorate"))
+                                        {
+                                            <span class="badge bg-label-warning"> مدير محافظة</span>
+                                        }
+                                        else if (await UserManager.IsInRoleAsync(user, "AdminDirectorate"))
+                                        {
+                                            <span class="badge bg-label-warning"> مدير مديرة</span>
+                                        }
+                                        else if (await UserManager.IsInRoleAsync(user, "AdminSubDirectorate"))
+                                        {
+                                            <span class="badge bg-label-warning"> مدير عزلة</span>
+                                        }
+                                        else if (await UserManager.IsInRoleAsync(user, "AdminVillages"))
+                                        {
+                                            <span class="badge bg-label-warning"> مدير قرية</span>
+                                        }
+                                    </td>
+                                   
+
+                                    </td>
+                                    <td>@user.CreatedDate</td>
+
+                                    @if (user.IsBlocked == true)
+                                    {
+
+
+                                        <td>
+                                            <span class="badge bg-danger text-white@(user.IsBlocked)">
+
+                                                <i class="fa fa-circle" aria-hidden="true"> @(user.IsBlocked ?"مقيد": "نشط")</i>
+                                            </span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <span class="badge bg-success text-white@(user.IsBlocked)">
+
+                                                <i class="fa fa-circle" aria-hidden="true"> @(user.IsBlocked ?"مقيد": "نشط")</i>
+                                            </span>
+                                        </td>
+                                    }
+
+
+                                    <td>
+                                        <form asp-action="ChaingeStatus" id="Status-Form-@user.Id">
+                                            <input type="hidden" name="Id" value="@user.Id" />
+                                            <select class="form-select " onchange="document.getElementById('Status-Form-@user.Id').submit()" name="IsBlocked">
+                                                <option value="">اختر</option>
+                                                <option value="false">تنشيط</option>
+                                                <option value="true">توقيف</option>
+                                            </select>
+                                        </form>
+                                    </td>
+
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn dropdown-toggle hide-arrow p-0"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href=" ">
+                                                    <i class="bx bxs-bar-chart-alt-2 icon-padding icon-color"></i>
+
+                                                    تعديل
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0);" id="confirm-text">
+                                                    <i class="bx bxs-trash-alt icon-padding delet-color" aria-hidden="true"></i>
+                                                    حذف
+                                                </a>
+
+
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        //$(document).ready(
+
+        $(function () {
+
+
+            $('#example').DataTable({
+
+                language: {
+                    "loadingRecords": "جارٍ التحميل...",
+                    "lengthMenu": "أظهر _MENU_ مدخلات",
+                    "zeroRecords": "لم يعثر على أية شكوى",
+                    "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                    "search": "ابحث:",
+                    "searchPlaceholder": "بحث عن شكوى",
+                    "paginate": {
+                        "first": "الأول",
+                        "previous": "السابق",
+                        "next": "التالي",
+                        "last": "الأخير"
+                    }
+
+
+
+                },
+
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "search": false,
+
+            });
+
+        });
+    </script>
+
+    <script>
+        //فلترة نوع الشاكي
+        $("#FilterUser").change(function () {
+            var value = $(this).val().toLowerCase();
+            $(".table tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+            //
+    </script>
+}
