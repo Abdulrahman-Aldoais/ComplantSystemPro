@@ -37,8 +37,8 @@ namespace ComplantSystem
 
 
 
-                //var userService = provider.GetRequiredService<IUserService>();
-                //await userService.InitializeAsync();
+                var userService = provider.GetRequiredService<IUserService>();
+                await userService.InitializeAsync();
 
 
 

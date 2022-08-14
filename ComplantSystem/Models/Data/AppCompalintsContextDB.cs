@@ -7,8 +7,19 @@ using System.Data;
 namespace ComplantSystem.Models
 {
     public class AppCompalintsContextDB : IdentityDbContext<
-         ApplicationUser,
-        ApplicationRole, string>
+
+
+
+         ApplicationUser, ApplicationRole, string,
+        ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
+        ApplicationRoleClaim, ApplicationUserToken
+
+
+        //ApplicationUser,
+        //ApplicationRole, string
+
+
+        >
     {
         public AppCompalintsContextDB(DbContextOptions<AppCompalintsContextDB> options)
             : base(options)
@@ -20,8 +31,8 @@ namespace ComplantSystem.Models
         {
 
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppCompalintsContextDB).Assembly);
+            modelBuilder.HasDefaultSchema("notdbo");
 
 
             modelBuilder.HasDefaultSchema("Identity");
@@ -60,35 +71,6 @@ namespace ComplantSystem.Models
                 entity.ToTable("UserTokens");
             });
 
-
-            modelBuilder.Entity<ApplicationUser>(b =>
-            {
-                // Each User can have many UserClaims
-                b.HasMany(e => e.Claims)
-                    .WithOne()
-                    .HasForeignKey(uc => uc.UserId)
-                    .IsRequired();
-
-                // Each User can have many UserLogins
-                b.HasMany(e => e.Logins)
-                    .WithOne()
-                    .HasForeignKey(ul => ul.UserId)
-                    .IsRequired();
-
-                // Each User can have many UserTokens
-                b.HasMany(e => e.Tokens)
-                    .WithOne()
-                    .HasForeignKey(ut => ut.UserId)
-                    .IsRequired();
-
-                // Each User can have many entries in the UserRole join table
-                b.HasMany(e => e.UserRoles)
-                    .WithOne()
-                    .HasForeignKey(ur => ur.UserId)
-                    .IsRequired();
-            });
-
-            // add a navigation property relationship
             modelBuilder.Entity<ApplicationUser>(b =>
             {
                 // Each User can have many UserClaims
@@ -130,8 +112,6 @@ namespace ComplantSystem.Models
                 //    .HasForeignKey(rc => rc.RoleId)
                 //    .IsRequired();
             });
-        
-        modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId, p.RoleId });
 
             modelBuilder.Entity<Compalint>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<BenefCommunication>().Property(i => i.Id).HasDefaultValueSql("NEWID()");

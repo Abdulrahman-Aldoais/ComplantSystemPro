@@ -7,353 +7,323 @@
 
 
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="breadcrumb-wrapper py-3 mb-4">
-        <span class="text-muted fw-light">الشكاوي    /</span> الشكاوي
-    </h4>
-    <div class="card">
-    
-    <div class="row g-4 mb-4">
-        @*<div class="col-sm-6 col-xl-3">
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <!-- Users List Table -->
+
+
+
+
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="breadcrumb-wrapper py-3 mb-4">
+                <span class="text-muted fw-light">إدارة النظام    /</span> إدارة الشكاوي
+            </h4>
+
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="content-left">
-                            <span> ا</span>
-                            <div class="d-flex align-items-end mt-2">
-                                <h4 class="me-2 mb-0">@ViewBag.compsrecordInvest</h4>
-                                <small class="text-success"> </small>
+
+                <div class="row mx-2  ">
+                    <div class="col-6">
+                        <div class="t-d">
+                            <h5 class="card-header title-t" style="margin-left: 10px;"> إدارة الشكاوي</h5>
+                        </div>
+
+                    </div>
+                    <div class="col-6" style="text-align-last: end; margin-top: 19px;">
+                        <button class="dt-button buttons-collection btn btn-label-primary  me-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
+                            <span>
+                                522<i class=""></i>
+                                <span class="d-none d-sm-inline-block">العدد الكلي</span>
+                            </span>
+                        </button>
+                    </div>
+
+
+
+
+
+                </div>
+
+                @*<div class="row mx-2  ">
+                        <div class="col-md-6">
+                            <div class="t-d">
+                                <h5 class="card-header title-t"> الشكاوي</h5>
                             </div>
 
                         </div>
-                        <span class="badge bg-label-primary rounded p-2">
-                            <i class="fas fa-angle-double-down bx-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+                        <div class="col-md-6 mt-4">
+                            <div class="dropdown" style="text-align-last: end;">
 
-        <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="content-left">
-                            <span>  المحلولة</span>
-                            <div class="d-flex align-items-end mt-2">
-                                <h4 class="me-2 mb-0"> @ViewBag.compsrecordSuit</h4>
-                                <small class="text-success">(6)</small>
+                                @{
+                                    <div class="btn-group">
+                                        <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
+                                    line-height: 1.99;
+                                    width: 152.35px;">العدد الكلي @ViewBag.totalCompalints</span>
+                                </div>
+
+                                }
                             </div>
 
                         </div>
-                        <span class="badge bg-label-success rounded p-2">
-                            <i class="fas fa-adjust bx-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="content-left">
-                            <span> المعلقة</span>
-                            <div class="d-flex align-items-end mt-2">
-                                <h4 class="me-2 mb-0">@ViewBag.compsjust</h4>
-                                <small class="text-danger">(1)</small>
+
+                    </div>*@
+
+                <div class="card-datatable table-responsive">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div class="row mx-2 border-bottom ">
+                            <div class="col-sm-12 col-md-2 d-flex mb-4 justify-content-center justify-content-md-start " style="margin-top:12px ;">
+                                <label class="form-label"> عرض حسب</label>
+                            </div>
+                            <div class="col-12 col-md-2 d-flex  mb-4 justify-content-center justify-content-md-center ">
+                                <div class="me-3 table-type">
+                                    <label class="form-label">  </label>
+                                    <div class="dataTables_length" id="DataTables_Table_0_length">
+                                        <label>
+                                            <select name="DataTables_Table_0_length" id="FilterType"
+                                                    class="select2 form-select">
+                                                <option value="0">فلترة</option>
+                                                <option value="مرفوضة">مرفوضة</option>
+                                                <option value="محلولة">محلولة</option>
+                                                <option value="غير محلولة">غير محلولة</option>
+                                                <option value="مرفوعة">مرفوعة</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+           
+
+
+                            <div class="col-12 col-md-6  d-flex  mb-4 justify-content-center justify-content-md-start">
+                                <div class="me-3 table-type search-paddind">
+                                    <span class="table-span">بحث</span>
+                                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                        <label><input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label>
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                        <span class="badge bg-label-warning rounded p-2">
-                            <i class="fas fa-angle-double-up bx-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="content-left">
-                            <span>  المرفوضة</span>
-                            <div class="d-flex align-items-end mt-2">
-                                <h4 class="me-2 mb-0">@ViewBag.compsrecordSucs</h4>
-                                <small class="text-success">(2)</small>
-                            </div>
+
 
                         </div>
-                        <span class="badge bg-label-danger rounded p-2">
-                            @* <i class="bx bx-user-voice bx-sm"></i>*@
-                            <i class="fas fa-allergies bx-sm"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-       
 
-            <div class="row mx-2  ">
-                <div class="col-md-6">
-                    <div class="t-d">
-                        <h5 class="card-header title-t"> الشكاوي</h5>
-                    </div>
-
-                </div>
-                <div class="col-md-6 mt-4">
-                    <div class="dropdown" style="text-align-last: end;">
-
-                        @{
-                            <div class="btn-group">
-                                <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
-                        line-height: 1.99;
-                        width: 152.35px;">العدد الكلي @ViewBag.totalCompalints</span>
-                    </div>
-
-                        }
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="card-datatable table-responsive">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="row mx-2 border-bottom ">
+                        <!--<div class="row mx-2 border-bottom ">
                         <div class="col-md-3">
                             <div class="me-3 table-type">
                                 <span class="table-span"> عرض حسب</span>
-                                <div class="dataTables_length" id="DataTables_Table_0_length">
-                                    @*<select id="FilterType" asp-items="ViewBag.StatusCompalints">*@
+                                <div class="dataTables_length" id="DataTables_Table_0_length">-->
+                        @*<select id="FilterType" asp-items="ViewBag.StatusCompalints">*@
 
-                                    <select id="FilterType"
-                                            class="select2 form-select select2-hidden-accessible"
-                                            tabindex="-1" aria-hidden="true" data-select2-id="10">
-                                        <option value="0" data-select2-id="12">عرض</option>
-                                        <option value="جديدة">جديدة</option>
-                                        <option value="محلولة">محلولة</option>
-                                        <option value="غير محلولة">غير محلولة</option>
-                                        <option value="مرفوعة">مرفوعة</option>
-                                    </select>
+                        <!--<select id="FilterType"
+                                                class="select2 form-select select2-hidden-accessible"
+                                                tabindex="-1" aria-hidden="true" data-select2-id="10">
+                                            <option value="0" data-select2-id="12">عرض</option>
+                                            <option value="جديدة">جديدة</option>
+                                            <option value="محلولة">محلولة</option>
+                                            <option value="غير محلولة">غير محلولة</option>
+                                            <option value="مرفوعة">مرفوعة</option>
+                                        </select>
 
+                                    </div>
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+
+                            <div class="col-md-5">
+
+                                <div class="btn-group" style="float: left; margin-left:20px; width: auto;
+                                    height: 48px;">
+                                    <a class="btn  btn-primary text-white dropdown-toggle hide-arrow " aria-expanded="false" asp-action="Create">
+                                        <i class="bx bx-plus me-0 me-lg-2"></i>
+                                        إضافة شكوى
+                                    </a>
                                 </div>
 
                             </div>
 
 
 
+                        </div>-->
 
-                        </div>
+                        <div class="card-datatable table-responsive">
 
-                    
+                            <table id="example" class="datatables-users table border-top">
 
-                        <div class="col-md-5">
-
-                            <div class="btn-group" style="float: left; margin-left:20px; width: auto;
-                                height: 48px;">
-                                <a class="btn  btn-primary text-white dropdown-toggle hide-arrow " aria-expanded="false" asp-action="Create">
-                                    <i class="bx bx-plus me-0 me-lg-2"></i>
-                                    إضافة شكوى
-                                </a>
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-                    @*<div class=" text-nowrap">*@
-                    <div class="card-datatable table-responsive">
-
-                        <table id="example" class="datatables-users table border-top">
-
-                            <thead>
-                                <tr>
-                                    <th>
-                                        العنوان
-                                    </th>
-                                    <th>
-                                        تاريخ
-                                    </th>
-                                    <th>
-                                        المحافظة
-                                    </th>
-
-                                    <th>
-                                        الحالة
-                                    </th>
-                                    <th>
-                                        النوع
-                                    </th>
-                                    <th>اجراء</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @if (Model.Count() == 0)
-                                {
+                                <thead>
                                     <tr>
-                                        <td colspan="3" style="color:red">
-                                            لا يوجد نتائج
-                                        </td>
+                                        <th>
+                                            العنوان
+                                        </th>
+                                        <th>
+                                            تاريخ
+                                        </th>
+                                        <th>
+                                            المحافظة
+                                        </th>
+
+                                        <th>
+                                            الحالة
+                                        </th>
+                                        <th>
+                                            النوع
+                                        </th>
+                                        <th>اجراء</th>
                                     </tr>
-                                }
-                                else
-                                {
-                                    @foreach (var item in Model)
+                                </thead>
+
+                                <tbody>
+                                    @if (Model.Count() == 0)
                                     {
                                         <tr>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.TitleComplaint)
-                                            </td>
-                                            <td> @Html.DisplayFor(modelItem => item.UploadDate)</td>
-                                            <td>
-                                                @Html.DisplayFor(modelItem => item.Governorates.Name)
-                                            </td>
-                                            <td> @Html.DisplayFor(modelItem => item.StatusCompalint.Name)</td>
-                                            <td> @Html.DisplayFor(modelItem => item.TypeComplaint.Type)</td>
-                                            <td>
-                                                <a href="@Url.Action("ViewCompalintDetails", "Complaints", new { id = item.Id })">
-                                                    <i> عرض</i>
-                                                </a>
+                                            <td colspan="3" style="color:red">
+                                                لا يوجد نتائج
                                             </td>
                                         </tr>
                                     }
-                                }
+                                    else
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.TitleComplaint)
+                                                </td>
+                                                <td> @Html.DisplayFor(modelItem => item.UploadDate)</td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Governorates.Name)
+                                                </td>
+                                                <td> @Html.DisplayFor(modelItem => item.StatusCompalint.Name)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.TypeComplaint.Type)</td>
+                                                <td>
+                                                    <a href="@Url.Action("ViewCompalintDetails", "Complaints", new { id = item.Id })">
+                                                        <i> عرض</i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
 
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-                <div class="row mx-2" style="margin-top:60px;">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                </tbody>
+                            </table>
                         </div>
+
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                            <nav aria-label="Page navigation">
+                    <div class="row mx-2" style="margin-top:60px;">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <nav aria-label="Page navigation">
 
 
 
 
-                                @*<li class="page-item prev" style="margin-left:10px">
-                                        <a><i class="tf-icon bx bx-chevrons-left"></i>السابق</a>
-                                    </li>
+                                    @*<li class="page-item prev" style="margin-left:10px">
+                                            <a><i class="tf-icon bx bx-chevrons-left"></i>السابق</a>
+                                        </li>
 
-                                    <li class="page-item next">
-                                        <a><i class="tf-icon bx bx-chevrons-right" style="margin-right:10px"></i>التالي</a>
-                                    </li>*@
+                                        <li class="page-item next">
+                                            <a><i class="tf-icon bx bx-chevrons-right" style="margin-right:10px"></i>التالي</a>
+                                        </li>*@
 
-                                <div class="col-12 text-center">
-                                    <div>
-                                        @if (ViewBag.CurrentPage - 1 > 0)
-                                        {
-                                            <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage - 1  )"
-                                               class="btn btn-outline-primary  align-left">السابق</a>
-                                        }
-                                        @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
-                                        {
-                                            <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage + 1  )" class="btn btn-outline-primary  align-right">التالي</a>
-                                        }
+                                    <div class="col-12 text-center">
+                                        <div>
+                                            @if (ViewBag.CurrentPage - 1 > 0)
+                                            {
+                                                <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage - 1  )"
+                                                   class="btn btn-outline-primary  align-left">السابق</a>
+                                            }
+                                            @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
+                                            {
+                                                <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage + 1  )" class="btn btn-outline-primary  align-right">التالي</a>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
 
-                            </nav>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
-
-    </div>
-    @*</div>*@
+        @*</div>*@
 
 
-    @section Scripts{
+        @section Scripts{
 
-        <script>
-            //$(document).ready(
+            <script>
+                //$(document).ready(
 
-            $(function () {
-
-
-                $('#example').DataTable({
-
-                    language: {
-                        "loadingRecords": "جارٍ التحميل...",
-                        "lengthMenu": "أظهر _MENU_ مدخلات",
-                        "zeroRecords": "لم يعثر على أية شكوى",
-                        "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                        "search": "ابحث:",
-                        "searchPlaceholder": "بحث عن شكوى",
-                        "paginate": {
-                            "first": "الأول",
-                            "previous": "السابق",
-                            "next": "التالي",
-                            "last": "الأخير"
-                        }
-
-                    },
-
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "responsive": true,
-
-                });
-
-            });
-        </script>
+                $(function () {
 
 
+                    $('#example').DataTable({
 
-        @*<script>
-                $(document).ready(function () {
-                    $('#dataTable').DataTable({
-                        "language": {
-                            "lengthMenu": "عرض _MENU_ سجلات  ",
+                        language: {
+                            "loadingRecords": "جارٍ التحميل...",
+                            "lengthMenu": "أظهر _MENU_ مدخلات",
+                            "zeroRecords": "لم يعثر على أية شكوى",
+                            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                            "search": "ابحث:",
+                            "searchPlaceholder": "بحث عن شكوى",
+                            "paginate": {
+                                "first": "الأول",
+                                "previous": "السابق",
+                                "next": "التالي",
+                                "last": "الأخير"
+                            }
 
-                            "info": "عرض صفحة _PAGE_ من _PAGES_",
-                            "infoEmpty": "ليس هناك اي بيانات متاحة",
-                            "infoFiltered": "(الصافي من  _MAX_ اجمالي الصفوف)",
-                            "search": "بحث"
-                        }
+                        },
 
+                        "paging": true,
+                        "lengthChange": false,
+                        /*"searching": true,*/
+                        "ordering": false,
+                        "info": true,
+                        "autoWidth": true,
+                        "responsive": true,
+                        "searching": false,
 
                     });
-                });
-            </script>*@
 
-        <script>
-            //فلترة نوع الشاكي
-            $("#FilterType").change(function () {
-                var value = $(this).val().toLowerCase();
-                $(".table tbody tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
                 });
-            });
-            //
-        </script>
-        <script>
+            </script>
 
-            $(document).ready(function () {
-                $("#typeComp").change(function () {
-                    $('#tableComp').childern("tr").remove();
-                    $.get("/UploadsComplainte/ViewCompalintsByStutas", { id: $('#typeComp').val() }, function (data) {
-                        $.each(data, function (Index, row) {
-                            $('#tableComp').oppend("<tr><td>" + row.Id + "</td><td>" + row.TitleComplaint + "</td><td>"
-                                + row.CompDate + "</td><tr>");
+
+
+            <script>
+                //فلترة نوع الشاكي
+                $("#FilterType").change(function () {
+                    var value = $(this).val().toLowerCase();
+                    $(".table tbody tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                });
+                //
+            </script>
+            <script>
+
+                $(document).ready(function () {
+                    $("#typeComp").change(function () {
+                        $('#tableComp').childern("tr").remove();
+                        $.get("/UploadsComplainte/ViewCompalintsByStutas", { id: $('#typeComp').val() }, function (data) {
+                            $.each(data, function (Index, row) {
+                                $('#tableComp').oppend("<tr><td>" + row.Id + "</td><td>" + row.TitleComplaint + "</td><td>"
+                                    + row.CompDate + "</td><tr>");
+                            });
                         });
                     });
                 });
-            });
-        </script>
+            </script>
 
-    }
+        }

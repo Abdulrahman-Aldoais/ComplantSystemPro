@@ -24,7 +24,7 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
         public string PhoneNumber { get; set; }
         //[Timestamp]
         public DateTime DateCreated { get; set; }
-        public IdentityRole Roles { get; set; }
+        public ApplicationRole Roles { get; set; }
 
         public int? GovernorateId { get; set; }
 

@@ -25,7 +25,7 @@ namespace ComplantSystem.Models
 
         public int BeneficiarieId { get; set; }
 
-        public Beneficiarie Beneficiarie { get; set; }
+        public virtual Beneficiarie Beneficiarie { get; set; }
 
     }
 }

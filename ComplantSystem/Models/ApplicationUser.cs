@@ -27,9 +27,9 @@ namespace ComplantSystem.Models
 
         public string IdentityNumber { get; set; }
         public string PhoneNumber { get; set; }
-        public ApplicationRole Role { get; set; }
+        public virtual ApplicationRole Role { get; set; }
         public int? GovernorateId { get; set; }
-        public  Governorate Governorates { get; set; }
+        public virtual Governorate Governorates { get; set; }
         public int? DirectorateId { get; set; }
         public virtual Directorate Directorates { get; set; }
         public int? SubDirectorateId { get; set; }
@@ -44,6 +44,7 @@ namespace ComplantSystem.Models
         public byte[] ProfilePicture { get; set; }
         public bool IsBlocked { get; set; }
         [DataType(DataType.Password)]
+        public string UserId { get; set; }
         public string Password { get; set; }
         [Compare("Password")]
         public string ConfirmPassword { get; set; }

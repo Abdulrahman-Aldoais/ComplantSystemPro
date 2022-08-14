@@ -12,10 +12,10 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
 
-        public AccountGeneralFederationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountGeneralFederationController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -45,7 +45,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
                 if (!await _roleManager.RoleExistsAsync(
               UserRoles.AdminVillages))
                 {
-                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.AdminVillages));
+                    await _roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminVillages));
                 }
                 if (result.Succeeded)
                 {

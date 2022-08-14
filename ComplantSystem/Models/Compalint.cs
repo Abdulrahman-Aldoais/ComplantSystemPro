@@ -36,7 +36,7 @@ namespace ComplantSystem.Models
         public int StatusCompalintId { get; set; } = 1;
         public virtual StatusCompalint StatusCompalint { get; set; }
         public int StagesComplaintId { get; set; } = 1;
-        public StagesComplaint StagesComplaint { get; set; }
+        public virtual StagesComplaint StagesComplaint { get; set; }
         public string PropBeneficiarie { get; set; }
         [Required(ErrorMessage = "يجب ان تقوم بإختبار المنطقة المحددة ")]
         public int? GovernorateId { get; set; }
@@ -52,7 +52,7 @@ namespace ComplantSystem.Models
         public DateTime CompDate { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime CompDateUp { get; set; }
-        public List<Compalints_Solution> CompalintsHasSolutions { get; set; }
+        public virtual List<Compalints_Solution> CompalintsHasSolutions { get; set; }
         public virtual ApplicationUser HoUser { get; set; }
 
 

@@ -15,6 +15,7 @@ namespace ComplantSystem
         Task<UploadsComplainte> FindAsync(string id);
         Task<UploadsComplainte> GetCompalintById(string id);
         IQueryable<UploadsComplainte> GetBy(string userId);
+
         Task<IEnumerable<UploadsComplainte>> GetAllRejectedComplaints();
         Task CreateAsync(InputCompmallintVM model);
         //Task AddNewCompalintAsync(UploadsComplainte data);

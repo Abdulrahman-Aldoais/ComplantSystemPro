@@ -15,6 +15,9 @@ namespace ComplantSystem.Areas.AdminService.Service
         IQueryable<ApplicationUser> GetAllAsync();
         Task<IEnumerable<ApplicationUser>> GetAllAsync(params Expression<Func<ApplicationUser, object>>[] includeproperties);
         IQueryable<ApplicationUser> GetAllUserBlockedAsync();
+        //Task<ApplicationUser> GetByIdAsync(string id);
+        Task<ApplicationUser> GetUserByIdAsync(string userId);
+        Task<ApplicationUser> GetByIdAsync(string id, params Expression<Func<ApplicationUser, object>>[] includeProperties);
         IQueryable<AdminUserViewModel> Search(string term);
         Task<OperationResult> TogelBlockUserAsync(string UserId);
         Task<int> UserRegistrationCountAsync();

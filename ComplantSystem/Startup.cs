@@ -34,11 +34,21 @@ namespace ComplantSystem
         {
             services.AddControllersWithViews();
 
+            services.AddDbContext<AppCompalintsContextDB>(
+        b => b.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+              .UseLazyLoadingProxies())
+              .AddIdentity<ApplicationUser, ApplicationRole>()
+              .AddDefaultUI()
+              .AddEntityFrameworkStores<AppCompalintsContextDB>()
+              .AddDefaultTokenProviders();
 
-            services.AddDbContext<AppCompalintsContextDB>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+
+              //.AddDefaultIdentity<ApplicationUser>()
+
+            //services.AddDbContext<AppCompalintsContextDB>(options =>
+            //{
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            //});
 
 
             //services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -60,10 +70,10 @@ namespace ComplantSystem
             services.AddScoped<ILocationRepo<Village>, VillageRepo>(); 
             services.AddAdminServices();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppCompalintsContextDB>()
-            .AddDefaultUI()
-            .AddDefaultTokenProviders();
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //.AddEntityFrameworkStores<AppCompalintsContextDB>()
+            //.AddDefaultUI()
+            //.AddDefaultTokenProviders();
             services.AddControllersWithViews();
             // Add services to the container.
 

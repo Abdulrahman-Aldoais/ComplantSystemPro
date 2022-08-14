@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject UserManager<ApplicationUser> UserManager;
-@inject SignInManager<ApplicationUser> signInManager;
+@using ComplantSystem.Const;
+@*@inject UserManager<ApplicationUser> UserManager;*@
+@inject RoleManager<ApplicationRole> roleManager;
+@*@inject SignInManager<ApplicationUser> signInManager;*@
 @model IEnumerable<ApplicationUser>
 @{
     ViewData["Title"] = "كل المستخدمين";
@@ -11,7 +13,7 @@
     <h4 class="breadcrumb-wrapper py-3 mb-4">
         <span class="text-muted fw-light">@ViewBag.Title</span>
     </h4>
-    <!--    الجدول -->
+    <!-- الجدول -->
 
     <div class="card">
 
@@ -31,61 +33,39 @@
                     </span>
                 </button>
             </div>
-
-
-
-
-
         </div>
-
 
         <div class="card-datatable table-responsive">
             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                 <div class="row mx-2 border-bottom ">
-                    <div class="col-sm-12 col-md-1 d-flex justify-content-center justify-content-md-start "
-                         style="margin-top:12px ;">
-                        <label class="form-label"> عرض حسب</label>
-                    </div>
+                    <div class="col-md-4  d-flex justify-content-center justify-content-md-start">
+                        <div class="me-3 table-type">
+                            <span class="table-span"> عرض حسب</span>
+                            <div class="dataTables_length" id="DataTables_Table_0_length">
+                                <label>
+                                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="select2 form-select ">
+                                        <option value="10">مستثمر</option>
+                                        <option value="25">مزارع</option>
 
-                    <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-center  ">
+                                    </select>
+                                </label>
 
-                        <div class="dataTables_length " id="DataTables_Table_0_length">
-                            <label>
-                                <select id="FilterUser"
-                                        class="select2 form-select select2-hidden-accessible"
-                                        tabindex="-1" aria-hidden="true" data-select2-id="10">
-                                    <option value="0" data-select2-id="12">الحالة</option>
-                                    <option value="نشط">نشط</option>
-                                    <option value="مقيد">مقيد</option>
 
-                                </select>
-                            </label>
+                            </div>
+
                         </div>
 
+
                     </div>
-                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start">
+
+                    <div class="col-12 col-md-8 d-flex justify-content-center justify-content-md-start">
                         <div class="me-3 table-type search-paddind">
                             <span class="table-span">بحث</span>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                <label>
-                                    <input asp-controller="User" asp-action="Search" type="search" class="form-control" placeholder="بحث">
-                                </label>
+                                <label><input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label>
                             </div>
                         </div>
                     </div>
-
-                    <div class="offcanvas-header border-bottom">
-                        <a class="btn  btn-primary text-white dropdown-toggle hide-arrow " asp-action="AddUser" aria-expanded="false">
-                            <i class="bx bx-plus me-0 me-lg-2"></i>
-                            إضافة مستخدم
-                            <button type="button"
-                                    class="btn-close text-reset"
-                                    data-bs-dismiss="offcanvas"
-                                    aria-label="Close">
-                            </button>
-                        </a>
-                    </div>
-
 
 
                 </div>
@@ -111,35 +91,35 @@
                                     <td>@user.FullName </td>
                                     <td>
                                         @*@foreach (Governorate gov  in Model.)
-                                            {*@
+                                {*@
                                         @user.Governorates?.Name
                                     </td>
+
                                     <td>
-                                    <td>
-                                        @if (await UserManager.IsInRoleAsync(user, "AdminGeneralFederation"))
+                                        @if (await roleManager.RoleExistsAsync(UserRoles.AdminGeneralFederation))
                                         {
                                             <span class="badge bg-label-success">مدير اتحاد</span>
                                         }
-                                        else if (await UserManager.IsInRoleAsync(user, "AdminGovernorate"))
+                                        else if (await roleManager.RoleExistsAsync(UserRoles.AdminGovernorate))
                                         {
                                             <span class="badge bg-label-warning"> مدير محافظة</span>
                                         }
-                                        else if (await UserManager.IsInRoleAsync(user, "AdminDirectorate"))
+                                        else if (await roleManager.RoleExistsAsync(UserRoles.AdminDirectorate))
                                         {
                                             <span class="badge bg-label-warning"> مدير مديرة</span>
                                         }
-                                        else if (await UserManager.IsInRoleAsync(user, "AdminSubDirectorate"))
+                                        else if (await roleManager.RoleExistsAsync(UserRoles.AdminSubDirectorate))
                                         {
                                             <span class="badge bg-label-warning"> مدير عزلة</span>
                                         }
-                                        else if (await UserManager.IsInRoleAsync(user, "AdminVillages"))
+                                        else if (await roleManager.RoleExistsAsync(UserRoles.AdminVillages))
                                         {
                                             <span class="badge bg-label-warning"> مدير قرية</span>
                                         }
                                     </td>
-                                   
 
-                                    </td>
+
+
                                     <td>@user.CreatedDate</td>
 
                                     @if (user.IsBlocked == true)
@@ -233,8 +213,6 @@
                         "last": "الأخير"
                     }
 
-
-
                 },
 
                 "paging": true,
@@ -259,6 +237,6 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
             });
         });
-            //
+                    //
     </script>
 }

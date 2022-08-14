@@ -16,13 +16,13 @@ namespace ComplantSystem.Areas.AdminGeneralFederation
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly AppCompalintsContextDB context;
 
         public AccountGeneralFederationController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<ApplicationRole> roleManager,
             AppCompalintsContextDB context
             )
         {
@@ -82,6 +82,32 @@ namespace ComplantSystem.Areas.AdminGeneralFederation
             }
             return View(userVM);
 
+        }
+
+        private async Task LoadAsync(ApplicationUser userVM)
+        {
+            var userName = await _userManager.GetUserNameAsync(userVM);
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(userVM);
+            var firstName = userVM.FirstName;
+            var lastName = userVM.LastName;
+            var profilePicture = userVM.ProfilePicture;
+           
+
+            var userData = new ApplicationUser
+            {
+                FirstName = userVM.FirstName,
+                LastName = userVM.LastName,
+                UserName = userVM.IdentityNumber,
+                IdentityNumber = userVM.IdentityNumber,
+                Email = userVM.IdentityNumber,
+                PhoneNumber = userVM.PhoneNumber,
+                GovernorateId = userVM.GovernorateId,
+                CreatedDate = userVM.CreatedDate,
+                SocietyId = userVM.SocietyId,
+                ProfilePicture = userVM.ProfilePicture,
+                Password = userVM.Password,
+
+            };
         }
 
     }

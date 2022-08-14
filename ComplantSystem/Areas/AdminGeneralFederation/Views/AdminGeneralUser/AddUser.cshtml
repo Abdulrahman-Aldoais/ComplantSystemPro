@@ -17,7 +17,7 @@
             <div class="card mb-4">
                 <h5 class="card-header">إضافة حساب موظف </h5>
                 <!-- Account -->
-                <form asp-action="AddUser" method="POST">
+                <form asp-action="AddUser" method="POST" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="card-body">
                         <div class="gap-4 d-flex align-items-start align-items-sm-center">
@@ -30,13 +30,27 @@
                             <div class="button-wrapper">
 
                                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                    @if (Model.ProfilePicture != null)
+                                    {
+                                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+                                    }
+                                    else
+                                    {
+                                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
+                                    }
+                                    <input type="file"
+                                           accept=".png,.jpg,.jpeg,.gif,.tif"
+                                           asp-for="@Model.ProfilePicture"
+                                           class="form-control"
+                                           style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
+                                           onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
                                     <span class="d-none d-sm-block">إدراج صورة</span>
                                     <i class="bx bx-upload d-sm-none d-block"></i>
-                                    <input type="file"
+                                    @*<input type="file"
                                            id="upload"
                                            class="account-file-input"
                                            hidden
-                                           accept="image/png, image/jpeg" />
+                                           accept="image/png, image/jpeg" />*@
                                 </label>
                                 <button type="button" class="btn btn-label-secondary account-image-reset mb-4">
                                     <i class="bx bx-reset d-sm-none d-block"></i>

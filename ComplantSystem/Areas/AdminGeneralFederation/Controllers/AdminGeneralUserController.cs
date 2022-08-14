@@ -19,9 +19,9 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
-        public AdminGeneralUserController(IUserService userService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AdminGeneralUserController(IUserService userService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager)
         {
             this.userService = userService;
             this.userManager = userManager;
@@ -140,7 +140,6 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         {
            await  userService.ChaingeStatusAsync(id, IsBlocked);
             return RedirectToAction("Index");
-
         }
 
 

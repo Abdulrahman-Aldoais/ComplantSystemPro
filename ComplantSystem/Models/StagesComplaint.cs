@@ -16,7 +16,7 @@ namespace ComplantSystem.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Compalint> UploadsComplainte { get; set; }
+        public virtual ICollection<Compalint> UploadsComplainte { get; set; }
 
     }
 }

@@ -17,6 +17,6 @@ namespace ComplantSystem.Models
         public int Id { get; set; }
         public string Name { get; set; } = " ";
         //RelationShipes one to many with UploadsComplainte and StatusCompalint
-        public ICollection<Compalint> UploadsComplainte { get; set; }
+        public virtual ICollection<Compalint> UploadsComplainte { get; set; }
     }
 }

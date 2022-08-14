@@ -20,14 +20,14 @@ namespace ComplantSystem.Areas.AdminService.Service
         private readonly AppCompalintsContextDB contex;
         private readonly IMapper mapper;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<ApplicationRole> roleManager;
         private readonly AppCompalintsContextDB context;
 
         public UserService(
             AppCompalintsContextDB contex,
             IMapper mapper,
             UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<ApplicationRole> roleManager,
             AppCompalintsContextDB _context
             )
         {
@@ -52,8 +52,8 @@ namespace ComplantSystem.Areas.AdminService.Service
 
         public IQueryable<ApplicationUser> GetAllAsync()
         {
-            var result = contex.Users.Include(c=>c.Role).OrderByDescending(u => u.CreatedDate);
-            //.ProjectTo<ApplicationUser>(mapper.ConfigurationProvider)
+            var result = contex.Users.Include(c => c.Role).OrderByDescending(u => u.CreatedDate)
+            .ProjectTo<ApplicationUser>(mapper.ConfigurationProvider);
             return result;
         }
 
@@ -93,7 +93,7 @@ namespace ComplantSystem.Areas.AdminService.Service
             if (!await roleManager.RoleExistsAsync(
                 UserRoles.AdminVillages))
             {
-                await roleManager.CreateAsync(new IdentityRole(UserRoles.AdminVillages));
+                await roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminVillages));
             }
             var IdentityNamber = "00111100";
             var userName = "abdulrahman";
@@ -136,6 +136,32 @@ namespace ComplantSystem.Areas.AdminService.Service
             IQueryable<ApplicationUser> query = context.Users;
             query = includeproperties.Aggregate(query, (current, includeproperty) => current.Include(includeproperty));
             return await query.ToListAsync();
+        }
+        public async Task<ApplicationUser> GetUserByIdAsync(string userId)
+        {
+            var profile = await context.Users.FindAsync(userId);
+            if (profile != null)
+            {
+                //AutoMapper 
+                var compalintDetails = context.Users
+                .Include(s => s.Governorates)
+                .Include(f => f.UserRoles)
+                .Include(g => g.Directorates)
+                .Include(d => d.SubDirectorate)
+                .Include(su => su.Village)
+
+                .FirstOrDefaultAsync(c => c.Id == userId);
+                //var compalintDetails = from m in _context.UploadsComplainte select m;
+                return await compalintDetails;
+            }
+            return null;
+        }
+
+        public async Task<ApplicationUser> GetByIdAsync(string id, params Expression<Func<ApplicationUser, object>>[] includeProperties)
+        {
+            IQueryable<ApplicationUser> query = contex.Set<ApplicationUser>();
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await query.FirstOrDefaultAsync(n => n.Id == id);
         }
     }
 }

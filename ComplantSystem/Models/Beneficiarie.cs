@@ -49,7 +49,7 @@ namespace ComplantSystem.Models
         public virtual TypeBeneficiari TypeBeneficiaris { get; set; }
         public virtual ICollection<BenefCommunication> BenefCommunications { get; set; }
         //Relationships
-        public ICollection<Proposal> SubmitionProposals { get; set; }
+        public virtual ICollection<Proposal> SubmitionProposals { get; set; }
 
 
     }
