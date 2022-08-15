@@ -8,14 +8,10 @@ namespace ComplantSystem.Models
 {
     public class StatusCompalint
     {
-        //public StatusCompalint()
-        //{
-        //    Id = Guid.NewGuid().ToString();
-        //}
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Name { get; set; } = " ";
+        public string Name { get; set; }
         //RelationShipes one to many with UploadsComplainte and StatusCompalint
         public virtual ICollection<Compalint> UploadsComplainte { get; set; }
     }

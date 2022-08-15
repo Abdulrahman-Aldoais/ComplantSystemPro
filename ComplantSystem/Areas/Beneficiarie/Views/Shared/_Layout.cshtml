@@ -489,16 +489,18 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li>
-                                            <a class="dropdown-item" href="الملف الشخصي.html">
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="Profile">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="/assets/img/avatars/1.png" alt class="rounded-circle" />
+
+                                                            <img src="/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="lh-1 d-block fw-semibold">آمنة كمال</span>
-                                                        <small>مسوؤل</small>
+                                                        <span class="lh-1 d-block fw-semibold"> @User.Identity.Name</span>
+                                                        <small>  مستخدم</small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -506,14 +508,15 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                         </li>
+
                                         <li>
-                                            <a class="dropdown-item" href="الملف الشخصي.html">
-                                                <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">الملف الشخصي</span>
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="Profile">
+                                                <i class="bx bx-user me-2"></i><span class="align-middle">الملف الشخصي</span>
                                             </a>
                                         </li>
+
                                         <li>
-                                            <a class="dropdown-item" href="الاعدادات.html">
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="EditeProfile">
                                                 <i class="bx bx-cog me-2"></i>
                                                 <span class="align-middle">الاعدادات</span>
                                             </a>
@@ -524,11 +527,15 @@
                                         </li>
                                         <li>
 
-                                            <a class="dropdown-item" href="تسجيل الدخول.html" target="_blank">
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="LogOut" target="_blank">
                                                 <i class="bx bx-power-off me-2"></i>
                                                 <span class="align-middle">تسجيل الخروج</span>
                                             </a>
                                         </li>
+
+
+
+
                                     </ul>
                                 </li>
                                 <!--/ User -->

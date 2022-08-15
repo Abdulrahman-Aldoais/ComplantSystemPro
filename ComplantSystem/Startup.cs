@@ -32,7 +32,7 @@ namespace ComplantSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+           
 
             services.AddDbContext<AppCompalintsContextDB>(
         b => b.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
@@ -67,22 +67,39 @@ namespace ComplantSystem
             services.AddScoped<ILocationRepo<Governorate>, GovernorateRepo>();
             services.AddScoped<ILocationRepo<Directorate>, DirectorateRepo>();
             services.AddScoped<ILocationRepo<SubDirectorate>, SubDirectorateRepo>();
-            services.AddScoped<ILocationRepo<Village>, VillageRepo>(); 
-            services.AddAdminServices();
+            services.AddScoped<ILocationRepo<Village>, VillageRepo>();
 
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
-            //.AddEntityFrameworkStores<AppCompalintsContextDB>()
-            //.AddDefaultUI()
-            //.AddDefaultTokenProviders();
-            services.AddControllersWithViews();
+            services.AddAdminServices();
+           
             // Add services to the container.
 
 
 
             services.AddAutoMapper(typeof(Startup));
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = "/Identity/Account/Login";
+            //});
+
+            services.AddMemoryCache();
+            services.AddSession();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
+            services.AddAuthorization(options =>
+            {
+
+                options.AddPolicy("AdminVillages",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("AdminVillages");
+                    });
+
+            });
 
 
         }
+
 
 
 
@@ -98,11 +115,21 @@ namespace ComplantSystem
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
+            //Authentication & Authorization
+            app.UseAuthentication();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
+
+
+
+          
+      
+         
 
 
 
@@ -111,16 +138,19 @@ namespace ComplantSystem
 
                 endpoints.MapControllerRoute(
                  name: "Beneficiarie",
+                 //areaName: "Beneficiarie",
                  pattern: "{area:exists}/{controller=Complaints}/{action=Index}/{id?}"
                );
+
                 endpoints.MapControllerRoute(
-                name: "AdminGeneralFederation",
+                  name: "AdminGeneralFederation",
+                  //areaName: "AdminGeneralFederation",
                 pattern: "{area:exists}/{controller=ManageCategoryes}/{action=Index}/{id?}"
               );
 
 
 
-                endpoints.MapControllerRoute(
+        endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Account}/{action=Login}/{id?}");
             });

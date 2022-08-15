@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -26,35 +27,9 @@ namespace ComplantSystem
         }
 
 
+      
 
-        //public async Task AddNewCompalintAsync(NewCompalintVM data)
-        //{
-
-
-        //    var addCompalintmappedObj = new Compalint()
-        //    {
-        //        TitleComplaint = data.TitleComplaint,
-        //        TypeComplaintId = data.TypeComplaintId,
-        //        DescComplaint = data.DescComplaint,
-        //        PropBeneficiarie = data.PropBeneficiarie,
-        //        GovernorateId = data.GovernorateId,
-        //        DirectorateId = data.DirectorateId,
-        //        SubDirectorateId = data.SubDirectorateId,
-        //        VillageId = data.VillageId,
-        //        StagesComplaintId= data.StagesComplaintId = 1,
-
-        //    };
-
-
-        //    await _context.AddAsync(addCompalintmappedObj);
-        //    await _context.SaveChangesAsync();
-
-        //    //await _context.SaveChangesAsync();
-
-
-        //}
-
-
+     
 
         public async Task<IEnumerable<UploadsComplainte>> GetAllRejectedComplaints() => await _context.UploadsComplaintes.ToListAsync();
 
@@ -103,6 +78,7 @@ namespace ComplantSystem
             var extension = Path.GetExtension(data.File.FileName);
             var fileName = string.Concat(newName, extension); // newName + extension
             var root = _env.WebRootPath;
+          
             var path = Path.Combine(root, "Uploads", fileName);
 
             using (var fs = System.IO.File.Create(path))
@@ -120,11 +96,13 @@ namespace ComplantSystem
                 DirectorateId = data.DirectorateId,
                 SubDirectorateId = data.SubDirectorateId,
                 VillageId = data.VillageId,
+                UserId = data.UserId,
                 StagesComplaintId = data.StagesComplaintId = 1,
                 OriginalFileName = data.File.FileName,
                 FileName = fileName,
                 ContentType = data.File.ContentType,
                 Size = data.File.Length,
+               
 
 
             };
@@ -193,6 +171,13 @@ namespace ComplantSystem
                 return await compalintDetails;
             }
             return null;
+        }
+
+        public async Task CreateAsync2(InputCompmallintVM model)
+        {
+            var mappedObj = _mapper.Map<UploadsComplainte>(model);
+            await _context.UploadsComplaintes.AddAsync(mappedObj);
+            await _context.SaveChangesAsync();
         }
     }
 }

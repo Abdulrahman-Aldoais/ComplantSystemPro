@@ -50,12 +50,7 @@ namespace ComplantSystem.Areas.AdminService.Service
             return OperationResult.Successeded();
         }
 
-        public IQueryable<ApplicationUser> GetAllAsync()
-        {
-            var result = contex.Users.Include(c => c.Role).OrderByDescending(u => u.CreatedDate)
-            .ProjectTo<ApplicationUser>(mapper.ConfigurationProvider);
-            return result;
-        }
+       
 
         public IQueryable<ApplicationUser> GetAllUserBlockedAsync()
         {
@@ -85,11 +80,14 @@ namespace ComplantSystem.Areas.AdminService.Service
             return count;
         }
 
+
+
         //UserRoles.AdminGovernorate,
         //       UserRoles.AdminSubDirectorate,
         //       UserRoles.AdminDirectorate
         public async Task InitializeAsync()
         {
+           
             if (!await roleManager.RoleExistsAsync(
                 UserRoles.AdminVillages))
             {
@@ -131,12 +129,7 @@ namespace ComplantSystem.Areas.AdminService.Service
             }
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllAsync(params Expression<Func<ApplicationUser, object>>[] includeproperties)
-        {
-            IQueryable<ApplicationUser> query = context.Users;
-            query = includeproperties.Aggregate(query, (current, includeproperty) => current.Include(includeproperty));
-            return await query.ToListAsync();
-        }
+
         public async Task<ApplicationUser> GetUserByIdAsync(string userId)
         {
             var profile = await context.Users.FindAsync(userId);
@@ -157,55 +150,53 @@ namespace ComplantSystem.Areas.AdminService.Service
             return null;
         }
 
+       
+        public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
+        {
+
+            return await context.Set<ApplicationUser>().ToListAsync();
+        }
+        public async Task<IEnumerable<ApplicationUser>> GetAllAsync(params Expression<Func<ApplicationUser, object>>[] includeProperties)
+        {
+            IQueryable<ApplicationUser> query = context.Set<ApplicationUser>();
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await query.ToListAsync();
+
+        }
+
+        public async Task<ApplicationUser> GetByIdAsync(string id) => await context.Set<ApplicationUser>().FirstOrDefaultAsync(n => n.Id == id);
+
         public async Task<ApplicationUser> GetByIdAsync(string id, params Expression<Func<ApplicationUser, object>>[] includeProperties)
         {
-            IQueryable<ApplicationUser> query = contex.Set<ApplicationUser>();
+            IQueryable<ApplicationUser> query = context.Set<ApplicationUser>();
             query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
             return await query.FirstOrDefaultAsync(n => n.Id == id);
         }
+
+        public async Task UpdateAsync(string id, EditUserViewModel entity)
+        {
+            var updatedUser = await userManager.FindByIdAsync(id);
+            var roleId = await userManager.GetRolesAsync(updatedUser);
+            if (updatedUser == null)
+                return;
+            else
+            {
+
+                updatedUser.FirstName = entity.FirstName;
+                updatedUser.LastName = entity.LastName;
+                updatedUser.PhoneNumber = entity.PhoneNumber;
+               
+                updatedUser.IdentityNumber = entity.IdentityNumber;
+                updatedUser.CreatedDate = DateTime.Now;
+                updatedUser.DateOfBirth = entity.DateOfBirth;
+                await userManager.UpdateAsync(updatedUser);
+    
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+
+
     }
 }
-
-
-//public class GroupedUserViewModel
-//{
-//    public List<UserViewModel> Users { get; set; }
-//    public List<UserViewModel> Admins { get; set; }
-//}
-//public class UserViewModel
-//{
-//    public string Username { get; set; }
-//    public string Roles { get; set; }
-//}
-
-
-
-//public ActionResult Index()
-//{
-//    var allusers = context.Users.ToList();
-//    var users = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("User")).ToList();
-//    var userVM = users.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
-//    var admins = allusers.Where(x => x.Roles.Select(role => role.Name).Contains("Admin")).ToList();
-//    var adminsVM = admins.Select(user => new UserViewModel { Username = user.FullName, Roles = string.Join(",", user.Roles.Select(role => role.Name)) }).ToList();
-//    var model = new GroupedUserViewModel { Users = userVM, Admins = adminsVM };
-//    return View(model);
-//}
-
-//@model Models.GroupedUserViewModel
-// @{
-//    ViewBag.Title = "Index";
-//}
-// < div >
-//     @foreach(var user in Model.Admins)
-//     {
-//         < p >
-//             < strong > @user.Username | @user.Roles </ strong >
-//         </ p >
-//     }
-//@foreach(var user in Model.Users)
-//     {
-//         < p >
-//             < strong > @user.Username | @user.Roles </ strong >
-//         </ p >
-//     }
-// </ div >

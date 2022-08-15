@@ -1,4 +1,5 @@
 ﻿using ComplantSystem.Areas.Beneficiarie.ViewModels;
+using ComplantSystem.Const;
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
 using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,8 @@ using System.Threading.Tasks;
 namespace ComplantSystem.Areas.Beneficiarie.Controllers
 {
     [Area("Beneficiarie")]
+
+    [Authorize(UserRoles.AdminVillages)]
 
     public class ComplaintsController : Controller
     {
@@ -50,7 +53,11 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
         }
 
 
-      
+
+       
+
+
+
         [HttpGet]
         [AllowAnonymous]
 
@@ -179,7 +186,7 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
 
         //}
 
-        private string BeneficiarieId
+        private string UserId
         {
             get
             {
@@ -188,9 +195,8 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
         }
 
 
-
         [HttpGet]
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create()
         {
             InputCompmallintVM NcomVM = new InputCompmallintVM()
             {
@@ -212,15 +218,80 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
                 var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
                 ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
                 ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
+                var newName = Guid.NewGuid().ToString(); //rre-rewrwerwer-gwgrg-grgr
+                var extension = Path.GetExtension(data.File.FileName);
+                var fileName = string.Concat(newName, extension); // newName + extension
+                var root = _env.WebRootPath;
+                var path = Path.Combine(root, "Uploads", fileName);
 
-  
+                using (var fs = System.IO.File.Create(path))
+                {
+                    await data.File.CopyToAsync(fs);
+                }
 
-                await _service.CreateAsync(data);
-               
+
+                //await _service.CreateAsync(data);
+                await _service.CreateAsync2(new InputCompmallintVM
+                {
+                    TitleComplaint = data.TitleComplaint,
+                    TypeComplaintId = data.TypeComplaintId,
+                    DescComplaint = data.DescComplaint,
+                    PropBeneficiarie = data.PropBeneficiarie,
+                    GovernorateId = data.GovernorateId,
+                    DirectorateId = data.DirectorateId,
+                    SubDirectorateId = data.SubDirectorateId,
+                    VillageId = data.VillageId,
+                    UserId = UserId,
+                    StagesComplaintId = data.StagesComplaintId = 1,
+                    OriginalFileName = data.File.FileName,
+                    FileName = fileName,
+                    ContentType = data.File.ContentType,
+                    Size = data.File.Length,
+                }) ; 
+
                 return RedirectToAction(nameof(Index));
             }
             return View(data);
         }
+
+
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> Create2()
+        {
+            InputCompmallintVM NcomVM = new InputCompmallintVM()
+            {
+                Governorates = governorate.List(),
+            };
+            var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
+
+            ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
+            ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
+
+            return View(NcomVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create2(InputCompmallintVM data)
+        {
+            if (!ModelState.IsValid)
+            {
+                var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
+                ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
+                ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
+
+
+
+                await _service.CreateAsync(data);
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View(data);
+        }
+
+
 
         public async Task<IActionResult> ViewCompalintDetails(string id)
         {
@@ -234,6 +305,11 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
             var allCompalints = await _service.GetAllAsync(n =>n.StatusCompalintId == 2);
             return View(allCompalints);
         }
+
+
+
+
+
 
         [AllowAnonymous]
         public async Task<IActionResult> FilterCompalintsBySearch(string searchString)

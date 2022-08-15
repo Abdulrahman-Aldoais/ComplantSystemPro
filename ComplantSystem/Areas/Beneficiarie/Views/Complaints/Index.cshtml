@@ -32,8 +32,8 @@
                     <div class="col-6" style="text-align-last: end; margin-top: 19px;">
                         <button class="dt-button buttons-collection btn btn-label-primary  me-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
                             <span>
-                                522<i class=""></i>
-                                <span class="d-none d-sm-inline-block">العدد الكلي</span>
+                                <i class=""></i>
+                                   <span class="d-none d-sm-inline-block">العدد الكلي @ViewBag.totalCompalints</span>
                             </span>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
                                     </div>
                                 </div>
                             </div>
-           
+
 
 
                             <div class="col-12 col-md-6  d-flex  mb-4 justify-content-center justify-content-md-start">
@@ -103,7 +103,11 @@
                                 </div>
                             </div>
 
-
+                            <div class="d-flex col-12 justify-content-between">
+                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create2", "Complaints","Beneficiarie")'">
+                                    اضــــافة شكوى +
+                                </button>
+                            </div>
 
                         </div>
 
@@ -153,7 +157,7 @@
 
                         <div class="card-datatable table-responsive">
 
-                            <table id="example" class="datatables-users table border-top">
+                            <table id="example" class="datatables-users table border-top   ">
 
                                 <thead>
                                     <tr>
@@ -234,7 +238,7 @@
                                             <a><i class="tf-icon bx bx-chevrons-right" style="margin-right:10px"></i>التالي</a>
                                         </li>*@
 
-                                    <div class="col-12 text-center">
+                                    @*<div class="col-12 text-center">
                                         <div>
                                             @if (ViewBag.CurrentPage - 1 > 0)
                                             {
@@ -246,7 +250,7 @@
                                                 <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage + 1  )" class="btn btn-outline-primary  align-right">التالي</a>
                                             }
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                 </nav>
                             </div>

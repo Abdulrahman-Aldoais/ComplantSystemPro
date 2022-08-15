@@ -62,7 +62,7 @@
         <h4 class="mb-2">مرحبا بك 👋</h4>
         <p class="mb-4">من فضلك ادخل حسابك</p>
 
-        <form  method="post"  id="formAuthentication" class="mb-3"  >
+        <form method="post" asp-action="Login" asp-controller="Account" asp-route-ReturnUrl="@Context.Request.Query["ReturnUrl"]" class="mb-3"  >
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="mb-3">
                 <label asp-for="IdentityNumber"  class="form-label">  رقم البطاقة</label>

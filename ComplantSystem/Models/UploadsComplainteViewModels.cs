@@ -57,10 +57,18 @@ namespace ComplantSystem.Models
         public  List<string> UserwhosolvedId { get; set; }
         public string SolutionsCompalints { get; set; }
 
-        //public string BeneficiarieId { get; set; } 
-        //[ForeignKey("BeneficiariesId")]
+  
+        public string UserId { get; set; }
         public virtual ApplicationUser HoUser { get; set; }
         public DateTime UploadDate { get; set; }
+
+
+
+        public string OriginalFileName { get; set; }
+        public string FileName { get; set; }
+        public decimal Size { get; set; }
+
+        public string ContentType { get; set; }
 
     }
 

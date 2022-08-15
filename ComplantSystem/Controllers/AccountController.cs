@@ -9,14 +9,7 @@ namespace ComplantSystem.Controllers
 {
     public class AccountController : Controller
     {
-        //private readonly SignInManager<IdentityUser> _signInManager;
-        //private readonly UserManager<IdentityUser> _userManager;
 
-        //public AccountController(SignInManager<IdentityUser>signInManager,UserManager<IdentityUser>userManager )
-        //{
-        //    _signInManager = signInManager;
-        //    _userManager = userManager;
-        //}
 
 
         private readonly UserManager<ApplicationUser> _userManager;
@@ -48,23 +41,41 @@ namespace ComplantSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model,string ReturnUrl)
+        public async Task<IActionResult> Login(LoginViewModel loginVM, string returnUrl)
         {
+            TempData["Error"] = null;
+
             if (ModelState.IsValid)
             {
-              var result = await _signInManager.PasswordSignInAsync(model.IdentityNumber, model.Password,true,true);
-                if (!await _roleManager.RoleExistsAsync(
-              UserRoles.AdminVillages))
-                {
-                    await _roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminVillages));
-                }
+                var result = await _signInManager.PasswordSignInAsync(loginVM.IdentityNumber, loginVM.Password, true, true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "ManageCategoryes",  new { Area = "AdminGeneralFederation" });
-                    //return RedirectToPage("/ManageCategoryes/Index",  new { area = "AdminGeneralFederation" });
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+
+                        return LocalRedirect(returnUrl);
+                    }
+                    else if ( User.IsInRole(UserRoles.AdminGeneralFederation))
+                    {
+                        return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+
+                    }
+                    else if (User.IsInRole(UserRoles.AdminVillages))
+                    {
+                        return RedirectToAction("Complaints", "Beneficiarie");
+
+                    }
+                    else if(User.IsInRole(UserRoles.AdminGovernorate))
+                    {
+                        return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+
+                    }
+
+                    //return RedirectToAction("Create", "Uploads");
                 }
             }
-            return View(model);
+            return View(loginVM);
+
         }
 
         [HttpGet]
@@ -103,6 +114,12 @@ namespace ComplantSystem.Controllers
                 }
             }
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Home");
         }
 
         public IActionResult AddUser()

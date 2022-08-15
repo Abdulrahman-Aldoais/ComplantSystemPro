@@ -1,12 +1,15 @@
 ﻿using ComplantSystem.Areas.UsersService.ViewModel;
 using ComplantSystem.Const;
 using ComplantSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 {
+    [Area("AdminGovernorate")]
+    [Authorize(Roles = UserRoles.AdminGovernorate)]
     public class AccountGeneralFederationController : Controller
     {
 
@@ -30,31 +33,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model, string ReturnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(model.IdentityNumber, model.Password, true, true);
-                if (!await _roleManager.RoleExistsAsync(
-              UserRoles.AdminVillages))
-                {
-                    await _roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminVillages));
-                }
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "ManageCategoryes", new { Area = "AdminGeneralFederation" });
-                    //return RedirectToPage("/ManageCategoryes/Index",  new { area = "AdminGeneralFederation" });
-                }
-            }
-            return View(model);
-        }
+     
 
 
         public IActionResult AddUser()

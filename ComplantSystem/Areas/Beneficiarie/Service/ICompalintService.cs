@@ -18,14 +18,15 @@ namespace ComplantSystem
 
         Task<IEnumerable<UploadsComplainte>> GetAllRejectedComplaints();
         Task CreateAsync(InputCompmallintVM model);
+        Task CreateAsync2(InputCompmallintVM model);
         //Task AddNewCompalintAsync(UploadsComplainte data);
 
         //Task CreateAsync(InputUpload model);
         //IQueryable<Compalint> GetAll();
-     
+
         //Task<NewCompalintVM> FindAsync(string id);
-       
-       
+
+
 
         Task DeleteAsync(string id, string userId);
 

@@ -1,8 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ComplantSystem.EditUserViewModel
 
 <div class="content-wrapper">
     <!-- Content -->
@@ -16,13 +12,13 @@
             <div class="col-md-12">
                 <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                        <a class="nav-link active" asp-controller="SetingProfile" asp-action="Profile"><i class="bx bx-user me-1"></i> الملف الشخصي</a>
+                        <a class="nav-link "  asp-controller="SetingProfile" asp-action="Profile"><i class="bx bx-user me-1"></i> الملف الشخصي</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " asp-controller="SetingProfile" asp-action="EditeProfile"><i class="bx bx-user me-1"></i> الحساب</a>
+                        <a class="nav-link active "  asp-controller="SetingProfile" asp-action="EditeProfile"><i class="bx bx-user me-1"></i> تعديل الملف الشخصي</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="SetingProfile" asp-action="Chenginpassword"><i class="bx bx-lock-alt me-1"></i> الأمان</a>
+                        <a class="nav-link"  asp-controller="SetingProfile" asp-action="ChangePassword"><i class="bx bx-lock-alt me-1"></i> تغير كلمة المرور</a>
                     </li>
 
                 </ul>
@@ -61,8 +57,17 @@
                         <form id="formAccountSettings" method="POST" onsubmit="return false">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="firstName" class="form-label">الاسم</label>
-                                    <input class="form-control"
+                                    <label for="firstName" class="form-label">الاسم الاول</label>
+                                    <input asp-for="FirstName" class="form-control"
+                                           type="text"
+                                           id="firstName"
+                                           name="الاسم"
+                                           value="الاسم"
+                                           autofocus />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">الاسم الاخير </label>
+                                    <input asp-for="LastName" class="form-control"
                                            type="text"
                                            id="firstName"
                                            name="الاسم"
@@ -75,124 +80,37 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">الرقم الوطني</label>
-                                    <input class="form-control"
+                                    <input asp-for="IdentityNumber" class="form-control"
                                            type="text"
                                            id="email"
-                                           name="الرقم الوطني"
-                                           value="548452215552 "
-                                           placeholder="john.doe@example.com" />
+                                           name="الرقم الوطني" />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="organization" class="form-label">الصلاحيات</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="organization"
-                                           name="الصلاحيات"
-                                           value="الصلاحيات" />
+                                    <input type="text"  @Html.DisplayFor(model => model.Role.Name) />
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label" for="phoneNumber">رقم التلفون</label>
                                     <div class="input-group input-group-merge">
                                         <span class="input-group-text">YE (+967)</span>
-                                        <input type="text"
-                                               id="phoneNumber"
-                                               name="phoneNumber"
-                                               class="form-control"
-                                               placeholder="202 555 0111" />
+                                        <input asp-for="PhoneNumber" type="text"
+                                               id="phoneNumber" />
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                @*<div class="col-md-6 mb-3">
                                     <label for="address" class="form-label">الفعالية</label>
-                                    <input type="text" class="form-control" id="address" name="address" placeholder="نشط" />
-                                </div>
+                                    <input type="text" class="form-control" id="address" name="address"  />
+                                </div>*@
+                             
                                 <div class="col-md-6 mb-3">
-                                    <label for="state" class="form-label">تاريخ الانشاء</label>
-                                    <input class="form-control" type="text" id="state" name="state" placeholder="19/05/2022" />
+                                    <label for="zipCode" class="form-label"> تاريخ الانضمام </label>
+                                    <input asp-for="DateOfBirth" class="form-control datepicker"/>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="zipCode" class="form-label">اسم منشئ الحساب</label>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="zipCode"
-                                           name="zipCode"
-                                           placeholder="الاسم"
-                                           maxlength="6" />
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label" for="country">المحافظة</label>
-                                    <select id="country" class="select2 form-select">
-                                        <option value="">تحديد</option>
-                                        <option value="Australia">تعز</option>
-                                        <option value="Bangladesh">صنعاء</option>
-                                        <option value="Belarus">عمران</option>
-                                        <option value="Brazil">المحويت</option>
-                                        <option value="Canada">اب</option>
-                                        <option value="China">المهرة</option>
-                                        <option value="France">حضرموت</option>
-                                        <option value="Germany">صعدة</option>
-                                        <option value="India">ذمار</option>
-                                        <option value="Indonesia">عدن</option>
-                                        <option value="Israel">البيضاء</option>
-                                        <option value="Italy">الضالع</option>
-                                        <option value="Japan">الحديدة</option>
-                                        <option value="Korea">أمانة العاصمة</option>
-                                        <option value="Mexico">ابين</option>
-                                        <option value="Philippines">مأرب</option>
-                                        <option value="Russia">شبوة</option>
-                                        <option value="South Africa">الجوف</option>
-                                        <option value="Thailand">ريمة</option>
-                                        <option value="Turkey">حجة</option>
-                                        <option value="Ukraine">لحج</option>
-
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="language" class="form-label">المديرية</label>
-                                    <select id="language" class="select2 form-select">
-                                        <option value="">تحديد</option>
-                                        <option value="en">السبعين</option>
-                                        <option value="fr">الوحدة</option>
-                                        <option value="de">شعوب</option>
-                                        <option value="pt">التحرير</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="timeZones" class="form-label">العزلة</label>
-                                    <select id="timeZones" class="select2 form-select">
-                                        <option value="">تحديد</option>
-                                        <option value="-12">عزلة 888</option>
-                                        <option value="-11">عزلة 888</option>
-                                        <option value="-10">عزلة 888</option>
-                                        <option value="-9">عزلة 888</option>
-                                        <option value="-8">عزلة 888</option>
-                                        <option value="-8">عزلة 888</option>
-                                        <option value="-7">عزلة 888</option>
-                                        <option value="-7">عزلة 888</option>
-                                        <option value="-6">عزلة 888</option>
-                                        <option value="-6">عزلة 888</option>
-                                        <option value="-6">عزلة 888</option>
-                                        <option value="-6">عزلة 888</option>
-                                        <option value="-5">عزلة 888</option>
-                                        <option value="-5">عزلة 888</option>
-                                        <option value="-5">عزلة 888</option>
-                                        <option value="-4">عزلة 888</option>
-                                        <option value="-4">عزلة 888</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="currency" class="form-label">القرية</label>
-                                    <select id="currency" class="select2 form-select">
-                                        <option value="">تحديد</option>
-                                        <option value="usd">الهجرة</option>
-                                        <option value="euro">سنحان</option>
-                                        <option value="pound">ضبعات</option>
-                                        <option value="bitcoin">بني حشيش</option>
-                                    </select>
-                                </div>
+                             
                             </div>
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary me-2">حفظ التغير</button>
-                                <button type="reset" class="btn btn-label-secondary">إلغاء</button>
+                                <button type="reset" asp-action="Index" class="btn btn-label-secondary">إلغاء</button>
                             </div>
                         </form>
                     </div>

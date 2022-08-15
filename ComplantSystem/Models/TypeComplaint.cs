@@ -18,6 +18,7 @@ namespace ComplantSystem.Models
         public string Id { get; set; }
 
         [Column(TypeName = "varchar(150)")]
+        [Required(ErrorMessage = "يجب ان تقوم بكتابة الصنف ")]
         public string Type { get; set; }
         //public int? UserId { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;

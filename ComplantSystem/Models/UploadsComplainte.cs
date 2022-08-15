@@ -16,7 +16,6 @@ namespace ComplantSystem.Models
         }
         public string Id { set; get; }
         [Required(ErrorMessage = "يجب ان تقوم بكتابة هذه الحقل ")]
-
         public string TitleComplaint { get; set; }
 
         [Required(ErrorMessage = "يجب ان تقوم بكتابة هذه الحقل ")]
@@ -32,7 +31,7 @@ namespace ComplantSystem.Models
         public virtual StagesComplaint StagesComplaint { get; set; }
         public string PropBeneficiarie { get; set; }
         [Required(ErrorMessage = "يجب ان تقوم بإختبار المنطقة المحددة ")]
-        public int? GovernorateId { get; set; }
+        public int GovernorateId { get; set; }
         public virtual Governorate Governorates { get; set; }
         public int? DirectorateId { get; set; }
         public virtual Directorate Directorates { get; set; }
@@ -43,21 +42,13 @@ namespace ComplantSystem.Models
         public virtual List<Compalints_Solution> CompalintsHasSolutions { get; set; }
         public string SolutionsCompalints { get; set; }
         public virtual ApplicationUser HoUser { get; set; }
-        [Display(Name = "Original File Name")]
+        public string UserId { get; set; }
         public string OriginalFileName { get; set; }
-        [Display(Name = "File Name")]
         public string FileName { get; set; }
         public decimal Size { get; set; }
-        public string UserId { get; set; }
-
-        [Display(Name = "Content Type")]
+       
         public string ContentType { get; set; }
-
-        [Display(Name = "Upload Date")]
         public DateTime UploadDate { get; set; }
-      
-        [Display(Name = "Download Count")]
-     
         public virtual ApplicationUser User { get; set; }
 
       

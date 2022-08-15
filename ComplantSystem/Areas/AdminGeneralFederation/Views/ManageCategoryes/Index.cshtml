@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager;
+@inject SignInManager<ApplicationUser> signInManager;
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="breadcrumb-wrapper py-3 mb-4">
         <span class="text-muted fw-light">إدارة النظام    /</span> إدارة الشكاوي
@@ -70,14 +72,13 @@
                         <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
                         line-height: 1.99;
                         width: 152.35px;"
-                              
                               iv class="t-d">
-                    @if (User.Identity.IsAuthenticated)
-                    {
+                            @if (User.Identity.IsAuthenticated)
+                            {
 
-                        <h5 class="card-header title-t" style="margin-left: 10px;">@User.Identity.Name</h5>
-                    }
-                              </span>
+                                <h5 class="card-header title-t" style="margin-left: 10px;">@User.Identity.Name</h5>
+                            }
+                        </span>
                     </div>
                 </div>
 

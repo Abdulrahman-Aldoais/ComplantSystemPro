@@ -8,10 +8,14 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "حق الايميل مطلوب")]
+       
         public string IdentityNumber { get; set; }
         [Required]
         public string Password { get; set; }
+        public ApplicationRole Roles { get; set; }
+        //[Display(Name = "تذكرني")]
+        //public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel

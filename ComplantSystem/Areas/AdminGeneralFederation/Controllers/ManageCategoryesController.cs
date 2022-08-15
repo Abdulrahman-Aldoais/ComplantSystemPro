@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 {
     [Area("AdminGeneralFederation")]
-    //[Route("AdminGeneralFederation/[Controller]/[Action]/{id?}")]
+    //[Route("AdminGeneralFederation/[ManageCategoryes]/[Action]/{id?}")]
     [Authorize(Roles = UserRoles.AdminGeneralFederation)]
     public class ManageCategoryesController : Controller
     {
