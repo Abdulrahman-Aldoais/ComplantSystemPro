@@ -1,12 +1,12 @@
 ﻿using ComplantSystem.Areas.AdminService.Service;
 using ComplantSystem.Areas.UsersService.ViewModel;
-using ComplantSystem.Areas.VillagesUsers.Models;
 using ComplantSystem.Const;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using ComplantSystem.Models;
+using ComplantSystem.Areas.VillagesUsers.Models;
 
 namespace ComplantSystem.Areas.AdminSubDirectorate.Controllers
 {

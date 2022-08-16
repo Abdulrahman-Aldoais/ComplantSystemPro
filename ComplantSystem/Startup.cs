@@ -153,6 +153,7 @@ namespace ComplantSystem
         endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Account}/{action=Login}/{id?}");
+               endpoints.MapRazorPages();
             });
         }
     }

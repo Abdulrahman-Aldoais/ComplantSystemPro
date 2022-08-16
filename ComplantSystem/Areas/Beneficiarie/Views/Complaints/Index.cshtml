@@ -7,9 +7,6 @@
 
 
 
-<div class="content-wrapper">
-    <div class="container-xxl flex-grow-1 container-p-y">
-
         <!-- Users List Table -->
 
 
@@ -22,7 +19,7 @@
 
             <div class="card">
 
-                <div class="row mx-2  ">
+                <div class="row">
                     <div class="col-6">
                         <div class="t-d">
                             <h5 class="card-header title-t" style="margin-left: 10px;"> إدارة الشكاوي</h5>
@@ -44,116 +41,41 @@
 
                 </div>
 
-                @*<div class="row mx-2  ">
-                        <div class="col-md-6">
-                            <div class="t-d">
-                                <h5 class="card-header title-t"> الشكاوي</h5>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6 mt-4">
-                            <div class="dropdown" style="text-align-last: end;">
-
-                                @{
-                                    <div class="btn-group">
-                                        <span class="badge bg-label-primary badgess " style="    padding-left: 36px;
-                                    line-height: 1.99;
-                                    width: 152.35px;">العدد الكلي @ViewBag.totalCompalints</span>
-                                </div>
-
-                                }
-                            </div>
-
-                        </div>
-
-                    </div>*@
-
                 <div class="card-datatable table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                         <div class="row mx-2 border-bottom ">
-                            <div class="col-sm-12 col-md-2 d-flex mb-4 justify-content-center justify-content-md-start " style="margin-top:12px ;">
-                                <label class="form-label"> عرض حسب</label>
-                            </div>
-                            <div class="col-12 col-md-2 d-flex  mb-4 justify-content-center justify-content-md-center ">
+                           
+                            <div class="col-12 col-md-12 d-flex">
                                 <div class="me-3 table-type">
-                                    <label class="form-label">  </label>
-                                    <div class="dataTables_length" id="DataTables_Table_0_length">
-                                        <label>
-                                            <select name="DataTables_Table_0_length" id="FilterType"
-                                                    class="select2 form-select">
-                                                <option value="0">فلترة</option>
-                                                <option value="مرفوضة">مرفوضة</option>
-                                                <option value="محلولة">محلولة</option>
-                                                <option value="غير محلولة">غير محلولة</option>
-                                                <option value="مرفوعة">مرفوعة</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                                    <label class="form-label"> عرض حسب</label>
 
 
-
-                            <div class="col-12 col-md-6  d-flex  mb-4 justify-content-center justify-content-md-start">
-                                <div class="me-3 table-type search-paddind">
-                                    <span class="table-span">بحث</span>
-                                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
-                                        <label><input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex col-12 justify-content-between">
-                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create2", "Complaints","Beneficiarie")'">
-                                    اضــــافة شكوى +
-                                </button>
-                            </div>
-
-                        </div>
-
-                        <!--<div class="row mx-2 border-bottom ">
-                        <div class="col-md-3">
-                            <div class="me-3 table-type">
-                                <span class="table-span"> عرض حسب</span>
-                                <div class="dataTables_length" id="DataTables_Table_0_length">-->
-                        @*<select id="FilterType" asp-items="ViewBag.StatusCompalints">*@
-
-                        <!--<select id="FilterType"
-                                                class="select2 form-select select2-hidden-accessible"
-                                                tabindex="-1" aria-hidden="true" data-select2-id="10">
-                                            <option value="0" data-select2-id="12">عرض</option>
+                                    <label>
+                                        <select name="DataTables_Table_0_length" id="FilterType"
+                                                class="select2 form-select">
+                                            <option value="0">عرض الكل</option>
+                                            <option value="مرفوضة">مرفوضة</option>
                                             <option value="جديدة">جديدة</option>
                                             <option value="محلولة">محلولة</option>
                                             <option value="غير محلولة">غير محلولة</option>
                                             <option value="مرفوعة">مرفوعة</option>
                                         </select>
-
-                                    </div>
+                                    </label>
 
                                 </div>
+                                <form class="form-inline my-2 my-lg-0">
+                                    <input id="CustomSearchTextField" type="search" class="form-control" placeholder="البحث عن شكوى معينة" aria-controls="example">
 
-
-
+                                </form>
 
                             </div>
 
-
-
-                            <div class="col-md-5">
-
-                                <div class="btn-group" style="float: left; margin-left:20px; width: auto;
-                                    height: 48px;">
-                                    <a class="btn  btn-primary text-white dropdown-toggle hide-arrow " aria-expanded="false" asp-action="Create">
-                                        <i class="bx bx-plus me-0 me-lg-2"></i>
-                                        إضافة شكوى
-                                    </a>
-                                </div>
-
+                            <div class=" col-12 justify-content-between">
+                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create2", "Complaints","Beneficiarie")'">
+                                    اضــــافة شكوى +
+                                </button>
                             </div>
-
-
-
-                        </div>-->
+                        </div>
 
                         <div class="card-datatable table-responsive">
 
@@ -161,7 +83,7 @@
 
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th style="width: 341px">
                                             العنوان
                                         </th>
                                         <th>
@@ -195,7 +117,7 @@
                                         @foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td>
+                                                <td class="row-cols-xl-4">
                                                     @Html.DisplayFor(modelItem => item.TitleComplaint)
                                                 </td>
                                                 <td> @Html.DisplayFor(modelItem => item.UploadDate)</td>
@@ -266,41 +188,179 @@
         @section Scripts{
 
             <script>
-                //$(document).ready(
+                var oTable = $('#example').DataTable({
+                    
+                    language: {
+                        "loadingRecords": "جارٍ التحميل...",
+                        "lengthMenu": "أظهر _MENU_ مدخلات",
+                        "zeroRecords": "لم يعثر على أي شكوى",
+                        "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "search": "ابحث:",
+                        "searchPlaceholder": "بحث عن شكوى",
+                        "paginate": {
+                            "first": "الأول",
+                            "previous": "السابق",
+                            "next": "التالي",
+                            "last": "الأخير"
+                        }
 
-                $(function () {
+                    },
 
+                    "paging": true,
+                    "lengthChange": false,
+                    /*"searching": true,*/
+                    "ordering": false,
+                    "info": false,
+                    "autoWidth": true,
+                    "responsive": true,
+                    "searching": true,
+                });   //using Capital D, which is mandatory to retrieve "api" datatables' object, latest jquery Datatable
 
-                    $('#example').DataTable({
+                $('#CustomSearchTextField').keyup(function () {
 
-                        language: {
-                            "loadingRecords": "جارٍ التحميل...",
-                            "lengthMenu": "أظهر _MENU_ مدخلات",
-                            "zeroRecords": "لم يعثر على أية شكوى",
-                            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                            "search": "ابحث:",
-                            "searchPlaceholder": "بحث عن شكوى",
-                            "paginate": {
-                                "first": "الأول",
-                                "previous": "السابق",
-                                "next": "التالي",
-                                "last": "الأخير"
-                            }
-
-                        },
-
-                        "paging": true,
-                        "lengthChange": false,
-                        /*"searching": true,*/
-                        "ordering": false,
-                        "info": true,
-                        "autoWidth": true,
-                        "responsive": true,
-                        "searching": false,
-
-                    });
-
+                    oTable.search($(this).val()).draw();
+                        
                 });
+
+
+                //// remove the default global filter function:
+                //while ($.fn.dataTable.ext.search.length > 0) {
+                //    $.fn.dataTable.ext.search.pop();
+                //}
+
+                //// add our custom filter function:
+                //$.fn.dataTable.ext.search.push(
+                //    function (settings, data, rowIdx) {
+                //        // get the TD node containing the drop-down list:
+                //        var selectListTdNode = $('#example').DataTable().rows(rowIdx).nodes().to$().find('td')[5]
+                //        // get the selected value:
+                //        var selection = $(selectListTdNode).find(":selected").text();
+
+                //        // process each field in the row:
+                //        var displayRow = true; // start by assuming the row should be displayed
+                //        data.forEach(function (item, idx) {
+                //            // for the 6th column (idx = 5), we need to use the selected drop-down
+                //            //  value, and not the contents of the cell:
+                //            item = (idx === 5) ? selection : item;
+
+                //            var searchField = $('#example').DataTable().columns(idx).footer();
+                //            var searchValue = $(searchField).find('input').val();
+                //            // should the row be displayed? 'false' means 'do not display':
+                //            if (searchValue !== '' & !item.toLowerCase().includes(searchValue.toLowerCase())) {
+                //                displayRow = false;
+                //            }
+                //        });
+                //        return displayRow;
+                //    }
+                //);
+
+                //$(document).ready(function () {
+
+                //    // create an input field in each footer cell:
+                //    $('#example tfoot th').each(function () {
+                //        var title = $(this).text();
+                //        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+                //    });
+
+                //    var table = $('#example').DataTable({
+                //        dom: 'lrtip' // hide the global filter box ('f')
+                //    });
+
+                //    // create change events to trigger a re-draw, which also calls the filter function:
+                //    $('#example tfoot th input').keyup(function () {
+                //        table.draw();
+                //    });
+                //    $('#example td select').change(function () {
+                //        table.draw();
+                //    });
+
+                //});
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //$(function () {
+
+
+                //    $('#example').DataTable({
+
+                //        language: {
+                //            "loadingRecords": "جارٍ التحميل...",
+                //            "lengthMenu": "أظهر _MENU_ مدخلات",
+                //            "zeroRecords": "لم يعثر على أية شكوى",
+                //            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                //            "search": "ابحث:",
+                //            "searchPlaceholder": "بحث عن شكوى",
+                //            "paginate": {
+                //                "first": "الأول",
+                //                "previous": "السابق",
+                //                "next": "التالي",
+                //                "last": "الأخير"
+                //            }
+
+                //        },
+
+                //        "paging": true,
+                //        "lengthChange": false,
+                //        /*"searching": true,*/
+                //        "ordering": false,
+                //        "info": true,
+                //        "autoWidth": true,
+                //        "responsive": true,
+                //        "searching": false,
+
+                //    });
+                //}
+                   
+                //    /* Custom filtering function which will search data in column four between two values */
+                //    $('#example').DataTable({ 
+                //              language: {
+                //            "loadingRecords": "جارٍ التحميل...",
+                //            "lengthMenu": "أظهر _MENU_ مدخلات",
+                //            "zeroRecords": "لم يعثر على أية شكوى",
+                //            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                //            "search": "ابحث:",
+                //            "searchPlaceholder": "بحث عن شكوى",
+                //            "paginate": {
+                //                "first": "الأول",
+                //                "previous": "السابق",
+                //                "next": "التالي",
+                //                "last": "الأخير"
+                //            }
+
+                //        },
+
+                //        "paging": true,
+                //        "lengthChange": false,
+                //        /*"searching": true,*/
+                //        "ordering": false,
+                //        "info": true,
+                //        "autoWidth": true,
+                //        "responsive": true,
+                //        "searching": false,
+
+                //    });
+                        
+                   
+
+                //    $(document).ready(function () {
+                //        var table = $('#example_filter').DataTable();
+
+                //        // Event listener to the two range filtering inputs to redraw on input
+                //        $('#example_filter').keyup(function () {
+                //            table.draw();
+                //        });
+                //    });
+                //});
             </script>
 
 

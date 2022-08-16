@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using ComplantSystem.Areas.AdminService.Service;
 using ComplantSystem.Areas.UsersService.ViewModel;
-using ComplantSystem.Areas.VillagesUsers.Models;
 using ComplantSystem.Const;
+using ComplantSystem.Data;
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +14,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace ComplantSystem.Areas.AdminService.Service
+namespace ComplantSystem.Areas
 {
     public class UserService : IUserService
     {

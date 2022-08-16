@@ -1,5 +1,5 @@
 ﻿using ComplantSystem.Areas.UsersService.ViewModel;
-using ComplantSystem.Areas.VillagesUsers.Models;
+using ComplantSystem.Data;
 using ComplantSystem.Models;
 using System;
 using System.Collections.Generic;
@@ -14,8 +14,8 @@ namespace ComplantSystem.Areas.AdminService.Service
         Task<IEnumerable<ApplicationUser>> GetAllAsync();
         Task<IEnumerable<ApplicationUser>> GetAllAsync(params Expression<Func<ApplicationUser, object>>[] includeProperties);
         Task<ApplicationUser> GetByIdAsync(string id);
-        Task UpdateAsync(string id, EditUserViewModel entity);
         Task<ApplicationUser> GetByIdAsync(string id, params Expression<Func<ApplicationUser, object>>[] includeProperties);
+        Task UpdateAsync(string id, EditUserViewModel entity);
 
         //Task<IEnumerable<ApplicationUser>> GetAllAsync(params Expression<Func<ApplicationUser, object>>[] includeproperties);
         IQueryable<ApplicationUser> GetAllUserBlockedAsync();

@@ -46,21 +46,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         {
             return View();
         }
-        //public async Task<IActionResult> Profile(string id)
-        // {
-
-        //     var users = await userService.GetAllAsync();
-        //     ViewBag.UserCount = users.Count();
-
-        //     var user = await userService.GetByIdAsync((string)id);
-        //     if (user == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(user);
-
-        // }
+     
         public async Task<IActionResult> Profile()
         {
             var currentUser = await userManager.GetUserAsync(User);
@@ -71,6 +57,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public async Task<IActionResult> Profile(UsersViewModel model)
         {
@@ -96,7 +83,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
                 }
                 else
                 {
-                    return NotFound();
+                    return View("Empty");
                 }
             }
             return View(model);
@@ -105,63 +92,67 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 
 
 
-        // GET: Users/Edit/5
-        public async Task<IActionResult> EditeProfile(string id)
+        public async Task<IActionResult> Edit()
         {
 
-            var users = await userService.GetAllAsync();
-            ViewBag.UserCount = users.Count();
-            var user = await userService.GetByIdAsync(id);
 
-            if (user == null)
+
+            var currentUser = await userManager.GetUserAsync(User);
+            if (currentUser != null)
             {
-                return NotFound();
+                var model = new EditUserViewModel
+                {
+                    FirstName = currentUser.FirstName,
+                    LastName = currentUser.LastName,
+                    DateOfBirth = currentUser.DateOfBirth,
+                    PhoneNumber = currentUser.PhoneNumber,
+                    CreatedDate = System.DateTime.Now,
+
+                };
+                return View(model);
             }
-            var newUser = new EditUserViewModel
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PhoneNumber = user.PhoneNumber,
-                DateOfBirth = user.DateOfBirth,
-                IdentityNumber = user.IdentityNumber,
-                ProfilePicture = user.ProfilePicture,
+            return  View("Empty");
 
-
-            };
-            return View(newUser);
         }
 
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditeProfile(string id, EditUserViewModel user)
+        public async Task<IActionResult> Edit( EditUserViewModel model)
         {
-            var users = await userService.GetAllAsync();
-            ViewBag.UserCount = users.Count();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                var currentUser = await userManager.GetUserAsync(User);
+                if (currentUser != null)
                 {
-                    await userService.UpdateAsync(id, user);
+                    currentUser.FirstName = model.FirstName;
+                    currentUser.LastName = model.LastName;
+
+                    var result = await userManager.UpdateAsync(currentUser);
+                    if (result.Succeeded)
+                    {
+                        //TempData["Success"] = stringLocalizer["SuccessMessage"]?.Value;
+                        return RedirectToAction("Profile");
+                    }
+
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!UserExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    return View("Empty");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(model);
         }
-        private bool UserExists(string id)
-        {
-            return string.IsNullOrEmpty(userService.GetByIdAsync(id).ToString());
-        }
+
+
+        //private bool UserExists(string id)
+        //{
+        //    return string.IsNullOrEmpty(userService.GetByIdAsync(id).ToString());
+        //}
 
 
         [HttpPost]

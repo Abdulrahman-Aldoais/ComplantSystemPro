@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.VillagesUsers.Service
 {
-    public class VillageService : EntityBaseRepository<Compalint>, IVillageService
+    public class VillageService : EntityBaseRepository<UploadsComplainte>, IVillageService
     {
 
         private readonly AppCompalintsContextDB _context;
@@ -34,7 +34,7 @@ namespace ComplantSystem.Areas.VillagesUsers.Service
         //    throw new NotImplementedException();
         //}
 
-        public Task<IEnumerable<Compalint>> GetAllCompalintsByLocalAsync(params Expression<Func<Compalint, object>>[] includeproperties)
+        public Task<IEnumerable<UploadsComplainte>> GetAllCompalintsByLocalAsync(params Expression<Func<UploadsComplainte, object>>[] includeproperties)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +46,7 @@ namespace ComplantSystem.Areas.VillagesUsers.Service
 
         //UploadsComplainte
 
-        public System.Linq.IQueryable<Compalint> GetCompalintsByStutas(int id)
+        public System.Linq.IQueryable<UploadsComplainte> GetCompalintsByStutas(int id)
         {
             throw new NotImplementedException();
         }

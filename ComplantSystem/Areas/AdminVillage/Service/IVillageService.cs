@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.VillagesUsers.Service
 {
-    public interface IVillageService : IEntityBaseRepository<Compalint>
+    public interface IVillageService : IEntityBaseRepository<UploadsComplainte>
     {
 
 
 
 
         //Task<IEnumerable<Compalint>> GetAllCompalintsAsync();
-        Task<IEnumerable<Compalint>> GetAllCompalintsByLocalAsync(params Expression<Func<Compalint, object>>[] includeproperties);
+        Task<IEnumerable<UploadsComplainte>> GetAllCompalintsByLocalAsync(params Expression<Func<UploadsComplainte, object>>[] includeproperties);
 
         Task DeleteAsync(int id, int userId);
 

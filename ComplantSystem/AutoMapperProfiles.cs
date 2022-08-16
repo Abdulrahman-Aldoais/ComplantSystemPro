@@ -8,12 +8,14 @@ namespace ComplantSystem
     {
         public UploadProfile()
         {
-           
-            CreateMap<InputCompmallintVM, UploadsComplainte>()
-           .ForMember(u => u.Id, op => op.Ignore())
-           .ForMember(u => u.UploadDate, op => op.Ignore());
 
-            //CreateMap<InputCompmallintVM, UploadsComplainte>();
+            CreateMap<InputCompmallintVM, UploadsComplainte>()
+    .ForMember(u => u.Id, op => op.Ignore())
+    .ForMember(u => u.UploadDate, op => op.Ignore());
+
+
+
+            CreateMap< UploadsComplainte, InputCompmallintVM>();
         }
     }
 

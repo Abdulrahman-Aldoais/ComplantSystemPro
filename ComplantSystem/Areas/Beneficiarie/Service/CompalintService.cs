@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -18,12 +18,14 @@ namespace ComplantSystem
         private readonly AppCompalintsContextDB _context;
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
+  
 
         public CompalintService(AppCompalintsContextDB context, IMapper mapper, IWebHostEnvironment env) : base(context)
         {
             _context = context;
             _mapper = mapper;
             _env = env;
+       
         }
 
 
@@ -40,6 +42,15 @@ namespace ComplantSystem
 
 
 
+        public IQueryable<UploadsComplainte> Search(string term)
+        {
+            var result = _context.UploadsComplaintes.Where(
+                u => u.TitleComplaint == term
+                || u.DescComplaint == term);
+            return result;
+        }
+
+       
 
 
         public Task DeleteAsync(string id, string userId)
@@ -70,58 +81,58 @@ namespace ComplantSystem
             return result;
         }
 
-        public async Task CreateAsync(InputCompmallintVM data)
-        {
+        //public async Task CreateAsync(InputCompmallintVM data)
+        //{
 
 
-            var newName = Guid.NewGuid().ToString(); //rre-rewrwerwer-gwgrg-grgr
-            var extension = Path.GetExtension(data.File.FileName);
-            var fileName = string.Concat(newName, extension); // newName + extension
-            var root = _env.WebRootPath;
+        //    var newName = Guid.NewGuid().ToString(); //rre-rewrwerwer-gwgrg-grgr
+        //    var extension = Path.GetExtension(data.File.FileName);
+        //    var fileName = string.Concat(newName, extension); // newName + extension
+        //    var root = _env.WebRootPath;
           
-            var path = Path.Combine(root, "Uploads", fileName);
+        //    var path = Path.Combine(root, "Uploads", fileName);
 
-            using (var fs = System.IO.File.Create(path))
-            {
-                await data.File.CopyToAsync(fs);
-            }
+        //    using (var fs = System.IO.File.Create(path))
+        //    {
+        //        await data.File.CopyToAsync(fs);
+        //    }
 
-            var addCompalintmappedObj = new UploadsComplainte()
-            {
-                TitleComplaint = data.TitleComplaint,
-                TypeComplaintId = data.TypeComplaintId,
-                DescComplaint = data.DescComplaint,
-                PropBeneficiarie = data.PropBeneficiarie,
-                GovernorateId = data.GovernorateId,
-                DirectorateId = data.DirectorateId,
-                SubDirectorateId = data.SubDirectorateId,
-                VillageId = data.VillageId,
-                UserId = data.UserId,
-                StagesComplaintId = data.StagesComplaintId = 1,
-                OriginalFileName = data.File.FileName,
-                FileName = fileName,
-                ContentType = data.File.ContentType,
-                Size = data.File.Length,
+        //    var addCompalintmappedObj = new UploadsComplainte()
+        //    {
+        //        TitleComplaint = data.TitleComplaint,
+        //        TypeComplaintId = data.TypeComplaintId,
+        //        DescComplaint = data.DescComplaint,
+        //        PropBeneficiarie = data.PropBeneficiarie,
+        //        GovernorateId = data.GovernorateId,
+        //        DirectorateId = data.DirectorateId,
+        //        SubDirectorateId = data.SubDirectorateId,
+        //        VillageId = data.VillageId,
+        //        UserId = data.UserId,
+        //        StagesComplaintId = data.StagesComplaintId = 1,
+        //        OriginalFileName = data.File.FileName,
+        //        FileName = fileName,
+        //        ContentType = data.File.ContentType,
+        //        Size = data.File.Length,
                
 
 
-            };
+        //    };
 
 
 
 
-            //var mappedObj = _mapper.Map<UploadsComplainte>(addCompalintmappedObj);
-            await _context.UploadsComplaintes.AddAsync(addCompalintmappedObj);
-            await _context.SaveChangesAsync();
-        }
+        //    //var mappedObj = _mapper.Map<UploadsComplainte>(addCompalintmappedObj);
+        //    await _context.UploadsComplaintes.AddAsync(addCompalintmappedObj);
+        //    await _context.SaveChangesAsync();
+        //}
 
-        IQueryable<UploadsComplainte> ICompalintService.GetAll()
-        {
-            var result = _context.UploadsComplaintes
-                .OrderByDescending(u => u.UploadDate);
-            //.ProjectTo<UploadsComplainte>(_mapper.ConfigurationProvider);
-            return result;
-        }
+        //IQueryable<UploadsComplainte> GetAll()
+        //{
+        //    var result = _context.UploadsComplaintes
+        //        .OrderByDescending(u => u.UploadDate);
+        //    //.ProjectTo<UploadsComplainte>(_mapper.ConfigurationProvider);
+        //    return result;
+        //}
 
         public IQueryable<UploadsComplainte> GetBy(string userId)
         {
@@ -178,6 +189,11 @@ namespace ComplantSystem
             var mappedObj = _mapper.Map<UploadsComplainte>(model);
             await _context.UploadsComplaintes.AddAsync(mappedObj);
             await _context.SaveChangesAsync();
+        }
+
+        public Task<UploadsComplainte> FindAsync(string id, string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

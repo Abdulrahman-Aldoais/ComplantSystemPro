@@ -24,30 +24,7 @@ namespace ComplantSystem.Models.Data.Base
 
 
 
-        public async Task AddCompAsync(Compalint compalint)
-        {
-            await _context.UploadsComplainte.AddAsync(compalint);
-            await _context.SaveChangesAsync();
-        }
-
-        public Task DeleteCompalintAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
-
       
-
-        public Task SelectCascadingDropdwon(T entiry)
-        {
-            throw new NotImplementedException();
-        }
-
-    
-
-        public Task UpdateCompalintAsync(string id, T entity)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 
@@ -72,18 +49,18 @@ namespace ComplantSystem.Models.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Beneficiarie> GetBeneficiarieById(string id)
-        {
-            var beneficiarieDetails = _context.Beneficiaries
-               .Include(s => s.TypeBeneficiaris)
-               .Include(g => g.Admin)
-               .Include(d => d.Governorate)
-               .Include(d => d.Directorate)
-               .Include(su => su.SubDirectorate)
-               .Include(v => v.Village)
-               .FirstOrDefaultAsync(c => c.Id == id);
-            return await beneficiarieDetails;
-        }
+        //public async Task<Beneficiarie> GetBeneficiarieById(string id)
+        //{
+        //    var beneficiarieDetails = _context.Beneficiaries
+        //       .Include(s => s.TypeBeneficiaris)
+        //       .Include(g => g.Admin)
+        //       .Include(d => d.Governorate)
+        //       .Include(d => d.Directorate)
+        //       .Include(su => su.SubDirectorate)
+        //       .Include(v => v.Village)
+        //       .FirstOrDefaultAsync(c => c.Id == id);
+        //    return await beneficiarieDetails;
+        //}
 
 
 
@@ -126,9 +103,9 @@ namespace ComplantSystem.Models.Data.Base
         }
 
         // Beneficiarie
-        public async Task<IEnumerable<Beneficiarie>> GetAllBenficiareByLocalAsync(params Expression<Func<Beneficiarie, object>>[] includeproperties)
+        public async Task<IEnumerable<T>> GetAllBenficiareByLocalAsync(params Expression<Func<T, object>>[] includeproperties)
         {
-            System.Linq.IQueryable<Beneficiarie> query = _context.Set<Beneficiarie>();
+            System.Linq.IQueryable<T> query = _context.Set<T>();
             query = includeproperties.Aggregate(query, (current, includeproperty) => current.Include(includeproperty));
             return await query.ToListAsync();
         }
@@ -161,28 +138,9 @@ namespace ComplantSystem.Models.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> GetAllCount()
-        {
-            return await _context.Set<T>().CountAsync();
-        }
-
-        public IQueryable<T> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> FindAsync(string id)
-        {
-            throw new NotImplementedException();
-        }
+      
+       
 
 
-        //public IQueryable<T> GetBy(string userId)
-        //{
-        //    var result = _context.UploadsComplaintes.Where(u => u.UserId == userId)
-        //        .OrderByDescending(u => u.UploadDate);
-        //    //.ProjectTo<UploadsComplainte>(_mapper.ConfigurationProvider);
-        //    return result;
-        //}
     }
 }

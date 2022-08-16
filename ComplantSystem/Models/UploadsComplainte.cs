@@ -48,6 +48,7 @@ namespace ComplantSystem.Models
         public decimal Size { get; set; }
        
         public string ContentType { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime UploadDate { get; set; }
         public virtual ApplicationUser User { get; set; }
 

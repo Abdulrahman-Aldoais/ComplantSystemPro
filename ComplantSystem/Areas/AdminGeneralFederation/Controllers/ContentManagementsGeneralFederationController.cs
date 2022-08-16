@@ -2,6 +2,7 @@
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         private readonly ILocationRepo<SubDirectorate> subDirectorate;
         private readonly ILocationRepo<Village> village;
         private readonly ICompalintService _compService;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly ISolveCompalintService solveCompalintService;
         private readonly IWebHostEnvironment _env;
         private readonly ICategoryService _service;
@@ -31,6 +33,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             ILocationRepo<Village> village,
             ICategoryService service,
             ICompalintService compService,
+            UserManager<ApplicationUser> userManager,
             ISolveCompalintService solveCompalintService,
 
             IWebHostEnvironment env,
@@ -42,6 +45,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             this.subDirectorate = subDirectorate;
             this.village = village;
             _compService = compService;
+            this.userManager = userManager;
             this.solveCompalintService = solveCompalintService;
             _service = service;
             _context = context;
@@ -61,9 +65,15 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 
         public async Task<IActionResult> AllComplaints(int? page)
         {
-            var compalintDropdownsData = await _compService.GetNewCompalintsDropdownsValues();
-            //var LocationDropdownsData = await _service.GetSelectLocationDropdownsValues();
+            //var gove = userManager.GetUserAsync(User);
+           
+           
+            //var allCompalintsVewi = await _compService.GetAllAsync();
+            //var result = GoveComp.Where(n => n.Governorates.Name == "صنعاء");
+
+
             var allCompalintsVewi = await _compService.GetAllAsync();
+            var compalintDropdownsData = await _compService.GetNewCompalintsDropdownsValues();
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
             ViewBag.Status = ViewBag.StatusCompalints;
