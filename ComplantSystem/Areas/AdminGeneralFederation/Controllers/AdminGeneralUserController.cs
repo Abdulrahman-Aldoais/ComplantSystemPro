@@ -2,18 +2,19 @@
 using ComplantSystem.Areas.UsersService.ViewModel;
 using ComplantSystem.Areas.VillagesUsers.Models;
 using ComplantSystem.Const;
+
 using ComplantSystem.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 {
     [Area("AdminGeneralFederation")]
+
     public class AdminGeneralUserController : Controller
     {
         private readonly IUserService userService;
@@ -28,11 +29,47 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             this.signInManager = signInManager;
             this.roleManager = roleManager;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            var result = await userService.GetAllAsync(p => p.Role, h => h.Governorates);
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
 
+            ViewData["CurrentFilter"] = searchString;
+
+
+            var result = await userService.GetAllAsync(h => h.Governorates);
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+            }
+
+            int totalUsers = result.Count();
+
+            ViewBag.totalUsers = totalUsers;
+
+            int pageSize = 3;
+
+
+
+            //return View(await PaginatedList<ApplicationUser>.CreateAsync(result.AsNoTracking(), pageNumber ?? 1, pageSize));
             return View(result.ToList());
+
+        }
+        public async Task<IActionResult> BeneficiariesAccount()
+        {
+            return View();
+
         }
 
         public IActionResult Block()
@@ -77,7 +114,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             var result = await userService.GetAllAsync(p => p.Role, h => h.Governorates);
 
             return View(result.ToList());
-          
+
         }
 
 
@@ -136,10 +173,87 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 
         }
 
-        public async Task<IActionResult> ChaingeStatusAsync(string id , bool IsBlocked)
+
+        // GET: Users/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-           await  userService.ChaingeStatusAsync(id, IsBlocked);
+            var users = await userService.GetAllAsync();
+            ViewBag.UserCount = users.Count();
+
+            var user = await userService.GetByIdAsync((string)id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
+
+        // GET: Users/Edit/5
+        public async Task<IActionResult> Edit(string id)
+        {
+
+            var users = await userService.GetAllAsync();
+            ViewBag.UserCount = users.Count();
+            var user = await userService.GetByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var newUser = new EditUserViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                IsBlocked = user.IsBlocked,
+                //userRoles = user.UserRoles,
+
+
+            };
+            return View(newUser);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, EditUserViewModel user)
+        {
+            var users = await userService.GetAllAsync();
+            ViewBag.UserCount = users.Count();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await userService.UpdateAsync(id, user);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!UserExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> ChaingeStatusAsync(string id, bool IsBlocked)
+        {
+            await userService.ChaingeStatusAsync(id, IsBlocked);
             return RedirectToAction("Index");
+        }
+
+        private bool UserExists(string id)
+        {
+            return string.IsNullOrEmpty(userService.GetByIdAsync(id).ToString());
         }
 
 

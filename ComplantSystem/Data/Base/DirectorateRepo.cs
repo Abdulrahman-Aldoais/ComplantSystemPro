@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ComplantSystem.Models.Data.Base
 {
@@ -22,7 +20,7 @@ namespace ComplantSystem.Models.Data.Base
         }
         public List<Directorate> List()
         {
-            var x = _context.Directorates.Include(c => c.Governorate).ToList();
+            var x = _context.Directorates.ToList();
             return x;
         }
 
@@ -32,7 +30,9 @@ namespace ComplantSystem.Models.Data.Base
             return c;
         }
 
-       
+
+
+
     }
 }
 

@@ -1,7 +1,8 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 
 <html lang="ar"
-      class="light-style"
+      class="light-style layout-navbar-fixed layout-menu-fixed"
       dir="rtl"
       data-theme="theme-default"
       data-assets-path="/assets/"
@@ -11,13 +12,12 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Dashboard - Analytics | Frest - Bootstrap Admin Template</title>
+    <title>@ViewData["Title"]</title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
-
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,15 +36,17 @@
     <link rel="stylesheet" href="/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link href="~/assets/js/Cascading/datatables.bootstrap5.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="/assets/vendor/css/rtl/stayle1.css">
     <link rel="stylesheet" href="/assets/vendor/libs/select2/select2.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/bs-stepper/bs-stepper.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/animate-css/animate.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/flatpickr/flatpickr.css" />
+
+
 
     <!-- Page CSS -->
     <!-- Helpers -->
@@ -55,9 +57,6 @@
     <script src="/assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
-
-
-
 </head>
 
 <body>
@@ -127,84 +126,224 @@
                 <ul class="menu-inner py-1">
                     <!-- الرئيسة -->
                     <li class="menu-header small text-uppercase"><span class="menu-header-text"> قائمة النظام</span></li>
-                    <li class="menu-item open active">
-                        <a asp-controller="Complaints" asp-action="Index" class="menu-link">
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="Index"?"active":"")" " >
+                        <a href="/Home/Index" class="menu-link">
                             <i class="fa fa-home" aria-hidden="true"></i>
                             <div data-i18n="الرئيسية" style="margin-right: 14px;">الرئيسية</div>
                         </a>
                     </li>
                     <!-- الشكاوي -->
 
-                    <li class="menu-item">
+                    <li class="menu-item  @(ViewContext.RouteData.Values["Action"].ToString()=="Index"?"open":"")
+                            @(ViewContext.RouteData.Values["Action"].ToString()=="ViewRejectedComplaints"?"open":"")
+                                                        @(ViewContext.RouteData.Values["Action"].ToString()=="ViewRejectedComplaints"?"open":"")
+
+
+                        @(ViewContext.RouteData.Values["Action"].ToString()=="شكاوي_المرفوعة"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="شكاوي_المرفوضة"?"open active":"")
+                                       @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الشكوى_المرفوضة"?"open":"")
+
+">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="fa fa-indent" aria-hidden="true"></i>
                             <div data-i18n="الشكاوي" style="margin-right: 14px;">الشكاوي</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a asp-controller="Complaints" asp-action="AddCompalint" class="menu-link">
-                                    <div>اضافة شكوى</div>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="شكاوي_الموظفين"?"active":"")
+                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_شكوى_الموظفين"?"active":"")
+                " " >
+                                <a href="/Home/شكاوي_الموظفين" class="menu-link">
+                                    <div data-i18n="شكاوي الموظفين">شكاوي الموظفين</div>
                                 </a>
                             </li>
-
-                            <li class="menu-item">
-                                <a asp-controller="Complaints" asp-action="Index" class="menu-link">
-                                    <div>المرفوعة</div>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="شكاوي_المرفوعة"?"active":"")
+                                                                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الشكوى_المرفوعة"?"active":"")
+" " >
+                                <a href="/Home/شكاوي_المرفوعة" class="menu-link">
+                                    <div data-i18n="المرفوعة">المرفوعة</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a asp-controller="Complaints" asp-action="ViewRejectedComplaints" class="menu-link">
-                                    <div>المرفوضة</div>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="شكاوي_المرفوضة"?"active":"")
+                                                                                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الشكوى_المرفوضة"?"active":"")
+" " >
+                                <a href="/Home/شكاوي_المرفوضة" class="menu-link">
+                                    <div data-i18n="المرفوضة">المرفوضة</div>
                                 </a>
                             </li>
-                        </ul>
-                    </li>
-
-
-                    @* الاقتراحات *@
-                    <li class="menu-item">
-                        <a asp-controller="Proposals" asp-action="AddProposals" class="menu-link menu-toggle">
-                            <i class="fa fa-flag" aria-hidden="true"></i>
-                            <div style="margin-right: 14px;">الاقتراحات</div>
-                        </a>
-
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a asp-controller="Proposals" asp-action="Index" class="menu-link">
-                                    <div style="margin-right: 14px;">الاقتراحات</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-controller="Proposals" asp-action="AddProposals" class="menu-link">
-                                    <div style="margin-right: 14px;">إضافة إقتراح</div>
-                                </a>
-                            </li>
-
                         </ul>
                     </li>
 
                     <!-- البلاغات -->
-                    <li class="menu-item">
-                        <a asp-controller="Proposal" asp-action="AddProposals" class="menu-link menu-toggle">
-                            <i class="fa fa-flag" aria-hidden="true"></i>
-                            <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="البلاغات"?"open":"")
+                        @(ViewContext.RouteData.Values["Action"].ToString()=="إضافة_بلاغ_على_الموظف"?"open active":"")
+                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_بلاغ"?"open active":"")
+
+                        ">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="fa fa-flag" aria-hidden="true"></i>                <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a asp-controller="Communications" asp-action="AllCommunication" class="menu-link">
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="البلاغات"?"active":"")
+                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_بلاغ"?" active":"")
+" " >
+                                <a href="/Home/البلاغات" class="menu-link">
                                     <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
                                 </a>
                             </li>
-                            <li class="menu-item">
-                                <a asp-controller="Communications" asp-action="AddCommunication" class="menu-link">
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="إضافة_بلاغ_على_الموظف"?"active":"")" " >
+                                <a href="/Home/إضافة_بلاغ_على_الموظف" class="menu-link">
                                     <div data-i18n="إضافة بلاغ على موظف"> إضافة بلاغ على موظف</div>
                                 </a>
                             </li>
 
                         </ul>
                     </li>
+                    <!-- التعميمات -->
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="التعميمات"?"active":"")" " >
+                        <a href="/Home/التعميمات" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-food-menu"></i>
+                            <div data-i18n="التعميمات">التعميمات</div>
+                        </a>
+                    </li>
 
+
+                    <!-- إدارةالنظام -->
+
+                    <li class="menu-item  @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الشكوى"?"open":"")
+                        @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الموظفين"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_التقارير"?"open active":"")
+                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الشكوى"?"open active":"")
+                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الموظف"?"open active":"")
+                                                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_التقرير"?"open active":"")
+
+
+
+            @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الجمعية"?"open active":"")
+                                        @(ViewContext.RouteData.Values["Action"].ToString()=="تعديل_جمعية"?"open active":"")
+                                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_جمعية"?"open active":"")
+
+">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class='bx bx-list-check'></i>
+                            <div data-i18n="إدارةالنظام" style="margin-right: 14px;">إدارةالنظام</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الشكوى"?"active":"")
+                                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الشكوى"?"active":"")
+">
+                                <a href="/Home/إدارة_الشكوى" class="menu-link">
+                                    <div data-i18n="إدارةالشكاوي">إدارة الشكاوي</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الموظفين"?"active":"")
+                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_الموظف"?" active":"")
+">
+                                <a href="/Home/إدارة_الموظفين" class="menu-link">
+                                    <div data-i18n="إدارةالموظفين">إدارةالموظفين</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_التقارير"?"active":"")
+                                                                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_التقرير"?" active":"")
+">
+                                <a href="/Home/إدارة_التقارير" class="menu-link">
+                                    <div data-i18n="إدارةالتقارير">إدارةالتقارير</div>
+                                </a>
+                            </li>
+                            <li class="menu-item  @(ViewContext.RouteData.Values["Action"].ToString()=="إدارة_الجمعية"?"active":"")
+                            @(ViewContext.RouteData.Values["Action"].ToString()=="تعديل_جمعية"?" active":"")
+                                                                                                            @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_جمعية"?" active":"")
+
+">
+                                <a href="/Home/إدارة_الجمعية" class="menu-link">
+                                    <div data-i18n="إدارةالجمعيات">Edit</div>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <!-- الحسابات -->
+                    <li class="menu-item  @(ViewContext.RouteData.Values["Action"].ToString()=="حسابات_المستفيدين"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="حسابات_المدراء"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="حساب_الموظف"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="تقييد_حساب"?"open active":"")
+                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_حسابات_المستفيدين"?"open active":"")
+                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_تقييد_الحساب"?"open active":"")
+                                                                                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="حساب_المدير"?"open active":"")
+
+
+
+
+
+">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="الحسابات">الحسابات</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="حسابات_المستفيدين"?"active":"")
+                                        @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_حسابات_المستفيدين"?" active":"")
+">
+                                <a href="/Home/حسابات_المستفيدين" class="menu-link ">
+                                    <div data-i18n="حسابات المستفيدين">حسابات المستفيدين</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="حسابات_المدراء"?"active":"")
+                                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="حساب_المدير"?" active":"")
+">
+                                <a href="/Home/حسابات_المدراء" class="menu-link ">
+                                    <div data-i18n="حسابات المدراء">حسابات المدراء</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="حساب_الموظف"?"active":"")">
+                                <a href="/Home/حساب_الموظف" class="menu-link">
+                                    <div data-i18n=" إضافة حساب موظف">اضافة حساب موظف </div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="تقييد_حساب"?" active":"")
+                                                                @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_تقييد_الحساب"?"open active":"")
+
+                ">
+                                <a href="/Home/تقييد_حساب" class="menu-link ">
+                                    <div data-i18n=" تقييد الحساب">تقييد الحساب </div>
+                                </a>
+
+                        </ul>
+                    </li>
+                    <!-- الاصناف -->
+                    <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="اصناف_البلاغات"?"open":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="اصناف_الشكاوي"?"open":"")
+             @(ViewContext.RouteData.Values["Action"].ToString()=="تعديل_صنف_بلاغ"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_صنف_بلاغ"?"open active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="تعديل_صنف_شكوى"?"open active":"")
+                  @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_صنف_شكوى"?"open active":"")" " >
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-layout"></i>
+                            <div data-i18n="الاصناف">الاصناف</div>
+                        </a>
+
+                        <ul class="menu-sub">
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="اصناف_البلاغات"?"active":"")
+                @(ViewContext.RouteData.Values["Action"].ToString()=="تعديل_صنف_بلاغ"?" active":"")
+            @(ViewContext.RouteData.Values["Action"].ToString()=="عرض_صنف_بلاغ"?" active":"")
+
+" " >
+                                <a href="/Home/اصناف_البلاغات" class="menu-link">
+                                    <div data-i18n="اصناف البلاغات">اصناف البلاغات</div>
+                                </a>
+                            </li>
+                            <li class="menu-item @(ViewContext.RouteData.Values["Action"].ToString()=="اصناف_الشكاوي"?"active":"")
+                                @(ViewContext.RouteData.Values["Action"].ToString() == "تعديل_صنف_شكوى" ? " active" : "")
+                                @(ViewContext.RouteData.Values["Action"].ToString() == "عرض_صنف_شكوى" ? " active" : "")>
+                                <a href="/Home/اصناف_الشكاوي" class="menu-link">
+                                    <div data-i18n="   اصناف الشكوى"> اصناف الشكوى   </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -221,8 +360,7 @@
                         </div>
 
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                            <!--
-                                -->
+                            <!-- Search -->
                             <div class="navbar-nav align-items-center">
                                 <div class="nav-item navbar-search-wrapper mb-0">
                                     <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
@@ -429,7 +567,7 @@
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0 me-3">
                                                             <div class="avatar">
-                                                                <img src="/assets/img/avatars/6.png" class="w-px-40 h-auto rounded-circle" />
+                                                                <img src="/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
                                                             </div>
                                                         </div>
                                                         <div class="flex-grow-1">
@@ -501,7 +639,7 @@
                                                     </div>
                                                     <div class="flex-grow-1">
                                                         <span class="lh-1 d-block fw-semibold"> @User.Identity.Name</span>
-                                                        <small>  مستخدم</small>
+                                                        <small>مستخدم</small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -528,16 +666,15 @@
                                         </li>
                                         <li>
 
-                                            <a class="dropdown-item" asp-controller="Account" asp-action="LogOut" target="_blank">
+                                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut">
                                                 <i class="bx bx-power-off me-2"></i>
                                                 <span class="align-middle">تسجيل الخروج</span>
                                             </a>
                                         </li>
 
 
-
-
                                     </ul>
+
                                 </li>
                                 <!--/ User -->
                             </ul>
@@ -557,7 +694,6 @@
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 @RenderBody()
-
                 <!-- Content wrapper -->
             </div>
             <!-- / Layout page -->
@@ -569,44 +705,53 @@
         <!-- Drag Target Area To SlideIn Menu On Small Screens -->
         <div class="drag-target"></div>
     </div>
-
     <!-- / Layout wrapper -->
     <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    @*<script src="/assets/vendor/libs/jquery/jquery.js"></script>
-        <script src="/assets/vendor/libs/popper/popper.js"></script>
-        <script src="/assets/vendor/js/bootstrap.js"></script>
-        <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-        <script src="/assets/vendor/libs/hammer/hammer.js"></script>
-        <script src="/assets/vendor/libs/i18n/i18n.js"></script>
-        <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
-        <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>*@
-    <script src="~/assets/js/Cascading/jquery-3.5.1.js"></script>
-    <script src="~/assets/js/Cascading/jquery.dataTables.min.js"></script>
+    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    @*<script src="/assets/js/Cascading/jquery-3.5.1.js"></script>
+        <script src="/assets/js/Cascading/jquery.dataTables.min.js"></script>*@
+    <script src="/assets/js/Cascading/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script src="/assets/vendor/libs/popper/popper.js"></script>
+    <script src="/assets/vendor/js/bootstrap.js"></script>
+    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="/assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
+
+
+    @*<script src="/assets/js/Cascading/jquery/dist/jquery.js"></script>
+        <script src="/assets/js/Cascading/jquery/dist/jquery.min.js"></script>*@
+
+    @*<script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    @*<script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.min.js"></script>*@
     <script src="/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
     <!-- Vendors JS -->
     <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    @*<script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
+    <script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
     <script src="/assets/vendor/libs/moment/moment.js"></script>
     <script src="/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
     <script src="/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
     <script src="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>*@
-    @*<script src="/assets/vendor/libs/jszip/jszip.js"></script>
-    <script src="/assets/vendor/libs/pdfmake/pdfmake.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+    @*<script src="/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>*@
+    @*<script src="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>*@
+    <script src="/assets/vendor/libs/jszip/jszip.js"></script>
+    @*<script src="/assets/vendor/libs/pdfmake/pdfmake.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.print.js"></script>*@
     <script src="/assets/vendor/libs/select2/select2.js"></script>
     <script src="/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
     <script src="/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
     <script src="/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
     <script src="/assets/vendor/libs/cleavejs/cleave.js"></script>
-    <script src="/assets/vendor/libs/cleavejs/cleave-phone.js"></script>*@
+    <script src="/assets/vendor/libs/cleavejs/cleave-phone.js"></script>
 
-    @*<script src="/assets/js/form-wizard-numbered.js"></script>
-    <script src="/assets/js/form-wizard-validation.js"></script>*@
+    <script src="/assets/js/form-wizard-numbered.js"></script>
+    <script src="/assets/js/form-wizard-validation.js"></script>
 
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
@@ -618,7 +763,10 @@
     <script src="/js/site.js"></script>
     @*@RenderSection("Scripts", required: false)*@
 
+
     @RenderSection("scripts", required: false)
 
 </body>
 </html>
+
+

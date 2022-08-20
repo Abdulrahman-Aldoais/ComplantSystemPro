@@ -1,9 +1,6 @@
-﻿using ComplantSystem.Configuration;
-using ComplantSystem.Models.Benef;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
+
 namespace ComplantSystem.Models
 {
     public class AppCompalintsContextDB : IdentityDbContext<
@@ -30,7 +27,18 @@ namespace ComplantSystem.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+
+            //foreach (var property in modelBuilder.Model.GetEntityTypes()
+            //   .SelectMany(t => t.GetProperties())
+            //   .Where(p => p.ClrType == typeof(decimal) || p.ClrType == typeof(decimal?)))
+            //{
+
+            //    property.Relational().ColumnType = "decimal(18,2)";
+
+
+            //}
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppCompalintsContextDB).Assembly);
             modelBuilder.HasDefaultSchema("notdbo");
 
@@ -113,11 +121,12 @@ namespace ComplantSystem.Models
                 //    .IsRequired();
             });
 
-            modelBuilder.Entity<Compalint>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
+            modelBuilder.Entity<UploadsComplainte>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<BenefCommunication>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Beneficiarie>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<Proposal>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
             modelBuilder.Entity<TypeComplaint>().Property(i => i.Id).HasDefaultValueSql("NEWID()");
+
 
 
 
@@ -137,6 +146,7 @@ namespace ComplantSystem.Models
         public DbSet<Compalint> UploadsComplainte { get; set; }
         //public DbSet<User> Users { get; set; }
         //public DbSet<Permission> Permissions { get; set; }
+
         public DbSet<Governorate> Governorates { get; set; }
         public DbSet<Directorate> Directorates { get; set; }
         public DbSet<SubDirectorate> SubDirectorates { get; set; }
@@ -149,7 +159,7 @@ namespace ComplantSystem.Models
         public DbSet<StatusCompalint> StatusCompalints { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<UploadsComplainte> UploadsComplaintes { get; set; }
-        
+
         //public DbSet<TypeCommunication> TypeCommunications { get; set; }
 
 

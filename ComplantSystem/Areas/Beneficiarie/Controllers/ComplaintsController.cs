@@ -1,16 +1,13 @@
-﻿using ComplantSystem.Areas.Beneficiarie.ViewModels;
-using ComplantSystem.Const;
+﻿using ComplantSystem.Const;
+using ComplantSystem.Data.Base;
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -20,7 +17,7 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
 {
     [Area("Beneficiarie")]
 
-    [Authorize(UserRoles.AdminVillages)]
+    [Authorize(UserRoles.Beneficiarie)]
 
     public class ComplaintsController : Controller
     {
@@ -29,10 +26,11 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
         private readonly ILocationRepo<SubDirectorate> subDirectorate;
         private readonly ILocationRepo<Village> village;
 
+        private readonly ICompalintRepository _service;
         private readonly IWebHostEnvironment _env;
 
 
-        private readonly ICompalintService _service;
+
         private readonly AppCompalintsContextDB _context;
 
         public ComplaintsController(
@@ -40,7 +38,7 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
             ILocationRepo<Directorate> directorate,
             ILocationRepo<SubDirectorate> subDirectorate,
             ILocationRepo<Village> village,
-            ICompalintService service,
+            ICompalintRepository service,
             IWebHostEnvironment env,
             AppCompalintsContextDB context)
         {
@@ -48,6 +46,7 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
             this.directorate = directorate;
             this.subDirectorate = subDirectorate;
             this.village = village;
+
             _service = service;
             _context = context;
             _env = env;
@@ -55,75 +54,69 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
 
 
 
-       
 
 
 
-        [HttpGet]
-        [AllowAnonymous]
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
+
             var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
-            //var LocationDropdownsData = await _service.GetSelectLocationDropdownsValues();
-            var result = _service.GetBy(UserId);
-            //var model = await GetPagedData(result, requiredPage);
+
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
-            ViewBag.Status = ViewBag.StatusCompalints;
+
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+
+            var result = _service.GetBy(UserId);
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+
+            }
 
             int totalCompalints = result.Count();
-          
+
             ViewBag.totalCompalints = totalCompalints;
 
-            return View(result.ToList());
+
+            int pageSize = 3;
+
+
+
+            return View(await PaginatedList<UploadsComplainte>.CreateAsync(result.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
-
-
-
-        //private async Task<List<UploadsComplainte>> GetPagedData(IQueryable<UploadsComplainte> result, int requiredPage = 1)
-        //{
-        //    const int pageSize = 3;
-        //    decimal rowsCount = await _service.GetAllCount();
-
-        //    var pagesCount = Math.Ceiling(rowsCount / pageSize);
-
-        //    if (requiredPage > pagesCount)
-        //    {
-        //        requiredPage = 1;
-        //    }
-        //    if (requiredPage <= 0)
-        //    {
-        //        requiredPage = 1;
-        //    }
-
-        //    int skipCount = (requiredPage - 1) * pageSize;
-
-        //    //select count(*) from Uploads ;
-        //    var pagedData = await result
-        //        .Skip(skipCount)
-        //        .Take(pageSize)
-        //        .ToListAsync();
-        //    ViewBag.CurrentPage = requiredPage;
-        //    ViewBag.PagesCount = pagesCount;
-
-        //    return pagedData;
-        //}
-
 
 
 
         public async Task<IActionResult> ViewRejectedComplaints()
         {
-            
+
             var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
 
-             ViewBag.status = ViewBag.StatusCompalints;
+            ViewBag.status = ViewBag.StatusCompalints;
 
-            var rejectedComplaints = await _service.GetAllAsync(n=> n.StatusCompalint);
-            var result =  rejectedComplaints.Where(n => n.StatusCompalint.Name == "مرفوضة"
+            var rejectedComplaints = await _service.GetAllAsync(n => n.StatusCompalint);
+            var result = rejectedComplaints.Where(n => n.StatusCompalint.Name == "مرفوضة"
             );
 
             return View(result.ToList());
@@ -140,55 +133,14 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
             return Json(new SelectList(dire, "Id", "Name"));
         }
 
+        [HttpGet]
+        public JsonResult GetSubDirectorates(int DirectorateId)
+        {
+            var d = directorate.Find(DirectorateId);
+            var subdire = subDirectorate.ListByFilter(cc => cc.Directorate == d);
+            return Json(new SelectList(subdire, "Id", "Name"));
+        }
 
-
-        ////GET: Compalint /Add
-        //public async Task<IActionResult> AddCompalint()
-        //{
-        //    NewCompalintVM NcomVM = new NewCompalintVM()
-        //    {
-        //        Governorates = governorate.List(),
-        //    };
-        //    var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
-
-        //    ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
-        //    ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
-
-        //    return View(NcomVM);
-
-        //}
-
-
-    
-
-       
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddCompalint(NewCompalintVM data)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        var addCompalint = new Compalint()
-        //        {
-        //            TitleComplaint = data.TitleComplaint,
-        //            TypeComplaintId = data.TypeComplaintId,
-        //            DescComplaint = data.DescComplaint,
-        //            PropBeneficiarie = data.PropBeneficiarie,
-        //            GovernorateId = data.GovernorateId,
-        //            DirectorateId = data.DirectorateId,
-        //            SubDirectorateId = data.SubDirectorateId,
-        //            VillageId = data.VillageId,
-        //            CompDate = data.CompDate,
-
-
-        //        };
-        //    }
-        //    await _service.AddNewCompalintAsync(data);
-        //    return RedirectToAction(nameof(Index));
-
-
-        //}
 
         private string UserId
         {
@@ -200,100 +152,72 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Create()
         {
-            InputCompmallintVM NcomVM = new InputCompmallintVM()
+
+
+            InputCompmallintVM model = new InputCompmallintVM
             {
                 Governorates = governorate.List(),
+                Directorates = directorate.List(),
             };
+
             var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
 
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
 
-            return View(NcomVM);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(InputCompmallintVM data)
+        public async Task<IActionResult> Create(InputCompmallintVM model)
         {
-            if (!ModelState.IsValid)
+
+
+            if (ModelState.IsValid)
             {
+
                 var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
                 ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
                 ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
                 var newName = Guid.NewGuid().ToString(); //rre-rewrwerwer-gwgrg-grgr
-                var extension = Path.GetExtension(data.File.FileName);
+                var extension = Path.GetExtension(model.File.FileName);
                 var fileName = string.Concat(newName, extension); // newName + extension
                 var root = _env.WebRootPath;
                 var path = Path.Combine(root, "Uploads", fileName);
 
                 using (var fs = System.IO.File.Create(path))
                 {
-                    await data.File.CopyToAsync(fs);
+                    await model.File.CopyToAsync(fs);
                 }
 
 
                 //await _service.CreateAsync(data);
                 await _service.CreateAsync2(new InputCompmallintVM
                 {
-                    TitleComplaint = data.TitleComplaint,
-                    TypeComplaintId = data.TypeComplaintId,
-                    DescComplaint = data.DescComplaint,
-                    PropBeneficiarie = data.PropBeneficiarie,
-                    GovernorateId = data.GovernorateId,
-                    DirectorateId = data.DirectorateId,
-                    SubDirectorateId = data.SubDirectorateId,
-                    VillageId = data.VillageId,
+                    TitleComplaint = model.TitleComplaint,
+                    TypeComplaintId = model.TypeComplaintId,
+                    DescComplaint = model.DescComplaint,
+                    PropBeneficiarie = model.PropBeneficiarie,
+                    GovernorateId = model.GovernorateId,
+                    DirectorateId = model.DirectorateId,
+                    SubDirectorateId = model.SubDirectorateId,
+                    VillageId = model.VillageId,
                     UserId = UserId,
-                    StagesComplaintId = data.StagesComplaintId = 1,
-                    OriginalFileName = data.File.FileName,
+                    StagesComplaintId = model.StagesComplaintId = 1,
+                    OriginalFileName = model.File.FileName,
                     FileName = fileName,
-                    ContentType = data.File.ContentType,
-                    Size = data.File.Length,
-                }) ; 
+                    ContentType = model.File.ContentType,
+                    Size = model.File.Length,
+                });
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(data);
+            return View(model);
         }
 
-
-
-
-
-        //[HttpGet]
-        //public async Task<IActionResult> Create2()
-        //{
-        //    InputCompmallintVM NcomVM = new InputCompmallintVM()
-        //    {
-        //        Governorates = governorate.List(),
-        //    };
-        //    var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
-
-        //    ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
-        //    ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
-
-        //    return View(NcomVM);
-        //}
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create2(InputCompmallintVM data)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        var compalintDropdownsData = await _service.GetNewCompalintsDropdownsValues();
-        //        ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
-        //        ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
-
-
-
-        //        await _service.CreateAsync(data);
-
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(data);
-        //}
 
 
 
@@ -307,7 +231,7 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RejectedComplaints()
         {
-            var allCompalints = await _service.GetAllAsync(n =>n.StatusCompalintId == 2);
+            var allCompalints = await _service.GetAllAsync(n => n.StatusCompalintId == 2);
             return View(allCompalints);
         }
 
@@ -331,10 +255,10 @@ namespace ComplantSystem.Areas.Beneficiarie.Controllers
             if (!string.IsNullOrEmpty(term))
             {
 
-              var result = _context.UploadsComplaintes.Where(
-               u => u.TitleComplaint == term
-               || u.DescComplaint == term);
-              return View("Index", result);
+                var result = _context.UploadsComplaintes.Where(
+                 u => u.TitleComplaint == term
+                 || u.DescComplaint == term);
+                return View("Index", result);
             }
             return View("Index", allCompalints);
             //return result;

@@ -3,7 +3,6 @@ using ComplantSystem.Models.Data.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.Beneficiaries.Data.Base
 {
@@ -22,15 +21,15 @@ namespace ComplantSystem.Areas.Beneficiaries.Data.Base
             var s = _context.SubDirectorates.Where(lamda).ToList();
             return s;
         }
-        public  List<SubDirectorate> List()
+        public List<SubDirectorate> List()
         {
             var s = _context.SubDirectorates.ToList();
             return s;
         }
 
-        public SubDirectorate Find(int Id)
+        public SubDirectorate Find(int DirectorateId)
         {
-            var s = _context.SubDirectorates.Find(Id);
+            var s = _context.SubDirectorates.Find(DirectorateId);
             return s;
         }
 

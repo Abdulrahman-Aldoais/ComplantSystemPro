@@ -88,8 +88,8 @@
                                             <span>@Html.DisplayFor(model => model.LastName)</span>
                                         </li>
                                         <li class="mb-3">
-                                            <span class="fw-bold me-2">رقم البطاقة:</span>
-                                            <span>@Html.DisplayFor(model => model.IdentityNumber)</span>
+                                            <span class="fw-bold me-2">@Model.IdentityNumber</span>
+                                           
                                         </li>
                                         <li class="mb-3">
                                             <span class="fw-bold me-2">الفعالية:</span>
@@ -110,11 +110,11 @@
                                         </li>
                                         <li class="mb-3">
                                             <span class="fw-bold me-2">المديرية:</span>
-                                            <span>@Html.DisplayFor(model => model.DirectorateId)</span>
+                                            <span>@Html.DisplayFor(model => model.Directorates.Name)</span>
                                         </li>
                                         <li class="mb-3">
                                             <span class="fw-bold me-2">العزلة:</span>
-                                            <span>@Html.DisplayFor(model => model.SubDirectorate)</span>
+                                            <span>@Html.DisplayFor(model => model.SubDirectorate.Name)</span>
                                         </li>
                                         <li class="mb-3">
                                             <span class="fw-bold me-2">القرية:</span>

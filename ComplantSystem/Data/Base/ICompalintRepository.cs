@@ -1,34 +1,29 @@
 ﻿using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
-
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using ComplantSystem.Areas.Beneficiarie.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace ComplantSystem
+namespace ComplantSystem.Data.Base
 {
-    public interface ICompalintService : IEntityBaseRepository<UploadsComplainte>
+    public interface ICompalintRepository : IEntityBaseRepository<UploadsComplainte>
     {
-
         IQueryable<UploadsComplainte> GetAll();
+        Task UpdatedbCompAsync(UploadsComplainte data);
         Task<UploadsComplainte> FindAsync(string id);
         Task<UploadsComplainte> FindAsync(string id, string userId);
         IQueryable<UploadsComplainte> Search(string term);
         Task<UploadsComplainte> GetCompalintById(string id);
+        Task AddSolutionForCompalint(UploadsComplainte data);
+
         IQueryable<UploadsComplainte> GetBy(string userId);
+
 
         Task<IEnumerable<UploadsComplainte>> GetAllRejectedComplaints();
         //Task CreateAsync(InputCompmallintVM model);
         Task CreateAsync2(InputCompmallintVM model);
-        
 
-        Task DeleteAsync(string id, string userId);
-
-        Task IncreamentDownloadCount(string id);
-
-        Task<int> GetUploadsCount();
         Task GetAllGategoryCompAsync();
-        Task UpdateAsync(string id, TypeComplaint typeComplaint);
+
     }
 }

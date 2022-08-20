@@ -1,5 +1,4 @@
 ﻿using ComplantSystem.Models.Data.ViewModels;
-using ComplantSystem.Models.Benef;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
@@ -24,7 +23,7 @@ namespace ComplantSystem.Models.Data.Base
 
 
 
-      
+
 
         public async Task<IEnumerable<T>> GetAllAsync() => await _context.Set<T>().ToListAsync();
 
@@ -101,19 +100,24 @@ namespace ComplantSystem.Models.Data.Base
             return response;
 
         }
+        //public async Task<SelectDataLocationDropdownsVM> GetLocationDropdownsValues()
+        //{
+        //    var response = new SelectDataLocationDropdownsVM()
+        //    {
+
+        //        Governorates = await _context.Governorates.OrderBy(n => n.GovernorateName).ToListAsync(),
+        //        Directorates = await _context.Directorates.OrderBy(n => n.DirectorateName).ToListAsync(),
+        //        SubDirectorates = await _context.SubDirectorates.OrderBy(n => n.SubDirectorateName).ToListAsync(),
+        //    };
+        //    return response;
+        //}
 
         // Beneficiarie
-        public async Task<IEnumerable<T>> GetAllBenficiareByLocalAsync(params Expression<Func<T, object>>[] includeproperties)
-        {
-            System.Linq.IQueryable<T> query = _context.Set<T>();
-            query = includeproperties.Aggregate(query, (current, includeproperty) => current.Include(includeproperty));
-            return await query.ToListAsync();
-        }
 
 
-     
 
-      
+
+
 
         public async Task AddNewSolutionCompalintAsync(string id, T entity)
         {
@@ -137,10 +141,6 @@ namespace ComplantSystem.Models.Data.Base
             entityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-
-      
-       
-
 
     }
 }

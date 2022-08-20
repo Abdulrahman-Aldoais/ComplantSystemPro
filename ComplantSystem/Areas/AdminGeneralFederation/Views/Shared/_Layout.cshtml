@@ -225,8 +225,8 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="حساب المستفيدين.html" class="menu-link">
-                                    <div data-i18n="حسابات المستفيدين">حسابات المستفيدين</div>
+                                <a asp-action="BeneficiariesAccount" class="menu-link">
+                                    <div >حسابات المستفيدين</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -239,10 +239,10 @@
                                     <div>اضافة حساب موظف </div>
                                 </a>
                             </li>
-                            <li class="menu-item">
+                            @*<li class="menu-item">
                                 <a asp-controller="AdminGeneralUser" asp-action="AccountRestriction" class="menu-link ">
                                     <div>تقييد الحساب </div>
-                                </a>
+                                </a>*@
 
                         </ul>
                     </li>
@@ -550,7 +550,7 @@
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="/assets/img/avatars/1.png"  class="rounded-circle" />
+                                            <img src="/assets/img/avatars/1.png" class="rounded-circle" />
                                         </div>
                                     </a>
 
@@ -595,13 +595,11 @@
                                         </li>
                                         <li>
 
-                                            <a class="dropdown-item"  asp-controller="Account" asp-action="LogOut" target="_blank">
+                                            <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="LogOut">
                                                 <i class="bx bx-power-off me-2"></i>
                                                 <span class="align-middle">تسجيل الخروج</span>
                                             </a>
                                         </li>
-
-
 
 
                                     </ul>
@@ -644,8 +642,11 @@
     </div>
     <!-- / Layout wrapper -->
     <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
     <script src="/assets/vendor/libs/jquery/jquery.js"></script>
+    @*<script src="/assets/js/Cascading/jquery-3.5.1.js"></script>
+        <script src="/assets/js/Cascading/jquery.dataTables.min.js"></script>*@
+    <script src="/assets/js/Cascading/jquery.unobtrusive-ajax.min.js"></script>
+
     <script src="/assets/vendor/libs/popper/popper.js"></script>
     <script src="/assets/vendor/js/bootstrap.js"></script>
     <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
@@ -654,21 +655,29 @@
     <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
     <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>
 
+
+    @*<script src="/assets/js/Cascading/jquery/dist/jquery.js"></script>
+        <script src="/assets/js/Cascading/jquery/dist/jquery.min.js"></script>*@
+
+    @*<script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    @*<script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.min.js"></script>*@
     <script src="/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
     <!-- Vendors JS -->
+    <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
     <script src="/assets/vendor/libs/moment/moment.js"></script>
     <script src="/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-    <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
     <script src="/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
     <script src="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>
+    @*<script src="/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>*@
+    @*<script src="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>*@
     <script src="/assets/vendor/libs/jszip/jszip.js"></script>
-    <script src="/assets/vendor/libs/pdfmake/pdfmake.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
-    <script src="/assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+    @*<script src="/assets/vendor/libs/pdfmake/pdfmake.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.print.js"></script>*@
     <script src="/assets/vendor/libs/select2/select2.js"></script>
     <script src="/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
     <script src="/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
@@ -687,7 +696,6 @@
 
 
     <script src="/js/site.js"></script>
-    @*@RenderSection("Scripts", required: false)*@
 
     @RenderSection("scripts", required: false)
 

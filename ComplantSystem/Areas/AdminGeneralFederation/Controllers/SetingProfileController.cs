@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using ComplantSystem.Areas.AdminService.Service;
 using ComplantSystem.Const;
-using ComplantSystem.Enums;
 using ComplantSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
@@ -46,10 +42,11 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         {
             return View();
         }
-     
+
         public async Task<IActionResult> Profile()
         {
             var currentUser = await userManager.GetUserAsync(User);
+
             if (currentUser != null)
             {
                 var model = mapper.Map<UsersViewModel>(currentUser);
@@ -66,6 +63,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
                 var currentUser = await userManager.GetUserAsync(User);
                 if (currentUser != null)
                 {
+                    currentUser.IdentityNumber = model.IdentityNumber;
                     currentUser.FirstName = model.FirstName;
                     currentUser.LastName = model.LastName;
 
@@ -111,14 +109,14 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
                 };
                 return View(model);
             }
-            return  View("Empty");
+            return View("Empty");
 
         }
 
-      
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit( EditUserViewModel model)
+        public async Task<IActionResult> Edit(EditUserViewModel model)
         {
             if (!ModelState.IsValid)
             {

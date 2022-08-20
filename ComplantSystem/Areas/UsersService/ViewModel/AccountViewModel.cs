@@ -1,6 +1,4 @@
-﻿using ComplantSystem.Enums;
-using ComplantSystem.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using ComplantSystem.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,15 +6,20 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "حق الايميل مطلوب")]
-       
+        [Required(ErrorMessage = "يجب ادخال رقم البطاقة")]
+        [EmailAddress(ErrorMessage = "يرجى كتابة رقم البطاقة بشكل صحيح")]
+        [Display(Name = "رقم البطاقة")]
+
         public string IdentityNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "ادخل كلمة المرور ")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
         public ApplicationRole Roles { get; set; }
-        //[Display(Name = "تذكرني")]
-        //public bool RememberMe { get; set; }
+        [Display(Name = "تذكرني")]
+        public bool RememberMe { get; set; }
     }
+
 
     public class RegisterViewModel
     {

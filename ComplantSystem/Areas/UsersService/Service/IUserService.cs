@@ -1,6 +1,7 @@
 ﻿using ComplantSystem.Areas.UsersService.ViewModel;
 using ComplantSystem.Data;
 using ComplantSystem.Models;
+using Microsoft.AspNetCore.Builder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,6 @@ namespace ComplantSystem.Areas.AdminService.Service
         Task ChaingeStatusAsync(string id, bool status);
         Task<int> UserRegistrationCountAsync(int month);
         //Task<SelectDataDropdownsVM> GetNewCompalintsDropdownsValues();
-        Task InitializeAsync();
+        Task InitializeAsync( );
     }
 }

@@ -5,7 +5,6 @@ using ComplantSystem.Areas.UsersService.ViewModel;
 using ComplantSystem.Const;
 using ComplantSystem.Data;
 using ComplantSystem.Models;
-using ComplantSystem.Models.Data.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -51,7 +50,7 @@ namespace ComplantSystem.Areas
             return OperationResult.Successeded();
         }
 
-       
+
 
         public IQueryable<ApplicationUser> GetAllUserBlockedAsync()
         {
@@ -86,43 +85,83 @@ namespace ComplantSystem.Areas
         //UserRoles.AdminGovernorate,
         //       UserRoles.AdminSubDirectorate,
         //       UserRoles.AdminDirectorate
+
+
+
+
+
+
         public async Task InitializeAsync()
         {
-           
-            if (!await roleManager.RoleExistsAsync(
-                UserRoles.AdminVillages))
-            {
-                await roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminVillages));
-            }
-            var IdentityNamber = "00111100";
-            var userName = "abdulrahman";
-            var PhoneNumber = "775115810";
-            var firstname = "عبدالرحمن";
-            var lastName = "علي سرحان الدعيس";
 
-            if (await userManager.FindByEmailAsync(IdentityNamber) == null)
+            //if (!await roleManager.RoleExistsAsync(
+            //UserRoles.AdminGeneralFederation))
+            //{
+            //    await roleManager.CreateAsync(new ApplicationRole(UserRoles.AdminGeneralFederation));
+            //}
+
+
+
+
+
+            //string IdentityAdmin = "0010243124111";
+
+
+            //if (await userManager.FindByEmailAsync(IdentityAdmin) == null)
+            //{
+            //    var user = new ApplicationUser
+            //    {
+            //        Email = IdentityAdmin,
+            //        UserName = IdentityAdmin,
+            //        PhoneNumber = "775115810",
+            //        FirstName = "عبدالرحمن",
+            //        LastName = "علي سرحان الدعيس",
+            //        EmailConfirmed = true,
+            //        PhoneNumberConfirmed = true,
+
+            //    };
+            //    await userManager.CreateAsync(user, "P@ww11");
+            //    await userManager.AddToRoleAsync(user, UserRoles.AdminGeneralFederation);
+
+            //}
+
+
+
+
+
+
+            if (!await roleManager.RoleExistsAsync(
+             UserRoles.Beneficiarie))
             {
-                var user = new ApplicationUser
+                await roleManager.CreateAsync(new ApplicationRole(UserRoles.Beneficiarie));
+            }
+
+            string IdentityUser = "0010243124333";
+
+            var appUser = await userManager.FindByEmailAsync(IdentityUser);
+            if (appUser == null)
+            {
+                var newAppUser = new ApplicationUser()
                 {
-                    Email = IdentityNamber,
-                    UserName = userName,
-                    PhoneNumber = PhoneNumber,
-                    FirstName = firstname,
-                    LastName = lastName,
+                    Email = IdentityUser,
+                    UserName = IdentityUser,
+                    PhoneNumber = "77453534",
+                    FirstName = "صلاح محمد",
+                    LastName = "عامر سعد",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
-
                 };
-                await userManager.CreateAsync(user, "P@ww11");
-                await userManager.AddToRoleAsync(user, UserRoles.AdminGeneralFederation);
-
+                await userManager.CreateAsync(newAppUser, "B@ww11");
+                await userManager.AddToRoleAsync(newAppUser, UserRoles.Beneficiarie);
             }
         }
+
+
 
         public async Task ChaingeStatusAsync(string id, bool isBlocked)
         {
             var selectedItem = await contex.Users.FindAsync(id);
-            if(selectedItem != null)
+            if (selectedItem != null)
             {
                 selectedItem.IsBlocked = isBlocked;
                 contex.Update(selectedItem);
@@ -151,7 +190,7 @@ namespace ComplantSystem.Areas
             return null;
         }
 
-       
+
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
         {
 
@@ -186,12 +225,12 @@ namespace ComplantSystem.Areas
                 updatedUser.FirstName = entity.FirstName;
                 updatedUser.LastName = entity.LastName;
                 updatedUser.PhoneNumber = entity.PhoneNumber;
-               
+
                 updatedUser.IdentityNumber = entity.IdentityNumber;
                 updatedUser.CreatedDate = DateTime.Now;
                 updatedUser.DateOfBirth = entity.DateOfBirth;
                 await userManager.UpdateAsync(updatedUser);
-    
+
             }
 
             await context.SaveChangesAsync();

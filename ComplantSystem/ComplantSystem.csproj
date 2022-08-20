@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\AdminVillage\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <Content Remove="Areas\Beneficiarie\Views\Shared\_ValidationScriptsPartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="bin\Debug\net5.0\appsettings.Development.json" />
     <Content Include="bin\Debug\net5.0\appsettings.json" />
     <Content Include="bin\Debug\net5.0\ComplantSystem.deps.json" />
@@ -16,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Areas\AdminVillage\Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Areas\Beneficiarie\Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="ComplantSystem.csproj" />
     <None Include="ComplantSystem.csproj.user" />
     <None Include="bin\Debug\net5.0\AutoMapper.dll" />
@@ -155,6 +162,31 @@
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     <None Include="Views\_ViewImports.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\assets\js\Cascading\bootstrap\LICENSE" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\assets\js\Cascading\jquery\dist\jquery.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\assets\js\Cascading\jquery\dist\jquery.min.map" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
@@ -195,7 +227,6 @@
     <Folder Include="Areas\AdminSubDirectorate\Models\" />
     <Folder Include="Areas\AdminVillage\Data\" />
     <Folder Include="Areas\AdminVillage\Models\" />
-    <Folder Include="Areas\AdminVillage\Views\" />
     <Folder Include="Areas\Beneficiarie\Data\" />
     <Folder Include="Areas\Beneficiarie\Models\" />
     <Folder Include="Areas\UsersService\Views\Shared\" />
@@ -217,6 +248,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.Mvc" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -233,14 +266,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="Areas\AdminVillage\Views\Villages\AllCommunication.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\AdminVillage\Views\Villages\ex.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Areas\AdminVillage\Views\Villages\Index - Copy.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

@@ -11,8 +11,10 @@ namespace ComplantSystem.Models
         {
             Id = Guid.NewGuid().ToString();
             UploadDate = DateTime.Now;
+
+
             //CompalintsHasSolutions = new List<Compalints_Solution>();
-          
+
         }
         public string Id { set; get; }
         [Required(ErrorMessage = "يجب ان تقوم بكتابة هذه الحقل ")]
@@ -30,28 +32,27 @@ namespace ComplantSystem.Models
         public int StagesComplaintId { get; set; } = 1;
         public virtual StagesComplaint StagesComplaint { get; set; }
         public string PropBeneficiarie { get; set; }
-        [Required(ErrorMessage = "يجب ان تقوم بإختبار المنطقة المحددة ")]
-        public int GovernorateId { get; set; }
+
         public virtual Governorate Governorates { get; set; }
-        public int? DirectorateId { get; set; }
         public virtual Directorate Directorates { get; set; }
-        public int? SubDirectorateId { get; set; }
         public virtual SubDirectorate SubDirectorates { get; set; }
-        public int? VillageId { get; set; }
+
+        //[Required(ErrorMessage = "يجب ان تقوم بإختبار المنطقة المحددة ")]
+
         public virtual Village Villages { get; set; }
-        public virtual List<Compalints_Solution> CompalintsHasSolutions { get; set; }
-        public string SolutionsCompalints { get; set; }
-        public virtual ApplicationUser HoUser { get; set; }
+
+        public List<Compalints_Solution> Compalints_Solutions { get; set; }
         public string UserId { get; set; }
+        public virtual ApplicationUser HoUser { get; set; }
         public string OriginalFileName { get; set; }
         public string FileName { get; set; }
         public decimal Size { get; set; }
-       
+
         public string ContentType { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime UploadDate { get; set; }
-        public virtual ApplicationUser User { get; set; }
 
-      
+
+
     }
 }

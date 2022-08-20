@@ -1,13 +1,14 @@
 ﻿using ComplantSystem.Areas.AdminGeneralFederation.Service;
+using ComplantSystem.Data.Base;
 using ComplantSystem.Models;
 using ComplantSystem.Models.Data.Base;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
@@ -19,7 +20,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         private readonly ILocationRepo<Directorate> directorate;
         private readonly ILocationRepo<SubDirectorate> subDirectorate;
         private readonly ILocationRepo<Village> village;
-        private readonly ICompalintService _compService;
+        private readonly ICompalintRepository _compReop;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ISolveCompalintService solveCompalintService;
         private readonly IWebHostEnvironment _env;
@@ -32,26 +33,36 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
             ILocationRepo<SubDirectorate> subDirectorate,
             ILocationRepo<Village> village,
             ICategoryService service,
-            ICompalintService compService,
+            ICompalintRepository compReop,
             UserManager<ApplicationUser> userManager,
             ISolveCompalintService solveCompalintService,
 
             IWebHostEnvironment env,
-           
+
             AppCompalintsContextDB context)
         {
             this.governorate = governorate;
             this.directorate = directorate;
             this.subDirectorate = subDirectorate;
             this.village = village;
-            _compService = compService;
+            _compReop = compReop;
             this.userManager = userManager;
             this.solveCompalintService = solveCompalintService;
             _service = service;
             _context = context;
             _env = env;
+
         }
-        
+
+
+        private string UserId
+        {
+            get
+            {
+                return User.FindFirstValue(ClaimTypes.NameIdentifier);
+            }
+        }
+
 
         public async Task<IActionResult> ReportManagement()
         {
@@ -65,44 +76,60 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
 
         public async Task<IActionResult> AllComplaints(int? page)
         {
-            //var gove = userManager.GetUserAsync(User);
-           
-           
-            //var allCompalintsVewi = await _compService.GetAllAsync();
-            //var result = GoveComp.Where(n => n.Governorates.Name == "صنعاء");
+
+            var currentUser = await userManager.GetUserAsync(User);
+            //var Gov = currentUser?.Governorates.Id;
 
 
-            var allCompalintsVewi = await _compService.GetAllAsync();
-            var compalintDropdownsData = await _compService.GetNewCompalintsDropdownsValues();
+            var allCompalintsVewi = await _compReop.GetAllAsync(g => g.Governorates);
+            var compBy = allCompalintsVewi.Where(g => g.Governorates.Id == currentUser.GovernorateId
+            && g.StatusCompalint.Id == 1 && g.StagesComplaintId == 1);
+            var compalintDropdownsData = await _compReop.GetNewCompalintsDropdownsValues();
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
             ViewBag.Status = ViewBag.StatusCompalints;
-            int totalCompalints = allCompalintsVewi.Count();
+            int totalCompalints = compBy.Count();
             ViewBag.TotalCompalints = Convert.ToInt32(page == 0 ? "false" : totalCompalints);
             ViewBag.totalCompalints = totalCompalints;
 
-            return View(allCompalintsVewi);
+            return View(compBy);
         }
 
 
         public async Task<IActionResult> ViewCompalintDetails(string id)
         {
-            var compalintDetails = await _compService.FindAsync(id);
+            var compalintDetails = await _compReop.FindAsync(id);
             return View(compalintDetails);
         }
 
+        public async Task<IActionResult> UpCompalint(string id, UploadsComplainte complainte)
+        {
+            var upComp = await _compReop.FindAsync(id);
+            if (upComp == null) return View("Empty");
+
+            var response = new UploadsComplainte()
+            {
+                Id = complainte.Id,
+                StagesComplaintId = 2,
+            };
+            await _compReop.UpdatedbCompAsync(complainte);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(AllComplaints));
+
+        }
 
 
         public async Task<IActionResult> ViewRejectedComplaints()
         {
 
-            var compalintDropdownsData = await _compService.GetNewCompalintsDropdownsValues();
+            var compalintDropdownsData = await _compReop.GetNewCompalintsDropdownsValues();
             ViewBag.StatusCompalints = new SelectList(compalintDropdownsData.StatusCompalints, "Id", "Name");
             ViewBag.TypeComplaints = new SelectList(compalintDropdownsData.TypeComplaints, "Id", "Type");
 
             ViewBag.status = ViewBag.StatusCompalints;
 
-            var rejectedComplaints = await _compService.GetAllAsync(n => n.StatusCompalint);
+            var rejectedComplaints = await _compReop.GetAllAsync(n => n.StatusCompalint);
             var result = rejectedComplaints.Where(n => n.StatusCompalint.Name == "مرفوضة"
             );
 
@@ -171,15 +198,15 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         //Get: Category/Delete/1
         public async Task<IActionResult> DeleteCategoryComplainty(string id)
         {
-            var selectedCategory = await _compService.GetByIdAsync(id);
+            var selectedCategory = await _compReop.GetByIdAsync(id);
             if (selectedCategory == null)
             {
                 return NotFound();
             }
 
-           
+
             return View(selectedCategory);
-           
+
         }
 
         [HttpPost]
@@ -194,41 +221,57 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddSolution(string id, CompalintSolutionVM data)
-        {
-            CompalintSolutionVM compAndSolution = new CompalintSolutionVM();
-            if (id == null) return View("Emoty");
-            if (id != data.UploadsComplainte.Id)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddSolution(string id, UploadsComplainte data)
+        //{
 
-            if (ModelState.IsValid)
-            {
-               
-                    var UploadsComplainte = await _context.UploadsComplaintes.FindAsync(id);
-                    compAndSolution.UploadsComplainte = UploadsComplainte;
-                    //var comp_Solution = await _context.Compalints_Solutions.FindAsync(id);
-                    //if (comp_Solution == null) return View("Emoty");
+        //    if (id == null) return View("Emoty");
+        //    if (id != data.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        var AddSolutionComplainte = await _context.UploadsComplaintes.FindAsync(id);
+        //        var newSolution = new Compalints_Solution()
+        //        {
+        //            ContentSolution = ,
+
+        //        };
+        //        await _context.AddAsync(newSolution);
+        //        await _context.SaveChangesAsync();
+
+        //        // Add Movie Actor 
+
+        //        foreach (var Users in data.UsersIds)
+        //        {
+
+        //            var newComplaintSolution = new Compalints_Solution()
+        //            {
+        //                CompalintId = newSolution.Id,
+        //                UserId = UserId,
+        //            };
+        //            await _context.Compalints_Solutions.AddAsync(newComplaintSolution);
+        //        }
+        //        await _context.SaveChangesAsync();
+
+
+        //        return RedirectToAction(nameof(AllComplaints));
 
 
 
-                    await solveCompalintService.UpdateMovieAsync(data);
-                    return RedirectToAction(nameof(Index));
-                   
-                  
-               
-                }
-                return RedirectToAction(nameof(Index));
-            }
+        //    }
+        //    return null;
+        //}
 
-          
-            
 
-           
-        
+
+
+
+
 
         public async Task<IActionResult> DetailsCategoriesComplaints(string id)
         {
@@ -244,7 +287,7 @@ namespace ComplantSystem.Areas.AdminGeneralFederation.Controllers
         [HttpGet]
         public async Task<IActionResult> Download(string id)
         {
-            var selectedFile = await _compService.FindAsync(id);
+            var selectedFile = await _compReop.FindAsync(id);
             if (selectedFile == null)
             {
                 return NotFound();

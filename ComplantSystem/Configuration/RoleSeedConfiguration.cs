@@ -48,8 +48,15 @@ namespace ComplantSystem.Configuration
                      Name = UserRoles.AdminVillages,
                      NormalizedName = UserRoles.AdminVillages.ToUpper(),
                   
-                 }
-               
+                 },
+                  new IdentityRole
+                  {
+                      Id = "cbc43a8e-f7bb-1445-gaaf-1rdd431ffbbf",
+                      Name = UserRoles.Beneficiarie,
+                      NormalizedName = UserRoles.Beneficiarie.ToUpper(),
+
+                  }
+
             );
         }
     }

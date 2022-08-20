@@ -16,7 +16,7 @@ namespace ComplantSystem
         public string UserId { get; set; }
         public virtual ApplicationUser UserAddSolution { get; set; }
         public string CompalintId { get; set; }
-        [ForeignKey("CompalintId")]
+        [ForeignKey("UploadsComplainteId")]
         public virtual UploadsComplainte CompalintsHasSolution { get; set; }
         public string? BeneficiarieId { get; set; }
         public virtual Beneficiarie Beneficiaries { get; set; }

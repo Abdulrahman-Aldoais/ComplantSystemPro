@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,20 +8,21 @@ namespace ComplantSystem.Models
     {
         public Directorate()
         {
-            //Id = Guid.NewGuid().ToString();
-            SubDirectorates = new List<SubDirectorate>();
+            //DirectorateId = Guid.NewGuid().ToString();
             Users = new List<ApplicationUser>();
             Beneficiaries = new List<Beneficiarie>();
             UploadsComplainte = new List<Compalint>();
         }
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
-
         public virtual Governorate Governorate { get; set; }
+
         //RelationShipes one to many
         public virtual ICollection<SubDirectorate> SubDirectorates { get; set; }
+
         public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Beneficiarie> Beneficiaries { get; set; }
         public virtual ICollection<Compalint> UploadsComplainte { get; set; }

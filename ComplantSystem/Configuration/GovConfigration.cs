@@ -1,7 +1,6 @@
 ﻿using ComplantSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace ComplantSystem.Configuration
 {
@@ -20,7 +19,7 @@ namespace ComplantSystem.Configuration
                         Id = 2,
                         Name = " تعز",
                     },
-                     new Society
+                     new Governorate
                      {
                          Id = 3,
                          Name = "الحديدة",

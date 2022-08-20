@@ -9,24 +9,17 @@ namespace ComplantSystem.Controllers
 {
     public class AccountController : Controller
     {
+        public SignInManager<ApplicationUser> _SignInManager { get; }
+        public UserManager<ApplicationUser> _UserManager { get; }
+        public RoleManager<ApplicationRole> _RoleManager { get; }
 
-
-
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<ApplicationRole> _roleManager;
-
-
-        public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
-            
+            _SignInManager = signInManager;
+            _UserManager = userManager;
+            _RoleManager = roleManager;
         }
+
 
         public IActionResult Index()
         {
@@ -45,37 +38,65 @@ namespace ComplantSystem.Controllers
         {
             TempData["Error"] = null;
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(loginVM.IdentityNumber, loginVM.Password, true, true);
-                if (result.Succeeded)
+                var UserName = loginVM.IdentityNumber;
+                var user = await _UserManager.FindByEmailAsync(loginVM.IdentityNumber);
+                if (user != null)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    UserName = user.UserName;
+                    var passwordCheck = await _UserManager.CheckPasswordAsync(user, loginVM.Password);
+                    if (passwordCheck)
                     {
+                        if (await _UserManager.IsEmailConfirmedAsync(user))
+                        {
+                            var result = await _SignInManager.PasswordSignInAsync(loginVM.IdentityNumber, loginVM.Password, loginVM.RememberMe, false);
+                            if (result.Succeeded)
+                            {
+                                if (!string.IsNullOrEmpty(returnUrl))
+                                {
 
-                        return LocalRedirect(returnUrl);
+                                    return LocalRedirect(returnUrl);
+                                }
+                                else if (User.IsInRole(UserRoles.AdminGeneralFederation))
+                                {
+                                    return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+
+                                }
+                                else if (User.IsInRole(UserRoles.Beneficiarie))
+                                {
+                                    return RedirectToAction("Complaints", "Beneficiarie");
+
+                                }
+                                else if (User.IsInRole(UserRoles.AdminGovernorate))
+                                {
+                                    return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+
+                                }
+
+                                //return RedirectToAction("Create", "Uploads");
+                            }
+                            else
+                            {
+                                TempData["Error"] = "الرجاء تنشيط الحساب من قبل المسؤول ";
+                                return View(loginVM);
+                            }
+                        }
+
+                        TempData["Error"] = "خطا في كلمة السر او الايميل ";
+
+                        return View(loginVM);
+
+
                     }
-                    else if ( User.IsInRole(UserRoles.AdminGeneralFederation))
-                    {
-                        return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+                    TempData["Error"] = "خطا في كلمة السر او الايميل ";
 
-                    }
-                    else if (User.IsInRole(UserRoles.AdminVillages))
-                    {
-                        return RedirectToAction("Complaints", "Beneficiarie");
 
-                    }
-                    else if(User.IsInRole(UserRoles.AdminGovernorate))
-                    {
-                        return RedirectToAction("ContentManagementsGeneralFederation", "AdminGeneralFederation");
+                    return View(loginVM);
 
-                    }
-
-                    //return RedirectToAction("Create", "Uploads");
                 }
             }
-            return View(loginVM);
-
+            return View();
         }
 
         [HttpGet]
@@ -99,16 +120,16 @@ namespace ComplantSystem.Controllers
                     CreatedDate = models.CreatedDate,
                     SocietyId = models.SocietyId,
                     ProfilePicture = models.ProfilePicture,
-                    
-               
+
+
                 };
-                  var result = await _userManager.CreateAsync(user, models.Password);
+                var result = await _UserManager.CreateAsync(user, models.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, true);
+                    await _SignInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "ManageCategoryes", new { Area = "AdminGeneralFederation" });
                 }
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
@@ -116,11 +137,15 @@ namespace ComplantSystem.Controllers
             return View();
         }
         [HttpGet]
+
         public async Task<IActionResult> LogOut()
         {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Login", "Home");
+            await _SignInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
+
+
+
 
         public IActionResult AddUser()
         {
@@ -148,11 +173,11 @@ namespace ComplantSystem.Controllers
                     Password = userVM.Password,
 
                 };
-                var result = await _userManager.CreateAsync(user, userVM.Password);
+                var result = await _UserManager.CreateAsync(user, userVM.Password);
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, UserRoles.AdminGeneralFederation);
+                    await _SignInManager.SignInAsync(user, isPersistent: false);
+                    await _UserManager.AddToRoleAsync(user, UserRoles.AdminGeneralFederation);
                     return RedirectToAction("Index", "AllUsers");
 
                 }

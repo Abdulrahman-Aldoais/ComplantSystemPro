@@ -1,5 +1,5 @@
 ﻿
-@model ComplantSystem.Models.CompalintSolutionVM
+@model ComplantSystem.Models.UploadsComplainte
 
 @{
     ViewData["Title"] = "تفاصيل الشكوى";
@@ -78,7 +78,7 @@
                                                    class="form-control text-center"
                                                    disabled
                                                    placeholder="3492"
-                                                   value=" @Model.UploadsComplainte.Id"
+                                                   value=" @Model.Id"
                                                    id="TransactionId" />
                                         </div>
                                     </dd>
@@ -87,16 +87,14 @@
                                     </dt>
                                     <dd class="d-flex col-sm-6 col-6 justify-content-md-end">
                                         <div class="w-px-150">
-                                            <input type="text" class="form-control text-center" disabled placeholder="2202/8/2" value="@Model.UploadsComplainte.UploadDate" id="DateOfArrival" />
+                                            <input type="text" class="form-control text-center" disabled placeholder="2202/8/2" value="@Model.UploadDate" id="DateOfArrival" />
                                         </div>
                                     </dd>
 
                                 </dl>
                             </div>
 
-                            @foreach (var item in Model.UploadsComplainte.CompalintsHasSolutions)
-                            {
-                                <div class="table-responsive">
+                           <div class="table-responsive">
                                     <table class="table border-top m-0">
 
                                         <thead>
@@ -127,7 +125,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            }
+                            
 
                         </div>
 
@@ -141,20 +139,20 @@
 
                                         <tr class="pb-2">
                                             <td class="col-md-4">عنوان الشكوى:</td>
-                                            <td>  @Model.UploadsComplainte.TitleComplaint </td>
+                                            <td>  @Model.TitleComplaint </td>
                                         </tr>
                                         <tr>
                                             <td class="pe-3">الموضوع:</td>
-                                            <td>  @Model.UploadsComplainte.DescComplaint </td>
+                                            <td>  @Model.DescComplaint </td>
                                         </tr>
 
                                         <tr>
                                             <td>تاريخ النشر:</td>
-                                            <td> @Model.UploadsComplainte.UploadDate</td>
+                                            <td> @Model.UploadDate</td>
                                         </tr>
                                         <tr>
                                             <td>  صنف الشكوى: </td>
-                                            <td> @Model.UploadsComplainte.TypeComplaint.Type  </td>
+                                            <td> @Model.TypeComplaint.Type  </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -165,15 +163,15 @@
                                         <div class="col-md-4">
                                             <label class="control-label"> حالة الشكوى  :</label>
 
-                                            @if (Model.UploadsComplainte.StatusCompalint?.Name == "مرفوضة")
+                                            @if (Model.StatusCompalint?.Name == "مرفوضة")
                                             {
-                                                <span class="badge bg-danger text-white"> @Model.UploadsComplainte.StatusCompalint.Name</span>
+                                                <span class="badge bg-danger text-white"> @Model.StatusCompalint.Name</span>
 
                                             }
                                             else
                                             {
 
-                                                <span class="badge bg-success text-white"> @Model.UploadsComplainte.StatusCompalint?.Name</span>
+                                                <span class="badge bg-success text-white"> @Model.StatusCompalint?.Name</span>
                                             }
 
                                         </div>
@@ -182,7 +180,7 @@
                                         <div class="col-md-4">
                                             <label class="control-label"> تاريخ النشر  :</label>
 
-                                            <p class="card-text"> @Model.UploadsComplainte.UploadDate</p>
+                                            <p class="card-text"> @Model.UploadDate</p>
                                         </div>
 
                                         <div class="col-md-4">
@@ -190,7 +188,7 @@
                                             <label class="control-label"> الجهة المستلمة  :</label>
 
 
-                                            <p> @Model.UploadsComplainte.StagesComplaint?.Name</p>
+                                            <p> @Model.StagesComplaint?.Name</p>
 
                                         </div>
 
@@ -236,13 +234,13 @@
                                 <div class="col-md-3">
                                     <label>المحافظة</label>
 
-                                    <p>@Model.UploadsComplainte.Governorates?.Name</p>
+                                    <p>@Model.Governorates.Name</p>
 
                                 </div>
 
                                 <div class="col-md-3">
                                     <label>المديرية</label>
-                                    <p>@Model.UploadsComplainte.Directorates?.Name</p>
+                                    <p>@Model.Directorates.Name</p>
 
 
 
@@ -250,12 +248,12 @@
 
                                 <div class="col-md-3">
                                     <label>العزلة</label>
-                                    <p>@Model.UploadsComplainte.SubDirectorates?.Name</p>
+                                    <p>@Model.SubDirectorates</p>
 
                                 </div>
                                 <div class="col-md-3">
                                     <label>القرية</label>
-                                    <p>@Model.UploadsComplainte.Villages?.Name</p>
+                                    <p>@Model.Villages?.Name</p>
 
 
 
@@ -267,10 +265,10 @@
                         <div class="card-body  col-lg-12 ">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                    @if (Model.UploadsComplainte.ContentType.ToLower().StartsWith("image"))
+                                    @if (Model.ContentType.ToLower().StartsWith("image"))
 
                                     {
-                                        <img width="100%" height="100%" src="/Uploads/@Model.UploadsComplainte.FileName" class="card-img lazyload" alt="...">
+                                        <img width="100%" height="100%" src="/Uploads/@Model.FileName" class="card-img lazyload" alt="...">
                                     }
                                 </div>
                                 <div class="col-md-8">
@@ -278,13 +276,13 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <h5 class="card-title">
-                                                    @Model.UploadsComplainte.OriginalFileName
+                                                    @Model.OriginalFileName
                                                 </h5>
                                             </div>
                                             <div class="col-3">
                                                 <strong>Size : </strong>
                                                 @{
-                                                    var size = Model.UploadsComplainte.Size / 1024; //KB
+                                                    var size = Model.Size / 1024; //KB
                                                     if (size < 1024)  //2048
                                                     {
                                                         <span>@Math.Floor(size) Kb</span>
@@ -298,9 +296,9 @@
 
                                         </div>
                                         @*<p class="card-text"></p>*@
-                                        <p class="card-text"><small class="text-muted">@Model.UploadsComplainte.UploadDate</small></p>
+                                        <p class="card-text"><small class="text-muted">@Model.UploadDate</small></p>
                                         <div class="text-right">
-                                            <a asp-action="Download" asp-controller="ContentManagementsGeneralFederation" asp-route-id="@Model.UploadsComplainte.Id" class="btn btn-outline-primary">تنزيل المرفق</a>
+                                            <a asp-action="Download" asp-controller="ContentManagementsGeneralFederation" asp-route-id="@Model.Id" class="btn btn-outline-primary">تنزيل المرفق</a>
                                         </div>
                                     </div>
                                 </div>
@@ -323,11 +321,18 @@
                                 data-bs-target="#offcanvasAddAsset">
                             <span class="d-flex justify-content-center align-items-center text-nowrap" data-bs-toggle="modal" data-bs-target="#answerModal"><i class="bx bx-plus bx-xs me-3"></i>تقديم حل</span>
                         </button>
-                        <button class="btn btn-primary d-grid w-100 mb-3"
+                        @*<button onclick="location.href='@Url.Action("UpCompalint", "ContentManagementsGeneralFederation")'" class="btn btn-primary d-grid w-100 mb-3"
                                 data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasAddAsset">
-                            <span class="d-flex justify-content-center align-items-center text-nowrap" data-bs-target=""><i class="bx bx-upload bx-xs me-3"></i> رفع</span>
-                        </button>
+                            <span asp class="d-flex justify-content-center align-items-center text-nowrap" data-bs-target=""><i class="bx bx-upload bx-xs me-3"></i> رفع</span>
+                        </button>*@
+                        <div class="mt-2">
+                            <button asp-area="" asp-controller="ContentManagementsGeneralFederation" asp-action="UpCompalint" asp-route-id="@Model.Id" class="btn btn-primary me-2">
+                                
+                            <span asp class="d-flex justify-content-center align-items-center text-nowrap" data-bs-target=""><i class="bx bx-upload bx-xs me-3"></i> رفع</span>
+                            </button>
+
+                        </div>
 
                         <button class="btn btn-label-secondary d-grid w-100 mb-3" data-bs-target="">خروج</button>
 
@@ -351,12 +356,12 @@
                                     aria-label="Close"></button>
                         </div>
                         <div class="modal-body onboarding-horizontal ">
-                            <form asp-action="Edit" class="add-new-record row g-2 pt-0" id=" formValidationExamples" onsubmit="return false">
+                            <form asp-action="AddSolutionForCompalint" class="add-new-record row g-2 pt-0" id=" formValidationExamples">
 
                                 <div class="col-12 col-md-12  text-start">
                                     <label for="exampleFormControlTextarea2" class="form-label">نص الحل المقترح</label>
-                                    <textarea @Html.TextBoxFor(model => model.Compalints_Solution.ContentSolution) class="form-control"
-                                              rows="3"></textarea>
+                                    @*<textarea @Html.TextBoxFor(model => model.ContentSolution) class="form-control"
+                                              rows="3"></textarea>*@
                                 </div>
                                 <div class="col-sm-12">
 

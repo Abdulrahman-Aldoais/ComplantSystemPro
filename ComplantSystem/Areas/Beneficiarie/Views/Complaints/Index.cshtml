@@ -1,11 +1,12 @@
-﻿@model IEnumerable<UploadsComplainte>
+﻿
+@model PaginatedList<ComplantSystem.Models.UploadsComplainte>
+
 
 @{
-    ViewData["Title"] = "UploadsComplainte";
-
+    ViewData["Title"] = "إدارة الشكوى";
 }
-
-
+<div class="content-wrapper">
+    <div class="container-xxl flex-grow-1 container-p-y">
 
         <!-- Users List Table -->
 
@@ -19,7 +20,7 @@
 
             <div class="card">
 
-                <div class="row">
+                <div class="row mx-2  ">
                     <div class="col-6">
                         <div class="t-d">
                             <h5 class="card-header title-t" style="margin-left: 10px;"> إدارة الشكاوي</h5>
@@ -29,77 +30,94 @@
                     <div class="col-6" style="text-align-last: end; margin-top: 19px;">
                         <button class="dt-button buttons-collection btn btn-label-primary  me-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true" aria-expanded="false">
                             <span>
-                                <i class=""></i>
-                                   <span class="d-none d-sm-inline-block">العدد الكلي @ViewBag.totalCompalints</span>
+                                @ViewBag.totalCompalints<i class=""></i>
+                                <span class="d-none d-sm-inline-block">العدد الكلي</span>
                             </span>
                         </button>
                     </div>
 
-
-
-
-
                 </div>
+
 
                 <div class="card-datatable table-responsive">
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                         <div class="row mx-2 border-bottom ">
-                           
-                            <div class="col-12 col-md-12 d-flex">
+                            <div class="col-sm-12 col-md-2 d-flex mb-4 justify-content-center justify-content-md-start " style="margin-top:12px ;">
+                                <label class="form-label"> عرض حسب</label>
+                            </div>
+                            <div class="col-12 col-md-2 d-flex  mb-4 justify-content-center justify-content-md-center ">
                                 <div class="me-3 table-type">
-                                    <label class="form-label"> عرض حسب</label>
+                                    <label class="form-label">  </label>
+                                    <div class="dataTables_length" id="FilterType">
+                                        <label>
+                                            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                    class="select2 form-select">
+                                                <option value="0">عرض الكل</option>
+                                                <option value="المحلولة">المحلولة</option>
+                                                <option value="المرفوضة">المرفوضة</option>
+                                                <option value="غير محلولة">غير محلولة</option>
 
-
-                                    <label>
-                                        <select name="DataTables_Table_0_length" id="FilterType"
-                                                class="select2 form-select">
-                                            <option value="0">عرض الكل</option>
-                                            <option value="مرفوضة">مرفوضة</option>
-                                            <option value="جديدة">جديدة</option>
-                                            <option value="محلولة">محلولة</option>
-                                            <option value="غير محلولة">غير محلولة</option>
-                                            <option value="مرفوعة">مرفوعة</option>
-                                        </select>
-                                    </label>
-
+                                            </select>
+                                        </label>
+                                    </div>
                                 </div>
-                                <form class="form-inline my-2 my-lg-0">
-                                    <input id="CustomSearchTextField" type="search" class="form-control" placeholder="البحث عن شكوى معينة" aria-controls="example">
+                            </div>
+                            @*<div class="col-12 col-md-2 d-flex  mb-4 justify-content-center justify-content-md-center  ">
 
-                                </form>
+            <div class="dataTables_length " id="DataTables_Table_0_length">
+                <label>
+                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                            class="select2 form-select">
+                        <option value="10">المحافظة</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+
+        </div>*@
+
+
+                            <div class="col-12 col-md-6  d-flex  mb-4 justify-content-center justify-content-md-start">
+                                <div class="me-3 table-type search-paddind">
+                                    <span class="table-span">بحث</span>
+                                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                        <label><input id="CustomSearchTextField" type="search" class="form-control" placeholder="بحث عن شكوى معينة" aria-controls="DataTables_Table_0"></label>
+                                    </div>
+                                </div>
+
 
                             </div>
-
                             <div class=" col-12 justify-content-between">
-                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create2", "Complaints","Beneficiarie")'">
+                                <button style="float:left; border:1px solid green;" class="btn btn-primary me-1" onclick="location.href='@Url.Action("Create", "Complaints","Beneficiarie")'">
                                     اضــــافة شكوى +
                                 </button>
                             </div>
+
+
                         </div>
-
-                        <div class="card-datatable table-responsive">
-
-                            <table id="example" class="datatables-users table border-top   ">
-
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <th style="width: 341px">
+                                        <th class="row-cols-md-4">
                                             العنوان
                                         </th>
-                                        <th>
+                                        <th class="col-sm-2">
                                             تاريخ
                                         </th>
-                                        <th>
+                                        <th class="col-sm-1">
                                             المحافظة
                                         </th>
 
-                                        <th>
+                                        <th class="col-sm-1">
                                             الحالة
                                         </th>
-                                        <th>
+                                        <th class="col-sm-1">
                                             النوع
                                         </th>
-                                        <th>اجراء</th>
+                                        <th class="col-sm-1">اجراء</th>
                                     </tr>
                                 </thead>
 
@@ -117,13 +135,14 @@
                                         @foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td class="row-cols-xl-4">
+                                                <td class="width content">
                                                     @Html.DisplayFor(modelItem => item.TitleComplaint)
                                                 </td>
                                                 <td> @Html.DisplayFor(modelItem => item.UploadDate)</td>
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.Governorates.Name)
                                                 </td>
+
                                                 <td> @Html.DisplayFor(modelItem => item.StatusCompalint.Name)</td>
                                                 <td> @Html.DisplayFor(modelItem => item.TypeComplaint.Type)</td>
                                                 <td>
@@ -137,230 +156,115 @@
 
                                 </tbody>
                             </table>
-                        </div>
+                            <div class="row mx-2">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                    </div>
+                                </div>
+                                @{
+                                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                }
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                        <nav aria-label="Page navigation" class="m-4">
+                                            <ul class="pagination pagination-sm justify-content-end ">
+                                                <li class="page-item prev mr">
+                                                  
+                                                    <a asp-action="Index"
+                                                     
+                                                       asp-route-pageNumber="@(Model.PageIndex-1)"
+                                                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                                       class="tf-icon bx bx-chevrons-left @prevDisabled">
+                                                        السابق
+                                                     
+                                                    </a>
 
-                    </div>
-                    <div class="row mx-2" style="margin-top:60px;">
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+
+                                                </li>
+                                               
+                                                <li class="page-item next">
+                                                    
+                                                    <a asp-action="Index"
+                                                      
+                                                       asp-route-pageNumber="@(Model.PageIndex+1)"
+                                                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                                       class="tf-icon bx bx-chevrons-right @nextDisabled">
+                                                        
+                                                            التالي
+                                                      
+                                                    </a>
+                                                      
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                <nav aria-label="Page navigation">
 
-
-
-
-                                    @*<li class="page-item prev" style="margin-left:10px">
-                                            <a><i class="tf-icon bx bx-chevrons-left"></i>السابق</a>
-                                        </li>
-
-                                        <li class="page-item next">
-                                            <a><i class="tf-icon bx bx-chevrons-right" style="margin-right:10px"></i>التالي</a>
-                                        </li>*@
-
-                                    @*<div class="col-12 text-center">
-                                        <div>
-                                            @if (ViewBag.CurrentPage - 1 > 0)
-                                            {
-                                                <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage - 1  )"
-                                                   class="btn btn-outline-primary  align-left">السابق</a>
-                                            }
-                                            @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
-                                            {
-                                                <a asp-fragment="/Complaints/Index/?RequiredPage=@(ViewBag.CurrentPage + 1  )" class="btn btn-outline-primary  align-right">التالي</a>
-                                            }
-                                        </div>
-                                    </div>*@
-
-                                </nav>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-        @*</div>*@
+
+
+
+
+        <div class="content-backdrop fade"></div>
+      
 
 
         @section Scripts{
 
             <script>
-                var oTable = $('#example').DataTable({
-                    
-                    language: {
-                        "loadingRecords": "جارٍ التحميل...",
-                        "lengthMenu": "أظهر _MENU_ مدخلات",
-                        "zeroRecords": "لم يعثر على أي شكوى",
-                        "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                        "search": "ابحث:",
-                        "searchPlaceholder": "بحث عن شكوى",
-                        "paginate": {
-                            "first": "الأول",
-                            "previous": "السابق",
-                            "next": "التالي",
-                            "last": "الأخير"
-                        }
+                //var oTable = $('#example').DataTable({
 
-                    },
+                //    language: {
+                //        "loadingRecords": "جارٍ التحميل...",
+                //        "lengthMenu": "أظهر _MENU_ مدخلات",
+                //        "zeroRecords": "لم يعثر على أي شكوى",
+                //        "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                //        "search": "ابحث:",
+                //        "searchPlaceholder": "بحث عن شكوى",
+                //        "paginate": {
+                //            "first": "الأول",
+                //            "previous": "السابق",
+                //            "next": "التالي",
+                //            "last": "الأخير"
+                //        }
 
-                    "paging": true,
-                    "lengthChange": false,
-                    /*"searching": true,*/
-                    "ordering": false,
-                    "info": false,
-                    "autoWidth": true,
-                    "responsive": true,
-                    "searching": true,
-                });   //using Capital D, which is mandatory to retrieve "api" datatables' object, latest jquery Datatable
+                //    },
+
+                //    "paging": true,
+                //    "lengthChange": false,
+                //    /*"searching": true,*/
+                //    "ordering": false,
+                //    "info": false,
+                //    "autoWidth": false,
+                //    "responsive": false,
+                //    "searching": true,
+                //    //dom: '<"card-header flex-column flex-md-row"<"head-label text-center"><"dt-action-buttons text-end pt-3 pt-md-0"B>><"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end"f>>t<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+                //    displayLength: 5,
+                //    //lengthMenu: [5, 10, 25, 50, 75, 100],
+                //    //"columnDefs": [
+                //    //    target: 1,
+                //    //    ordering: true
+                //    //],
+                //});   //using Capital D, which is mandatory to retrieve "api" datatables' object, latest jquery Datatable
 
                 $('#CustomSearchTextField').keyup(function () {
 
                     oTable.search($(this).val()).draw();
-                        
+
                 });
 
 
-                //// remove the default global filter function:
-                //while ($.fn.dataTable.ext.search.length > 0) {
-                //    $.fn.dataTable.ext.search.pop();
-                //}
-
-                //// add our custom filter function:
-                //$.fn.dataTable.ext.search.push(
-                //    function (settings, data, rowIdx) {
-                //        // get the TD node containing the drop-down list:
-                //        var selectListTdNode = $('#example').DataTable().rows(rowIdx).nodes().to$().find('td')[5]
-                //        // get the selected value:
-                //        var selection = $(selectListTdNode).find(":selected").text();
-
-                //        // process each field in the row:
-                //        var displayRow = true; // start by assuming the row should be displayed
-                //        data.forEach(function (item, idx) {
-                //            // for the 6th column (idx = 5), we need to use the selected drop-down
-                //            //  value, and not the contents of the cell:
-                //            item = (idx === 5) ? selection : item;
-
-                //            var searchField = $('#example').DataTable().columns(idx).footer();
-                //            var searchValue = $(searchField).find('input').val();
-                //            // should the row be displayed? 'false' means 'do not display':
-                //            if (searchValue !== '' & !item.toLowerCase().includes(searchValue.toLowerCase())) {
-                //                displayRow = false;
-                //            }
-                //        });
-                //        return displayRow;
-                //    }
-                //);
-
-                //$(document).ready(function () {
-
-                //    // create an input field in each footer cell:
-                //    $('#example tfoot th').each(function () {
-                //        var title = $(this).text();
-                //        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
-                //    });
-
-                //    var table = $('#example').DataTable({
-                //        dom: 'lrtip' // hide the global filter box ('f')
-                //    });
-
-                //    // create change events to trigger a re-draw, which also calls the filter function:
-                //    $('#example tfoot th input').keyup(function () {
-                //        table.draw();
-                //    });
-                //    $('#example td select').change(function () {
-                //        table.draw();
-                //    });
-
-                //});
 
 
 
-
-
-
-
-
-
-
-
-
-
-                //$(function () {
-
-
-                //    $('#example').DataTable({
-
-                //        language: {
-                //            "loadingRecords": "جارٍ التحميل...",
-                //            "lengthMenu": "أظهر _MENU_ مدخلات",
-                //            "zeroRecords": "لم يعثر على أية شكوى",
-                //            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                //            "search": "ابحث:",
-                //            "searchPlaceholder": "بحث عن شكوى",
-                //            "paginate": {
-                //                "first": "الأول",
-                //                "previous": "السابق",
-                //                "next": "التالي",
-                //                "last": "الأخير"
-                //            }
-
-                //        },
-
-                //        "paging": true,
-                //        "lengthChange": false,
-                //        /*"searching": true,*/
-                //        "ordering": false,
-                //        "info": true,
-                //        "autoWidth": true,
-                //        "responsive": true,
-                //        "searching": false,
-
-                //    });
-                //}
-                   
-                //    /* Custom filtering function which will search data in column four between two values */
-                //    $('#example').DataTable({ 
-                //              language: {
-                //            "loadingRecords": "جارٍ التحميل...",
-                //            "lengthMenu": "أظهر _MENU_ مدخلات",
-                //            "zeroRecords": "لم يعثر على أية شكوى",
-                //            "info": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
-                //            "search": "ابحث:",
-                //            "searchPlaceholder": "بحث عن شكوى",
-                //            "paginate": {
-                //                "first": "الأول",
-                //                "previous": "السابق",
-                //                "next": "التالي",
-                //                "last": "الأخير"
-                //            }
-
-                //        },
-
-                //        "paging": true,
-                //        "lengthChange": false,
-                //        /*"searching": true,*/
-                //        "ordering": false,
-                //        "info": true,
-                //        "autoWidth": true,
-                //        "responsive": true,
-                //        "searching": false,
-
-                //    });
-                        
-                   
-
-                //    $(document).ready(function () {
-                //        var table = $('#example_filter').DataTable();
-
-                //        // Event listener to the two range filtering inputs to redraw on input
-                //        $('#example_filter').keyup(function () {
-                //            table.draw();
-                //        });
-                //    });
-                //});
             </script>
 
 
@@ -391,3 +295,4 @@
             </script>
 
         }
+

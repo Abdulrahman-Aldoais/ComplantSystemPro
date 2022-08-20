@@ -1,9 +1,5 @@
-﻿using ComplantSystem.Areas.UsersService.Model;
-using ComplantSystem.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using ComplantSystem.Models;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,7 +7,7 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
 {
     public class AdminUserViewModel
     {
-       
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [NotMapped]
@@ -29,8 +25,11 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
         public byte[] ProfilePicture { get; set; }
         public bool IsBlocked { get; set; }
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "يرجى ادخال كلمة المرور"), RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "صيغة يجب ان تكون كلمة السر ارقام و حروف و رموز")]
+
         public string Password { get; set; }
-        [Compare("Password")]
+
+        [Required(ErrorMessage = "يرجى اعادة ادخال كلمة المرور"), Compare("Password", ErrorMessage = "كلمة المرور غير متطابقة")]
         public string ConfirmPassword { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime CreatedDate { get; set; }

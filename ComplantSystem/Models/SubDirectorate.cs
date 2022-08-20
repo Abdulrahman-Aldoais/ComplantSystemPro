@@ -1,6 +1,4 @@
-﻿using ComplantSystem.Models.Data.Base;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,22 +9,27 @@ namespace ComplantSystem.Models
 
         public SubDirectorate()
         {
-            //Id = Guid.NewGuid().ToString();
-            Villages = new List<Village>();
+            //SubDirectorateId = Guid.NewGuid().ToString();
+
             Users = new List<ApplicationUser>();
             Beneficiaries = new List<Beneficiarie>();
             UploadsComplainte = new List<Compalint>();
         }
 
-      
+        [Key]
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+
         public virtual Directorate Directorate { get; set; }
+
         //RelationShipes noe to many
         public virtual ICollection<Village> Villages { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
-        public virtual ICollection<Beneficiarie> Beneficiaries { get; set; }
-        public virtual ICollection<Compalint> UploadsComplainte { get; set; }
+
+        public virtual List<ApplicationUser> Users { get; set; }
+        public virtual List<Beneficiarie> Beneficiaries { get; set; }
+        public virtual List<Compalint> UploadsComplainte { get; set; }
 
     }
 }

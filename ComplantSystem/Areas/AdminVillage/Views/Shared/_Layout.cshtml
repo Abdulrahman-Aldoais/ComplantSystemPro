@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 
 <html lang="ar"
-      class="light-style "
+      class="light-style"
       dir="rtl"
       data-theme="theme-default"
       data-assets-path="/assets/"
@@ -17,6 +17,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,10 +36,15 @@
     <link rel="stylesheet" href="/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
+    <link href="~/assets/js/Cascading/datatables.bootstrap5.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="/assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="/assets/vendor/libs/apex-charts/apex-charts.css" />
-    <link rel="stylesheet" href="/assets/vendor/css/rtl/stayle1.css">
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/select2/select2.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
+    <link rel="stylesheet" href="/assets/vendor/libs/bs-stepper/bs-stepper.css" />
 
     <!-- Page CSS -->
     <!-- Helpers -->
@@ -49,6 +55,9 @@
     <script src="/assets/vendor/js/template-customizer.js"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assets/js/config.js"></script>
+
+
+
 </head>
 
 <body>
@@ -117,11 +126,11 @@
 
                 <ul class="menu-inner py-1">
                     <!-- الرئيسة -->
-                    <li class="menu-header small text-uppercase"><span class="menu-header-text">2 قائمة النظام</span></li>
+                    <li class="menu-header small text-uppercase"><span class="menu-header-text"> قائمة النظام</span></li>
                     <li class="menu-item open active">
-                        <a href="الرئيسية.html" class="menu-link">
+                        <a asp-controller="Complaints" asp-action="Index" class="menu-link">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <div data-i18n="الرئيسية" style="margin-right: 14px;">الرئيسية3</div>
+                            <div data-i18n="الرئيسية" style="margin-right: 14px;">الرئيسية</div>
                         </a>
                     </li>
                     <!-- الشكاوي -->
@@ -132,34 +141,63 @@
                             <div data-i18n="الشكاوي" style="margin-right: 14px;">الشكاوي</div>
                         </a>
                         <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a asp-controller="Complaints" asp-action="AddCompalint" class="menu-link">
+                                    <div>اضافة شكوى</div>
+                                </a>
+                            </li>
 
                             <li class="menu-item">
-                                <a href="الشكاوي المرفوعة.html" class="menu-link">
-                                    <div data-i18n="المرفوعة">المرفوعة</div>
+                                <a asp-controller="Complaints" asp-action="Index" class="menu-link">
+                                    <div>المرفوعة</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="الشكاوي المرفوضة.html" class="menu-link">
-                                    <div data-i18n="المرفوضة">المرفوضة</div>
+                                <a asp-controller="Complaints" asp-action="ViewRejectedComplaints" class="menu-link">
+                                    <div>المرفوضة</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <!-- البلاغات -->
+
+                    @* الاقتراحات *@
                     <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="fa fa-flag" aria-hidden="true"></i>                <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
+                        <a asp-controller="Proposals" asp-action="AddProposals" class="menu-link menu-toggle">
+                            <i class="fa fa-flag" aria-hidden="true"></i>
+                            <div style="margin-right: 14px;">الاقتراحات</div>
                         </a>
 
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a asp-controller="Villages" asp-action="AllBeneficiarie" class="menu-link">
+                                <a asp-controller="Proposals" asp-action="Index" class="menu-link">
+                                    <div style="margin-right: 14px;">الاقتراحات</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a asp-controller="Proposals" asp-action="AddProposals" class="menu-link">
+                                    <div style="margin-right: 14px;">إضافة إقتراح</div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <!-- البلاغات -->
+                    <li class="menu-item">
+                        <a asp-controller="Proposal" asp-action="AddProposals" class="menu-link menu-toggle">
+                            <i class="fa fa-flag" aria-hidden="true"></i>
+                            <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
+                        </a>
+
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a asp-controller="Communications" asp-action="AllCommunication" class="menu-link">
                                     <div data-i18n="البلاغات" style="margin-right: 14px;">البلاغات</div>
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a asp-controller="Villages" asp-action="AddCommunication" class="menu-link">
+                                <a asp-controller="Communications" asp-action="AddCommunication" class="menu-link">
                                     <div data-i18n="إضافة بلاغ على موظف"> إضافة بلاغ على موظف</div>
                                 </a>
                             </li>
@@ -167,65 +205,6 @@
                         </ul>
                     </li>
 
-
-
-                    <!-- إدارةالنظام -->
-
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class='bx bx-list-check'></i>
-                            <div data-i18n="إدارةالنظام" style="margin-right: 14px;">إدارةالنظام</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="الشكاوي.html" class="menu-link">
-                                    <div data-i18n="إدارةالشكاوي">إدارة الشكاوي</div>
-                                </a>
-                            </li>
-
-                            <li class="menu-item">
-                                <a href="ادارة التقارير.html" class="menu-link">
-                                    <div data-i18n="إدارةالتقارير">إدارةالتقارير</div>
-                                </a>
-                            </li>
-
-
-
-                        </ul>
-                    </li>
-                    <!-- الحسابات -->
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="الحسابات">الحسابات</div>
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a asp-controller="Villages" asp-action="ViewAllBeneficiarie" class="menu-link">
-                                    <div data-i18n="حسابات المستفيدين">حسابات المستفيدين</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a asp-action="ViewAllBeneficiarie" asp-controller="Villages" class="menu-link">
-                                    <div data-i18n="حساب المزارعين ">حساب المزارعين</div>
-                                </a>
-                            </li>
-
-                            <li class="menu-item">
-                                <a  asp-action="AddUser" asp-controller="User" class="menu-link">
-                                    <div >أضافة حساب </div>
-                                </a>
-                            </li>
-
-                            <li class="menu-item">
-                                <a asp-controller="Villages" asp-action="OrderLimitationUser" class="menu-link ">
-                                    <div data-i18n=" تقييد الحساب">تقييد الحساب </div>
-                                </a>
-
-                        </ul>
-                    </li>
-
-                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -242,7 +221,8 @@
                         </div>
 
                         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                            <!-- Search -->
+                            <!--
+                                -->
                             <div class="navbar-nav align-items-center">
                                 <div class="nav-item navbar-search-wrapper mb-0">
                                     <a class="nav-item nav-link search-toggler px-0" href="javascript:void(0);">
@@ -449,7 +429,7 @@
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0 me-3">
                                                             <div class="avatar">
-                                                                <img src="/assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                                <img src="/assets/img/avatars/6.png" class="w-px-40 h-auto rounded-circle" />
                                                             </div>
                                                         </div>
                                                         <div class="flex-grow-1">
@@ -510,16 +490,18 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li>
-                                            <a class="dropdown-item" href="الملف الشخصي.html">
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="Profile">
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="/assets/img/avatars/1.png" alt class="rounded-circle" />
+
+                                                            <img src="/assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle" />
+
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="lh-1 d-block fw-semibold">آمنة كمال</span>
-                                                        <small>مسوؤل</small>
+                                                        <span class="lh-1 d-block fw-semibold"> @User.Identity.Name</span>
+                                                        <small>مدير اتحاد عام</small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -527,14 +509,15 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                         </li>
+
                                         <li>
-                                            <a class="dropdown-item" href="الملف الشخصي.html">
-                                                <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">الملف الشخصي</span>
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="Profile">
+                                                <i class="bx bx-user me-2"></i><span class="align-middle">الملف الشخصي</span>
                                             </a>
                                         </li>
+
                                         <li>
-                                            <a class="dropdown-item" href="الاعدادات.html">
+                                            <a class="dropdown-item" asp-area="AdminGeneralFederation" asp-controller="SetingProfile" asp-action="EditeProfile">
                                                 <i class="bx bx-cog me-2"></i>
                                                 <span class="align-middle">الاعدادات</span>
                                             </a>
@@ -545,11 +528,15 @@
                                         </li>
                                         <li>
 
-                                            <a class="dropdown-item" href="تسجيل الدخول.html" target="_blank">
+                                            <a class="dropdown-item" asp-controller="Account" asp-action="LogOut" target="_blank">
                                                 <i class="bx bx-power-off me-2"></i>
                                                 <span class="align-middle">تسجيل الخروج</span>
                                             </a>
                                         </li>
+
+
+
+
                                     </ul>
                                 </li>
                                 <!--/ User -->
@@ -568,10 +555,9 @@
                 </nav>
 
                 <!-- / Navbar -->
+                <!-- Content wrapper -->
                 @RenderBody()
-                @section scripts {
-                    @RenderSection("scripts", required: false)
-                }
+
                 <!-- Content wrapper -->
             </div>
             <!-- / Layout page -->
@@ -583,27 +569,64 @@
         <!-- Drag Target Area To SlideIn Menu On Small Screens -->
         <div class="drag-target"></div>
     </div>
+
     <!-- / Layout wrapper -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="/assets/vendor/libs/popper/popper.js"></script>
-    <script src="/assets/vendor/js/bootstrap.js"></script>
-    <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="/assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="/assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    @*<script src="/assets/vendor/libs/jquery/jquery.js"></script>
+        <script src="/assets/vendor/libs/popper/popper.js"></script>
+        <script src="/assets/vendor/js/bootstrap.js"></script>
+        <script src="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="/assets/vendor/libs/hammer/hammer.js"></script>
+        <script src="/assets/vendor/libs/i18n/i18n.js"></script>
+        <script src="/assets/vendor/libs/typeahead-js/typeahead.js"></script>
+        <script src="/assets/vendor/libs/bootstrap-select/bootstrap-select.js"></script>*@
+    <script src="/assets/js/Cascading/jquery-3.5.1.js"></script>
+    <script src="/assets/js/Cascading/jquery.dataTables.min.js"></script>
+    <script src="/assets/js/Cascading/jquery.unobtrusive-ajax.min.js"></script>
 
+    <script src="/assets/js/Cascading/jquery/dist/jquery.js"></script>
+    <script src="/assets/js/Cascading/jquery/dist/jquery.min.js"></script>
+     <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="/assets/js/Cascading/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
     <!-- Vendors JS -->
-    <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    @*<script src="/assets/vendor/libs/bs-stepper/bs-stepper.js"></script>
+        <script src="/assets/vendor/libs/moment/moment.js"></script>
+        <script src="/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
+        <script src="/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
+        <script src="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/datatables-buttons.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.js"></script>*@
+    @*<script src="/assets/vendor/libs/jszip/jszip.js"></script>
+        <script src="/assets/vendor/libs/pdfmake/pdfmake.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.html5.js"></script>
+        <script src="/assets/vendor/libs/datatables-buttons/buttons.print.js"></script>
+        <script src="/assets/vendor/libs/select2/select2.js"></script>
+        <script src="/assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
+        <script src="/assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
+        <script src="/assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+        <script src="/assets/vendor/libs/cleavejs/cleave.js"></script>
+        <script src="/assets/vendor/libs/cleavejs/cleave-phone.js"></script>*@
+
+    @*<script src="/assets/js/form-wizard-numbered.js"></script>
+        <script src="/assets/js/form-wizard-validation.js"></script>*@
 
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
 
-    <!-- Page JS -->
-    <script src="/assets/js/dashboards-analytics.js"></script>
+
+
+
+
+    <script src="/js/site.js"></script>
+    @*@RenderSection("Scripts", required: false)*@
+
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

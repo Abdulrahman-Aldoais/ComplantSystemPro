@@ -15,7 +15,7 @@ namespace ComplantSystem.Areas.UsersService.ViewModel
         public string ConfirmPassword { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public List<SelectListItem> ApplicationRoles { get; set; }
+        public  List<SelectListItem> ApplicationRoles { get; set; }
         [Display(Name = "Role")]
         public string ApplicationRoleId { get; set; }
     }

@@ -601,7 +601,7 @@ namespace ComplantSystem.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false, defaultValueSql: "NEWID()"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TitleComplaint = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeComplaintId = table.Column<int>(type: "int", nullable: false),
                     TypeComplaintId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -699,7 +699,7 @@ namespace ComplantSystem.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false, defaultValueSql: "NEWID()"),
                     TitleComplaint = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeComplaintId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DescComplaint = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -707,10 +707,10 @@ namespace ComplantSystem.Migrations
                     StatusCompalintId = table.Column<int>(type: "int", nullable: false),
                     StagesComplaintId = table.Column<int>(type: "int", nullable: false),
                     PropBeneficiarie = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GovernorateId = table.Column<int>(type: "int", nullable: false),
-                    DirectorateId = table.Column<int>(type: "int", nullable: true),
-                    SubDirectorateId = table.Column<int>(type: "int", nullable: true),
-                    VillageId = table.Column<int>(type: "int", nullable: true),
+                    GovernoratesId = table.Column<int>(type: "int", nullable: true),
+                    DirectoratesId = table.Column<int>(type: "int", nullable: true),
+                    SubDirectoratesId = table.Column<int>(type: "int", nullable: true),
+                    VillageId = table.Column<int>(type: "int", nullable: false),
                     SolutionsCompalints = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HoUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -724,19 +724,19 @@ namespace ComplantSystem.Migrations
                 {
                     table.PrimaryKey("PK_UploadsComplaintes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UploadsComplaintes_Directorates_DirectorateId",
-                        column: x => x.DirectorateId,
+                        name: "FK_UploadsComplaintes_Directorates_DirectoratesId",
+                        column: x => x.DirectoratesId,
                         principalSchema: "Identity",
                         principalTable: "Directorates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UploadsComplaintes_Governorates_GovernorateId",
-                        column: x => x.GovernorateId,
+                        name: "FK_UploadsComplaintes_Governorates_GovernoratesId",
+                        column: x => x.GovernoratesId,
                         principalSchema: "Identity",
                         principalTable: "Governorates",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UploadsComplaintes_Societys_SocietyId",
                         column: x => x.SocietyId,
@@ -759,8 +759,8 @@ namespace ComplantSystem.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UploadsComplaintes_SubDirectorates_SubDirectorateId",
-                        column: x => x.SubDirectorateId,
+                        name: "FK_UploadsComplaintes_SubDirectorates_SubDirectoratesId",
+                        column: x => x.SubDirectoratesId,
                         principalSchema: "Identity",
                         principalTable: "SubDirectorates",
                         principalColumn: "Id",
@@ -792,7 +792,7 @@ namespace ComplantSystem.Migrations
                         principalSchema: "Identity",
                         principalTable: "Villages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -859,11 +859,12 @@ namespace ComplantSystem.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "cac43a6e-f7bb-4448-baaf-1add431ccbbf", "dc24d657-c8f8-4085-a98a-6d139d9805ea", "AdminGeneralFederation", "ADMINGENERALFEDERATION" },
-                    { "cbc43a8e-f7bb-4445-baaf-1add431ffbbf", "fd56765f-d45a-4e79-8544-c03520aade7c", "AdminGovernorate", "ADMINGOVERNORATE" },
-                    { "cbc43a8e-f7bb-4445-baaf-1wdd431ffbbf", "d66e61cd-c84d-4f05-83c9-0a7cb31d4d1e", "AdminDirectorate", "ADMINDIRECTORATE" },
-                    { "cbc43a8e-f7bb-4445-baaf-1rdd431ffbbf", "84f093a6-bd73-4caa-97a3-6fd20b2759b6", "AdminSubDirectorate", "ADMINSUBDIRECTORATE" },
-                    { "cbc43a8e-f7bb-1445-baaf-1rdd431ffbbf", "9a9819fb-5155-436e-89e5-546e68564fd8", "AdminVillages", "ADMINVILLAGES" }
+                    { "cac43a6e-f7bb-4448-baaf-1add431ccbbf", "a6ea2803-3372-4541-bc9e-410a98abe87d", "AdminGeneralFederation", "ADMINGENERALFEDERATION" },
+                    { "cbc43a8e-f7bb-4445-baaf-1add431ffbbf", "f210211a-8cd5-4af3-ba08-b7fcb16dda1e", "AdminGovernorate", "ADMINGOVERNORATE" },
+                    { "cbc43a8e-f7bb-4445-baaf-1wdd431ffbbf", "3476ddbb-3976-45ae-b8f9-fb56f7c5b588", "AdminDirectorate", "ADMINDIRECTORATE" },
+                    { "cbc43a8e-f7bb-4445-baaf-1rdd431ffbbf", "e3db8532-aa47-4b50-9d1e-27ba0df53a30", "AdminSubDirectorate", "ADMINSUBDIRECTORATE" },
+                    { "cbc43a8e-f7bb-1445-baaf-1rdd431ffbbf", "405b8d95-bbea-488a-abba-82084c1041d2", "AdminVillages", "ADMINVILLAGES" },
+                    { "cbc43a8e-f7bb-1445-gaaf-1rdd431ffbbf", "40b972b6-1391-48ec-9ee4-17482eeff65a", "Beneficiarie", "BENEFICIARIE" }
                 });
 
             migrationBuilder.InsertData(
@@ -908,10 +909,10 @@ namespace ComplantSystem.Migrations
                 columns: new[] { "Id", "CreatedDate", "Type", "UsersAddTypeId" },
                 values: new object[,]
                 {
-                    { "981ef06d-e099-4810-8893-75374e2d259f", new DateTime(2022, 8, 15, 19, 36, 37, 259, DateTimeKind.Local).AddTicks(2253), "مماطلة", null },
-                    { "a75d3c95-3f46-4a88-89d4-3385c2bcebbc", new DateTime(2022, 8, 15, 19, 36, 37, 259, DateTimeKind.Local).AddTicks(1526), "زراعية", null },
-                    { "f8b510ec-e91a-468b-938a-fb65ce645028", new DateTime(2022, 8, 15, 19, 36, 37, 259, DateTimeKind.Local).AddTicks(2240), "فساد", null },
-                    { "0b2f9a0c-b4b4-4230-b368-f712df94ee8c", new DateTime(2022, 8, 15, 19, 36, 37, 259, DateTimeKind.Local).AddTicks(2279), "إرتشاء", null }
+                    { "eeaf689f-d894-4db9-b029-a6f80ccc7d62", new DateTime(2022, 8, 17, 19, 33, 50, 497, DateTimeKind.Local).AddTicks(3876), "مماطلة", null },
+                    { "5ecfe6bc-6da3-4c33-acd0-e2e44aaf7af6", new DateTime(2022, 8, 17, 19, 33, 50, 497, DateTimeKind.Local).AddTicks(3238), "زراعية", null },
+                    { "cd3b2a3d-52cf-46ed-b7ca-3ab6e10c6309", new DateTime(2022, 8, 17, 19, 33, 50, 497, DateTimeKind.Local).AddTicks(3757), "فساد", null },
+                    { "34e00262-6b97-4a09-9e91-20fb571d18b6", new DateTime(2022, 8, 17, 19, 33, 50, 497, DateTimeKind.Local).AddTicks(3886), "إرتشاء", null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1097,16 +1098,16 @@ namespace ComplantSystem.Migrations
                 column: "VillageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UploadsComplaintes_DirectorateId",
+                name: "IX_UploadsComplaintes_DirectoratesId",
                 schema: "Identity",
                 table: "UploadsComplaintes",
-                column: "DirectorateId");
+                column: "DirectoratesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UploadsComplaintes_GovernorateId",
+                name: "IX_UploadsComplaintes_GovernoratesId",
                 schema: "Identity",
                 table: "UploadsComplaintes",
-                column: "GovernorateId");
+                column: "GovernoratesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UploadsComplaintes_HoUserId",
@@ -1133,10 +1134,10 @@ namespace ComplantSystem.Migrations
                 column: "StatusCompalintId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UploadsComplaintes_SubDirectorateId",
+                name: "IX_UploadsComplaintes_SubDirectoratesId",
                 schema: "Identity",
                 table: "UploadsComplaintes",
-                column: "SubDirectorateId");
+                column: "SubDirectoratesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UploadsComplaintes_TypeComplaintId",
